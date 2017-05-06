@@ -14,9 +14,9 @@ public class EorzeanInfoApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-       mXIVComponent = DaggerXIVComponent.builder()
-               .xIVModule(new XIVModule("https://api.xivdb.com"))
-               .build();
+        mXIVComponent = DaggerXIVComponent.builder()
+                .xIVModule(new XIVModule("https://api.xivdb.com"))
+                .build();
     }
 
     public XIVComponent getXIVComponent() {
