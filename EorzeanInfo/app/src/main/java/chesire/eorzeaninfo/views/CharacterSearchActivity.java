@@ -4,18 +4,22 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CharacterSearchActivity extends AppCompatActivity {
+    @Inject
+    XIVDBService mXivClient;
+
     @BindView(R.id.character_search_name_input)
     TextInputEditText mCharacterNameInput;
     @BindView(R.id.character_search_server_input)
@@ -25,6 +29,8 @@ public class CharacterSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_search);
+
+        ((EorzeanInfoApp) getApplication()).getXIVComponent().inject(this);
         ButterKnife.bind(this);
 
         mCharacterNameInput.setText("Cheshire Cat");
@@ -33,15 +39,8 @@ public class CharacterSearchActivity extends AppCompatActivity {
 
     @OnClick(R.id.character_search_button)
     void searchClicked() {
-        // obviously this should be moved out, and probably made into a singleton with Dagger
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.xivdb.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        XIVDBService service = retrofit.create(XIVDBService.class);
         try {
-            Call<XIVDBService.SearchCharactersResponse> charCall = service.searchCharacters(mCharacterServerInput.getEditableText().toString(), mCharacterNameInput.getEditableText().toString());
+            Call<XIVDBService.SearchCharactersResponse> charCall = mXivClient.searchCharacters(mCharacterServerInput.getEditableText().toString(), mCharacterNameInput.getEditableText().toString());
             charCall.enqueue(new Callback<XIVDBService.SearchCharactersResponse>() {
                 @Override
                 public void onResponse(Call<XIVDBService.SearchCharactersResponse> call, Response<XIVDBService.SearchCharactersResponse> response) {
