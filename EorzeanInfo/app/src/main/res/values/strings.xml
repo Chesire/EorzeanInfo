@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">EorzeanInfo</string>
+    <string name="app_name">Eorzean Info</string>
+    <string name="search_character_name">Character Name</string>
+    <string name="search_search_button">Search</string>
 </resources>
