@@ -5,6 +5,7 @@ import android.app.Application;
 import chesire.eorzeaninfo.classes.dagger.DaggerXIVComponent;
 import chesire.eorzeaninfo.classes.dagger.XIVComponent;
 import chesire.eorzeaninfo.classes.dagger.XIVModule;
+import chesire.eorzeaninfo.interfaces.XIVDBService;
 
 public class EorzeanInfoApp extends Application {
 
@@ -15,7 +16,7 @@ public class EorzeanInfoApp extends Application {
         super.onCreate();
 
         mXIVComponent = DaggerXIVComponent.builder()
-                .xIVModule(new XIVModule("https://api.xivdb.com"))
+                .xIVModule(new XIVModule(XIVDBService.SERVICE_ENDPOINT))
                 .build();
     }
 
