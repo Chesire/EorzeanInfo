@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Servers from http://eu.finalfantasyxiv.com/lodestone/worldstatus/ -->
+    <!-- Correct as of : 2017-05-07 -->
+    <string-array name="elemental_servers">
+        <item>Aegis</item>
+        <item>Atomos</item>
+        <item>Carbuncle</item>
+        <item>Garuda</item>
+        <item>Gungnir</item>
+        <item>Kujata</item>
+        <item>Ramuh</item>
+        <item>Tonberry</item>
+        <item>Typhon</item>
+        <item>Unicorn</item>
+    </string-array>
+
+    <string-array name="gaia_servers">
+        <item>Alexander</item>
+        <item>Bahamut</item>
+        <item>Durandal</item>
+        <item>Fenrir</item>
+        <item>Ifrit</item>
+        <item>Ridill</item>
+        <item>Tiamat</item>
+        <item>Ultima</item>
+        <item>Valefor</item>
+        <item>Yojimbo</item>
+        <item>Zeromus</item>
+    </string-array>
+
+    <string-array name="mana_servers">
+        <item>Anima</item>
+        <item>Asura</item>
+        <item>Belias</item>
+        <item>Chocobo</item>
+        <item>Hades</item>
+        <item>Ixion</item>
+        <item>Mandragora</item>
+        <item>Masamune</item>
+        <item>Pandaemonium</item>
+        <item>Shinryu</item>
+        <item>Titan</item>
+    </string-array>
+
+    <string-array name="aether_servers">
+        <item>Adamantoise</item>
+        <item>Balmung</item>
+        <item>Cactuar</item>
+        <item>Coeurl</item>
+        <item>Faerie</item>
+        <item>Gilgamesh</item>
+        <item>Goblin</item>
+        <item>Jenova</item>
+        <item>Mateus</item>
+        <item>Midgardsormr</item>
+        <item>Sargatanas</item>
+        <item>Siren</item>
+        <item>Zalera</item>
+    </string-array>
+
+    <string-array name="primal_servers">
+        <item>Behemoth</item>
+        <item>Brynhildr</item>
+        <item>Diabolos</item>
+        <item>Excalibur</item>
+        <item>Exodus</item>
+        <item>Famfrit</item>
+        <item>Hyperion</item>
+        <item>Lamia</item>
+        <item>Leviathan</item>
+        <item>Malboro</item>
+        <item>Ultros</item>
+    </string-array>
+
+    <string-array name="chaos_servers">
+        <item>Cerberus</item>
+        <item>Lich</item>
+        <item>Moogle</item>
+        <item>Odin</item>
+        <item>Phoenix</item>
+        <item>Ragnarok</item>
+        <item>Shiva</item>
+        <item>Zodiark</item>
+    </string-array>
+</resources>
