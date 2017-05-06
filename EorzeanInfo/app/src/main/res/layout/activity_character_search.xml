@@ -5,15 +5,29 @@
     android:orientation="vertical">
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/character_search_name_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/character_search_input"
+            android:id="@+id/character_search_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_character_name" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/character_search_name_input_layout"
+        android:layout_margin="8dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/character_search_server_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_character_server" />
     </android.support.design.widget.TextInputLayout>
 
     <Button

@@ -8,13 +8,13 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface XIVDBService {
-    @GET("search?order_field=name&order_direction=asc&one=characters&limit=60&strict=off")
-    Call<SearchCharactersResponse> searchCharacters(@Query("string") String string);
+    @GET("search?order_field=name&order_direction=asc&one=characters&limit=60&strict=on")
+    Call<SearchCharactersResponse> searchCharacters( @Query("server|et") String server, @Query("string") String characterName);
 
     class SearchCharactersResponse {
         public Characters characters;
 
-        public class Characters {
+        class Characters {
             public List<CharacterModel> results;
         }
     }

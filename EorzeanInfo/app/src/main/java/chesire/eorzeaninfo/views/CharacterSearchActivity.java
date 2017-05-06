@@ -16,8 +16,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CharacterSearchActivity extends AppCompatActivity {
-    @BindView(R.id.character_search_input)
+    @BindView(R.id.character_search_name_input)
     TextInputEditText mCharacterNameInput;
+    @BindView(R.id.character_search_server_input)
+    TextInputEditText mCharacterServerInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class CharacterSearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mCharacterNameInput.setText("Cheshire Cat");
+        mCharacterServerInput.setText("Phoenix");
     }
 
     @OnClick(R.id.character_search_button)
@@ -38,8 +41,7 @@ public class CharacterSearchActivity extends AppCompatActivity {
 
         XIVDBService service = retrofit.create(XIVDBService.class);
         try {
-            String searchParam = mCharacterNameInput.getEditableText().toString();
-            Call<XIVDBService.SearchCharactersResponse> charCall = service.searchCharacters(searchParam);
+            Call<XIVDBService.SearchCharactersResponse> charCall = service.searchCharacters(mCharacterServerInput.getEditableText().toString(), mCharacterNameInput.getEditableText().toString());
             charCall.enqueue(new Callback<XIVDBService.SearchCharactersResponse>() {
                 @Override
                 public void onResponse(Call<XIVDBService.SearchCharactersResponse> call, Response<XIVDBService.SearchCharactersResponse> response) {
