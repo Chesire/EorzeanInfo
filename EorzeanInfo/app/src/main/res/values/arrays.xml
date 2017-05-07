@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Servers from http://eu.finalfantasyxiv.com/lodestone/worldstatus/ -->
+    <!-- Correct as of : 2017-05-07 -->
+
+    <string-array name="data_centres">
+        <item>@string/data_centre_any</item>
+        <item>@string/data_centre_elemental</item>
+        <item>@string/data_centre_gaia</item>
+        <item>@string/data_centre_mana</item>
+        <item>@string/data_centre_aether</item>
+        <item>@string/data_centre_primal</item>
+        <item>@string/data_centre_chaos</item>
+    </string-array>
+
+    <string-array name="elemental_servers">
+        <item>@string/server_elemental_aegis</item>
+        <item>@string/server_elemental_atomos</item>
+        <item>@string/server_elemental_carbuncle</item>
+        <item>@string/server_elemental_garuda</item>
+        <item>@string/server_elemental_gungnir</item>
+        <item>@string/server_elemental_kujata</item>
+        <item>@string/server_elemental_ramuh</item>
+        <item>@string/server_elemental_tonberry</item>
+        <item>@string/server_elemental_typhon</item>
+        <item>@string/server_elemental_unicorn</item>
+    </string-array>
+
+    <string-array name="gaia_servers">
+        <item>@string/server_gaia_alexander</item>
+        <item>@string/server_gaia_bahamut</item>
+        <item>@string/server_gaia_durandal</item>
+        <item>@string/server_gaia_fenrir</item>
+        <item>@string/server_gaia_ifrit</item>
+        <item>@string/server_gaia_ridill</item>
+        <item>@string/server_gaia_tiamat</item>
+        <item>@string/server_gaia_ultima</item>
+        <item>@string/server_gaia_valefor</item>
+        <item>@string/server_gaia_yojimbo</item>
+        <item>@string/server_gaia_zeromus</item>
+    </string-array>
+
+    <string-array name="mana_servers">
+        <item>@string/server_mana_anima</item>
+        <item>@string/server_mana_asura</item>
+        <item>@string/server_mana_belias</item>
+        <item>@string/server_mana_chocobo</item>
+        <item>@string/server_mana_hades</item>
+        <item>@string/server_mana_ixion</item>
+        <item>@string/server_mana_mandragora</item>
+        <item>@string/server_mana_masamune</item>
+        <item>@string/server_mana_pandaemonium</item>
+        <item>@string/server_mana_shinryu</item>
+        <item>@string/server_mana_titan</item>
+    </string-array>
+
+    <string-array name="aether_servers">
+        <item>@string/server_aether_adamantoise</item>
+        <item>@string/server_aether_balmung</item>
+        <item>@string/server_aether_cactuar</item>
+        <item>@string/server_aether_coeurl</item>
+        <item>@string/server_aether_faerie</item>
+        <item>@string/server_aether_gilgamesh</item>
+        <item>@string/server_aether_goblin</item>
+        <item>@string/server_aether_jenova</item>
+        <item>@string/server_aether_mateus</item>
+        <item>@string/server_aether_midgardsormr</item>
+        <item>@string/server_aether_sargatanas</item>
+        <item>@string/server_aether_siren</item>
+        <item>@string/server_aether_zalera</item>
+    </string-array>
+
+    <string-array name="primal_servers">
+        <item>@string/server_primal_behemoth</item>
+        <item>@string/server_primal_brynhildr</item>
+        <item>@string/server_primal_diabolos</item>
+        <item>@string/server_primal_excalibur</item>
+        <item>@string/server_primal_exodus</item>
+        <item>@string/server_primal_famfrit</item>
+        <item>@string/server_primal_hyperion</item>
+        <item>@string/server_primal_lamia</item>
+        <item>@string/server_primal_leviathan</item>
+        <item>@string/server_primal_malboro</item>
+        <item>@string/server_primal_ultros</item>
+    </string-array>
+
+    <string-array name="chaos_servers">
+        <item>@string/server_chaos_cerberus</item>
+        <item>@string/server_chaos_lich</item>
+        <item>@string/server_chaos_moogle</item>
+        <item>@string/server_chaos_odin</item>
+        <item>@string/server_chaos_phoenix</item>
+        <item>@string/server_chaos_ragnarok</item>
+        <item>@string/server_chaos_shiva</item>
+        <item>@string/server_chaos_zodiark</item>
+    </string-array>
+</resources>

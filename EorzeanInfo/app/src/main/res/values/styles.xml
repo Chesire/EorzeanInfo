@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextAppearance.Design.Hint" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">?attr/colorControlActivated</item>
+    </style>
+
+    <style name="SpinnerLabels" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">8dp</item>
+    </style>
 </resources>
