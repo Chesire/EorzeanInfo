@@ -2,5 +2,7 @@
     <string name="app_name">Eorzean Info</string>
     <string name="search_character_name">Character Name</string>
     <string name="search_character_server">Server</string>
+    <string name="search_data_centre_label">Data Centre</string>
+    <string name="search_server_label">Server</string>
     <string name="search_search_button">Search</string>
 </resources>

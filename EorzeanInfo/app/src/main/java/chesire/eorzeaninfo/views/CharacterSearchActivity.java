@@ -5,6 +5,7 @@ import android.support.design.BuildConfig;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -32,6 +33,8 @@ public class CharacterSearchActivity extends AppCompatActivity {
     AppCompatSpinner mDataCentreSelector;
     @BindView(R.id.character_search_server_selection)
     AppCompatSpinner mCharacterServerSelector;
+    @BindView(R.id.character_search_server_label)
+    AppCompatTextView mCharacterServerLabel;
 
     @BindArray(R.array.data_centres)
     String[] mDataCentres;
@@ -91,6 +94,7 @@ public class CharacterSearchActivity extends AppCompatActivity {
         }
 
         mCharacterServerSelector.setVisibility(selectedServerList.length == 0 ? View.INVISIBLE : View.VISIBLE);
+        mCharacterServerLabel.setVisibility(selectedServerList.length == 0 ? View.INVISIBLE : View.VISIBLE);
         ArrayAdapter<String> serverAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, selectedServerList);
         mCharacterServerSelector.setAdapter(serverAdapter);
     }
