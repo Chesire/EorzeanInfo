@@ -14,4 +14,80 @@
     <string name="data_centre_aether">Aether</string>
     <string name="data_centre_primal">Primal</string>
     <string name="data_centre_chaos">Chaos</string>
+
+    <!-- Elemental Servers -->
+    <string name="server_elemental_aegis">Aegis</string>
+    <string name="server_elemental_atomos">Atomos</string>
+    <string name="server_elemental_carbuncle">Carbuncle</string>
+    <string name="server_elemental_garuda">Garuda</string>
+    <string name="server_elemental_gungnir">Gungnir</string>
+    <string name="server_elemental_kujata">Kujata</string>
+    <string name="server_elemental_ramuh">Ramuh</string>
+    <string name="server_elemental_tonberry">Tonberry</string>
+    <string name="server_elemental_typhon">Typhon</string>
+    <string name="server_elemental_unicorn">Unicorn</string>
+
+    <!-- Gaia Servers -->
+    <string name="server_gaia_alexander">Alexander</string>
+    <string name="server_gaia_bahamut">Bahamut</string>
+    <string name="server_gaia_durandal">Durandal</string>
+    <string name="server_gaia_fenrir">Fenrir</string>
+    <string name="server_gaia_ifrit">Ifrit</string>
+    <string name="server_gaia_ridill">Ridill</string>
+    <string name="server_gaia_tiamat">Tiamat</string>
+    <string name="server_gaia_ultima">Ultima</string>
+    <string name="server_gaia_valefor">Valefor</string>
+    <string name="server_gaia_yojimbo">Yojimbo</string>
+    <string name="server_gaia_zeromus">Zeromus</string>
+
+    <!-- Mana Servers -->
+    <string name="server_mana_anima">Anima</string>
+    <string name="server_mana_asura">Asura</string>
+    <string name="server_mana_belias">Belias</string>
+    <string name="server_mana_chocobo">Chocobo</string>
+    <string name="server_mana_hades">Hades</string>
+    <string name="server_mana_ixion">Ixion</string>
+    <string name="server_mana_mandragora">Mandragora</string>
+    <string name="server_mana_masamune">Masamune</string>
+    <string name="server_mana_pandaemonium">Pandaemonium</string>
+    <string name="server_mana_shinryu">Shinryu</string>
+    <string name="server_mana_titan">Titan</string>
+
+    <!-- Aether Servers -->
+    <string name="server_aether_adamantoise">Adamantoise"</string>
+    <string name="server_aether_balmung">Balmung"</string>
+    <string name="server_aether_cactuar">Cactuar"</string>
+    <string name="server_aether_coeurl">Coeurl"</string>
+    <string name="server_aether_faerie">Faerie"</string>
+    <string name="server_aether_gilgamesh">Gilgamesh"</string>
+    <string name="server_aether_goblin">Goblin"</string>
+    <string name="server_aether_jenova">Jenova"</string>
+    <string name="server_aether_mateus">Mateus"</string>
+    <string name="server_aether_midgardsormr">Midgardsormr"</string>
+    <string name="server_aether_sargatanas">Sargatanas"</string>
+    <string name="server_aether_siren">Siren"</string>
+    <string name="server_aether_zalera">Zalera"</string>
+
+    <!-- Primal Servers -->
+    <string name="server_primal_behemoth">Behemoth"</string>
+    <string name="server_primal_brynhildr">Brynhildr"</string>
+    <string name="server_primal_diabolos">Diabolos"</string>
+    <string name="server_primal_excalibur">Excalibur"</string>
+    <string name="server_primal_exodus">Exodus"</string>
+    <string name="server_primal_famfrit">Famfrit"</string>
+    <string name="server_primal_hyperion">Hyperion"</string>
+    <string name="server_primal_lamia">Lamia"</string>
+    <string name="server_primal_leviathan">Leviathan"</string>
+    <string name="server_primal_malboro">Malboro"</string>
+    <string name="server_primal_ultros">Ultros"</string>
+
+    <!-- Chaos Servers -->
+    <string name="server_chaos_cerberus">Cerberus"</string>
+    <string name="server_chaos_lich">Lich"</string>
+    <string name="server_chaos_moogle">Moogle"</string>
+    <string name="server_chaos_odin">Odin"</string>
+    <string name="server_chaos_phoenix">Phoenix"</string>
+    <string name="server_chaos_ragnarok">Ragnarok"</string>
+    <string name="server_chaos_shiva">Shiva"</string>
+    <string name="server_chaos_zodiark">Zodiark"</string>
 </resources>

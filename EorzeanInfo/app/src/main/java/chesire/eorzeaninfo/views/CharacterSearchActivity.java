@@ -39,7 +39,6 @@ public class CharacterSearchActivity extends AppCompatActivity {
     @BindArray(R.array.data_centres)
     String[] mDataCentres;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
