@@ -4,13 +4,13 @@
     <!-- Correct as of : 2017-05-07 -->
 
     <string-array name="data_centres">
-        <item>Any</item>
-        <item>Elemental</item>
-        <item>Gaia</item>
-        <item>Mana</item>
-        <item>Aether</item>
-        <item>Primal</item>
-        <item>Chaos</item>
+        <item>@string/data_centre_any</item>
+        <item>@string/data_centre_elemental</item>
+        <item>@string/data_centre_gaia</item>
+        <item>@string/data_centre_mana</item>
+        <item>@string/data_centre_aether</item>
+        <item>@string/data_centre_primal</item>
+        <item>@string/data_centre_chaos</item>
     </string-array>
 
     <string-array name="elemental_servers">
