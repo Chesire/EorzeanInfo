@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -26,6 +28,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CharacterSearchActivity extends AppCompatActivity {
+    private static String TAG = "CharacterSearchActivity";
+
     @Inject
     XIVDBService mXIVClient;
 
@@ -121,15 +125,24 @@ public class CharacterSearchActivity extends AppCompatActivity {
             charCall.enqueue(new Callback<XIVDBService.SearchCharactersResponse>() {
                 @Override
                 public void onResponse(Call<XIVDBService.SearchCharactersResponse> call, Response<XIVDBService.SearchCharactersResponse> response) {
+                    Log.d(TAG, "Successful search request");
+
                     displayInProgressIndicator(false);
+                    CharacterSearchDialogFragment searchDialog = CharacterSearchDialogFragment.newInstance(response.body().characters.results);
+                    searchDialog.show(getSupportFragmentManager(), CharacterSearchDialogFragment.TAG);
                 }
 
                 @Override
                 public void onFailure(Call<XIVDBService.SearchCharactersResponse> call, Throwable t) {
+                    Log.e(TAG, "Error sending search request - " + t);
+
                     displayInProgressIndicator(false);
+                    Toast.makeText(CharacterSearchActivity.this, getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception ex) {
+            Log.e(TAG, "Error sending search request - " + ex);
+
             displayInProgressIndicator(false);
         }
     }

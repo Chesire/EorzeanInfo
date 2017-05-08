@@ -5,6 +5,7 @@
     <string name="search_data_centre_label">Data Centre</string>
     <string name="search_server_label">Server</string>
     <string name="search_search_button">Search</string>
+    <string name="search_failed_search">Failed to search, please try again</string>
 
     <!-- Data Centres -->
     <string name="data_centre_any">Any</string>
