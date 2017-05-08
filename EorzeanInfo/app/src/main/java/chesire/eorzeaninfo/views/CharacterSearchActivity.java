@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.design.BuildConfig;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 
 import javax.inject.Inject;
 
@@ -35,6 +37,10 @@ public class CharacterSearchActivity extends AppCompatActivity {
     AppCompatSpinner mCharacterServerSelector;
     @BindView(R.id.character_search_server_label)
     AppCompatTextView mCharacterServerLabel;
+    @BindView(R.id.character_search_button)
+    AppCompatButton mSearchButton;
+    @BindView(R.id.character_search_progress_indicator)
+    ProgressBar mSearchingProgress;
 
     @BindArray(R.array.data_centres)
     String[] mDataCentres;
@@ -108,21 +114,33 @@ public class CharacterSearchActivity extends AppCompatActivity {
             selectedServer = (String) selectedItem;
         }
 
+        displayInProgressIndicator(true);
+
         try {
             Call<XIVDBService.SearchCharactersResponse> charCall = mXIVClient.searchCharacters(selectedServer, mCharacterNameInput.getEditableText().toString());
             charCall.enqueue(new Callback<XIVDBService.SearchCharactersResponse>() {
                 @Override
                 public void onResponse(Call<XIVDBService.SearchCharactersResponse> call, Response<XIVDBService.SearchCharactersResponse> response) {
-                    String s = "";
+                    displayInProgressIndicator(false);
                 }
 
                 @Override
                 public void onFailure(Call<XIVDBService.SearchCharactersResponse> call, Throwable t) {
-                    String s = "";
+                    displayInProgressIndicator(false);
                 }
             });
         } catch (Exception ex) {
-            String t = "";
+            displayInProgressIndicator(false);
+        }
+    }
+
+    private void displayInProgressIndicator(boolean val) {
+        if (val) {
+            mSearchingProgress.setVisibility(View.VISIBLE);
+            mSearchButton.setVisibility(View.INVISIBLE);
+        } else {
+            mSearchingProgress.setVisibility(View.INVISIBLE);
+            mSearchButton.setVisibility(View.VISIBLE);
         }
     }
 }
