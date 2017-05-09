@@ -34,6 +34,10 @@ public class CharacterModel implements Parcelable {
         return server;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
     @Override
     public int describeContents() {
         // auto generated

@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +25,12 @@ import chesire.eorzeaninfo.classes.CharacterModel;
 public class CharacterSearchDialogFragment extends DialogFragment {
     public static String TAG = "CharacterSearchDialogFragment";
     private static String FOUND_CHARACTERS_TAG = "FOUND_CHARACTERS_TAG";
-    private List<CharacterModel> mCharacters;
+
     @BindView(R.id.character_search_dialog_recycler_view)
     RecyclerView mRecyclerView;
+
+    private List<CharacterModel> mCharacters;
+    private CharacterSearchAdapter mAdapter;
 
     public static CharacterSearchDialogFragment newInstance(ArrayList<CharacterModel> foundCharacters) {
         CharacterSearchDialogFragment fragment = new CharacterSearchDialogFragment();
@@ -43,46 +48,32 @@ public class CharacterSearchDialogFragment extends DialogFragment {
         View v = inflater.inflate(R.layout.fragment_character_search_dialog, container);
         ButterKnife.bind(this, v);
 
-        CharacterSearchDialogAdapter adapter = new CharacterSearchDialogAdapter(mCharacters);
-        mRecyclerView.setAdapter(adapter);
+        mAdapter = new CharacterSearchAdapter(mCharacters);
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         return v;
     }
 
-    class CharacterSearchDialogAdapter extends RecyclerView.Adapter {
-
-        @BindView(R.id.character_search_dialog_item_image)
-        AppCompatImageView mCharacterImage;
-        @BindView(R.id.character_search_dialog_item_name)
-        AppCompatTextView mCharacterName;
-        @BindView(R.id.character_search_dialog_item_server)
-        AppCompatTextView mCharacterServer;
-
+    class CharacterSearchAdapter extends RecyclerView.Adapter<CharacterSearchAdapter.CharacterSearchViewHolder> {
+        private Context mContext;
         private List<CharacterModel> mCharacterModels;
 
-        public CharacterSearchDialogAdapter(List<CharacterModel> characterModels) {
+        CharacterSearchAdapter(List<CharacterModel> characterModels) {
             mCharacterModels = characterModels;
         }
 
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Context context = parent.getContext();
-            LayoutInflater inflater = LayoutInflater.from(context);
+        public CharacterSearchAdapter.CharacterSearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            mContext = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(mContext);
 
-            View characterView = inflater.inflate(R.layout.item_character_search, parent, false);
-            RecyclerView.ViewHolder viewHolder = new CharacterSearchViewHolder(characterView);
-
-            ButterKnife.bind(this, characterView);
-            return viewHolder;
+            return new CharacterSearchViewHolder(inflater.inflate(R.layout.item_character_search, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            CharacterModel character = mCharacterModels.get(position);
-
-            mCharacterName.setText(character.getName());
-            mCharacterServer.setText(character.getServer());
+        public void onBindViewHolder(CharacterSearchViewHolder holder, int position) {
+            holder.bindCharacter(mCharacterModels.get(position));
         }
 
         @Override
@@ -90,9 +81,36 @@ public class CharacterSearchDialogFragment extends DialogFragment {
             return mCharacterModels.size();
         }
 
-        public class CharacterSearchViewHolder extends RecyclerView.ViewHolder {
-            public CharacterSearchViewHolder(View itemView) {
+        class CharacterSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            @BindView(R.id.character_search_dialog_item_image)
+            AppCompatImageView mCharacterImage;
+            @BindView(R.id.character_search_dialog_item_name)
+            AppCompatTextView mCharacterName;
+            @BindView(R.id.character_search_dialog_item_server)
+            AppCompatTextView mCharacterServer;
+
+            private CharacterModel mCharacter;
+
+            CharacterSearchViewHolder(View itemView) {
                 super(itemView);
+
+                ButterKnife.bind(this, itemView);
+                itemView.setOnClickListener(this);
+            }
+
+            void bindCharacter(CharacterModel model) {
+                mCharacter = model;
+
+                Glide.with(mContext)
+                        .load(mCharacter.getIcon())
+                        .into(mCharacterImage);
+                mCharacterName.setText(mCharacter.getName());
+                mCharacterServer.setText(mCharacter.getServer());
+            }
+
+            @Override
+            public void onClick(View v) {
+                // Go to a new Fragment, as we have a selected character
             }
         }
     }

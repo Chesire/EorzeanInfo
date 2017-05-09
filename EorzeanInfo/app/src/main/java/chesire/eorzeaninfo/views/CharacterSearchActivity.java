@@ -1,7 +1,6 @@
 package chesire.eorzeaninfo.views;
 
 import android.os.Bundle;
-import android.support.design.BuildConfig;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -59,10 +58,6 @@ public class CharacterSearchActivity extends AppCompatActivity {
 
         ArrayAdapter<String> dataCentreAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mDataCentres);
         mDataCentreSelector.setAdapter(dataCentreAdapter);
-
-        if (BuildConfig.DEBUG) {
-            mCharacterNameInput.setText("Cheshire Cat");
-        }
     }
 
     @OnItemSelected(R.id.character_search_data_centre_selection)
