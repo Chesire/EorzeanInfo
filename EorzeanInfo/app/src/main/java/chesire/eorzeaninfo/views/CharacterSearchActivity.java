@@ -1,13 +1,16 @@
 package chesire.eorzeaninfo.views;
 
 import android.os.Bundle;
-import android.support.design.BuildConfig;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -24,6 +27,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CharacterSearchActivity extends AppCompatActivity {
+    private static String TAG = "CharacterSearchActivity";
+
     @Inject
     XIVDBService mXIVClient;
 
@@ -35,6 +40,10 @@ public class CharacterSearchActivity extends AppCompatActivity {
     AppCompatSpinner mCharacterServerSelector;
     @BindView(R.id.character_search_server_label)
     AppCompatTextView mCharacterServerLabel;
+    @BindView(R.id.character_search_button)
+    AppCompatButton mSearchButton;
+    @BindView(R.id.character_search_progress_indicator)
+    ProgressBar mSearchingProgress;
 
     @BindArray(R.array.data_centres)
     String[] mDataCentres;
@@ -49,10 +58,6 @@ public class CharacterSearchActivity extends AppCompatActivity {
 
         ArrayAdapter<String> dataCentreAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mDataCentres);
         mDataCentreSelector.setAdapter(dataCentreAdapter);
-
-        if (BuildConfig.DEBUG) {
-            mCharacterNameInput.setText("Cheshire Cat");
-        }
     }
 
     @OnItemSelected(R.id.character_search_data_centre_selection)
@@ -108,21 +113,42 @@ public class CharacterSearchActivity extends AppCompatActivity {
             selectedServer = (String) selectedItem;
         }
 
+        displayInProgressIndicator(true);
+
         try {
             Call<XIVDBService.SearchCharactersResponse> charCall = mXIVClient.searchCharacters(selectedServer, mCharacterNameInput.getEditableText().toString());
             charCall.enqueue(new Callback<XIVDBService.SearchCharactersResponse>() {
                 @Override
                 public void onResponse(Call<XIVDBService.SearchCharactersResponse> call, Response<XIVDBService.SearchCharactersResponse> response) {
-                    String s = "";
+                    Log.d(TAG, "Successful search request");
+
+                    displayInProgressIndicator(false);
+                    CharacterSearchDialogFragment searchDialog = CharacterSearchDialogFragment.newInstance(response.body().characters.results);
+                    searchDialog.show(getSupportFragmentManager(), CharacterSearchDialogFragment.TAG);
                 }
 
                 @Override
                 public void onFailure(Call<XIVDBService.SearchCharactersResponse> call, Throwable t) {
-                    String s = "";
+                    Log.e(TAG, "Error sending search request - " + t);
+
+                    displayInProgressIndicator(false);
+                    Toast.makeText(CharacterSearchActivity.this, getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception ex) {
-            String t = "";
+            Log.e(TAG, "Error sending search request - " + ex);
+
+            displayInProgressIndicator(false);
+        }
+    }
+
+    private void displayInProgressIndicator(boolean val) {
+        if (val) {
+            mSearchingProgress.setVisibility(View.VISIBLE);
+            mSearchButton.setVisibility(View.INVISIBLE);
+        } else {
+            mSearchingProgress.setVisibility(View.INVISIBLE);
+            mSearchButton.setVisibility(View.VISIBLE);
         }
     }
 }

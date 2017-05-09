@@ -1,6 +1,6 @@
 package chesire.eorzeaninfo.interfaces;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import chesire.eorzeaninfo.classes.CharacterModel;
 import retrofit2.Call;
@@ -16,8 +16,8 @@ public interface XIVDBService {
     class SearchCharactersResponse {
         public Characters characters;
 
-        class Characters {
-            public List<CharacterModel> results;
+        public class Characters {
+            public ArrayList<CharacterModel> results;
         }
     }
 }
