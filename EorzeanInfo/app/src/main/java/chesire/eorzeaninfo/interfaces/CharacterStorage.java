@@ -3,6 +3,8 @@ package chesire.eorzeaninfo.interfaces;
 import chesire.eorzeaninfo.classes.CharacterModel;
 
 public interface CharacterStorage {
+    int NO_CHARACTER_ID = 0;
+
     void addCharacter(CharacterModel model);
 
     CharacterModel getCharacter(int id);

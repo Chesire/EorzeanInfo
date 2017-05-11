@@ -121,10 +121,14 @@ public class CharacterSearchActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<XIVDBService.SearchCharactersResponse> call, Response<XIVDBService.SearchCharactersResponse> response) {
                     Log.d(TAG, "Successful search request");
-
                     displayInProgressIndicator(false);
-                    CharacterSearchDialogFragment searchDialog = CharacterSearchDialogFragment.newInstance(response.body().characters.results);
-                    searchDialog.show(getSupportFragmentManager(), CharacterSearchDialogFragment.TAG);
+
+                    if (response.body().characters.results.isEmpty()) {
+                        Toast.makeText(CharacterSearchActivity.this, getString(R.string.search_no_characters_found), Toast.LENGTH_SHORT).show();
+                    } else {
+                        CharacterSearchDialogFragment searchDialog = CharacterSearchDialogFragment.newInstance(response.body().characters.results);
+                        searchDialog.show(getSupportFragmentManager(), CharacterSearchDialogFragment.TAG);
+                    }
                 }
 
                 @Override

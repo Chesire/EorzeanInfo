@@ -22,7 +22,7 @@ public class LaunchActivity extends Activity {
         ((EorzeanInfoApp) getApplication()).getCharacterStorageComponent().inject(this);
 
         Intent loadActivityIntent;
-        if (mCharacterStorage.getCurrentCharacter() == 0) {
+        if (mCharacterStorage.getCurrentCharacter() == CharacterStorage.NO_CHARACTER_ID) {
             loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
         } else {
             loadActivityIntent = new Intent(this, CharacterProfileActivity.class);
