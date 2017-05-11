@@ -1,6 +1,7 @@
 package chesire.eorzeaninfo.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -13,14 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.CharacterModel;
+import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 public class CharacterSearchDialogFragment extends DialogFragment {
     public static String TAG = "CharacterSearchDialogFragment";
@@ -31,6 +37,8 @@ public class CharacterSearchDialogFragment extends DialogFragment {
 
     private List<CharacterModel> mCharacters;
     private CharacterSearchAdapter mAdapter;
+    @Inject
+    CharacterStorage mCharacterStorage;
 
     public static CharacterSearchDialogFragment newInstance(ArrayList<CharacterModel> foundCharacters) {
         CharacterSearchDialogFragment fragment = new CharacterSearchDialogFragment();
@@ -39,6 +47,12 @@ public class CharacterSearchDialogFragment extends DialogFragment {
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((EorzeanInfoApp) getActivity().getApplication()).getCharacterStorageComponent().inject(this);
     }
 
     @Nullable
@@ -103,6 +117,8 @@ public class CharacterSearchDialogFragment extends DialogFragment {
 
                 Glide.with(mContext)
                         .load(mCharacter.getIcon())
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(mCharacterImage);
                 mCharacterName.setText(mCharacter.getName());
                 mCharacterServer.setText(mCharacter.getServer());
@@ -110,7 +126,10 @@ public class CharacterSearchDialogFragment extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-                // Go to a new Fragment, as we have a selected character
+                mCharacterStorage.addCharacter(mCharacter);
+                Intent loadProfileIntent = new Intent(getContext(), CharacterProfileActivity.class);
+                loadProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loadProfileIntent);
             }
         }
     }
