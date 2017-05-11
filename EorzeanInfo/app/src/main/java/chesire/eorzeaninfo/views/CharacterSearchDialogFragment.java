@@ -18,10 +18,14 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.CharacterModel;
+import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 public class CharacterSearchDialogFragment extends DialogFragment {
     public static String TAG = "CharacterSearchDialogFragment";
@@ -32,6 +36,8 @@ public class CharacterSearchDialogFragment extends DialogFragment {
 
     private List<CharacterModel> mCharacters;
     private CharacterSearchAdapter mAdapter;
+    @Inject
+    CharacterStorage mCharacterStorage;
 
     public static CharacterSearchDialogFragment newInstance(ArrayList<CharacterModel> foundCharacters) {
         CharacterSearchDialogFragment fragment = new CharacterSearchDialogFragment();
@@ -40,6 +46,12 @@ public class CharacterSearchDialogFragment extends DialogFragment {
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((EorzeanInfoApp) getActivity().getApplication()).getCharacterStorageComponent().inject(this);
     }
 
     @Nullable
@@ -111,6 +123,7 @@ public class CharacterSearchDialogFragment extends DialogFragment {
 
             @Override
             public void onClick(View v) {
+                mCharacterStorage.addCharacter(mCharacter);
                 Intent loadProfileIntent = new Intent(getContext(), CharacterProfileActivity.class);
                 loadProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 loadProfileIntent.putExtra(CharacterProfileActivity.SELECTED_CHARACTER_TAG, mCharacter);

@@ -26,16 +26,21 @@ public class CharacterModel implements Parcelable {
         url_xivdb = in.readString();
     }
 
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getServer() {
         return server;
-    }
-
-    public String getIcon() {
-        return icon;
     }
 
     @Override

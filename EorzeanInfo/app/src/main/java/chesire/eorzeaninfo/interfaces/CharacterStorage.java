@@ -9,6 +9,8 @@ public interface CharacterStorage {
 
     void setCurrentCharacter(CharacterModel model);
 
+    void setCurrentCharacter(int id);
+
     /**
      * Get the id of the current set character
      *

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import javax.inject.Inject;
 
+import chesire.eorzeaninfo.classes.CharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.views.CharacterSearchActivity;
 import chesire.eorzeaninfo.views.CharacterSelect;
