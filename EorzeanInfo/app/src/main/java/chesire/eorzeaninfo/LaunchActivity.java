@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import chesire.eorzeaninfo.views.CharacterSearchActivity;
-import chesire.eorzeaninfo.views.CharacterSelect;
 
 public class LaunchActivity extends AppCompatActivity {
 
