@@ -1,34 +1,50 @@
 package chesire.eorzeaninfo.views;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.CharacterModel;
 
-public class CharacterProfileActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class CharacterProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static String SELECTED_CHARACTER_TAG = "SELECTED_CHARACTER_TAG";
+
+    @BindView(R.id.nav_view)
+    NavigationView mNavigationView;
+    AppCompatImageView mNavHeaderImage;
+    AppCompatTextView mNavTitleText;
+    AppCompatTextView mNavBodyText;
 
     private CharacterModel mCharacter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_character_profile);
+        ButterKnife.bind(this);
 
         mCharacter = getIntent().getParcelableExtra(SELECTED_CHARACTER_TAG);
 
-        setContentView(R.layout.activity_character_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,10 +61,17 @@ public class CharacterProfileActivity extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
+
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setNavigationItemSelectedListener(this);
+        View headerView = mNavigationView.getHeaderView(0);
+
+        mNavHeaderImage = ButterKnife.findById(headerView, R.id.nav_header_image);
+        mNavTitleText = ButterKnife.findById(headerView, R.id.nav_header_title_text);
+        mNavBodyText = ButterKnife.findById(headerView, R.id.nav_header_body_text);
+
+        loadNavigationHeaderData();
     }
 
     @Override
@@ -106,5 +129,24 @@ public class CharacterProfileActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void loadNavigationHeaderData() {
+        Glide.with(this)
+                .load(mCharacter.getIcon())
+                .asBitmap()
+                .centerCrop()
+                .into(new BitmapImageViewTarget(mNavHeaderImage) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(CharacterProfileActivity.this.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        mNavHeaderImage.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
+
+        mNavTitleText.setText(mCharacter.getName());
+        mNavBodyText.setText(mCharacter.getServer());
     }
 }
