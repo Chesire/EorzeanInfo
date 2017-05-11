@@ -6,10 +6,9 @@ import android.os.Bundle;
 
 import javax.inject.Inject;
 
-import chesire.eorzeaninfo.classes.CharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
+import chesire.eorzeaninfo.views.CharacterProfileActivity;
 import chesire.eorzeaninfo.views.CharacterSearchActivity;
-import chesire.eorzeaninfo.views.CharacterSelect;
 
 public class LaunchActivity extends Activity {
 
@@ -26,7 +25,7 @@ public class LaunchActivity extends Activity {
         if (mCharacterStorage.getCurrentCharacter() == 0) {
             loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
         } else {
-            loadActivityIntent = new Intent(this, CharacterSelect.class);
+            loadActivityIntent = new Intent(this, CharacterProfileActivity.class);
         }
 
         loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -21,19 +21,23 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.CharacterModel;
+import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 public class CharacterProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    public static String SELECTED_CHARACTER_TAG = "SELECTED_CHARACTER_TAG";
-
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
     AppCompatImageView mNavHeaderImage;
     AppCompatTextView mNavTitleText;
     AppCompatTextView mNavBodyText;
+    @Inject
+    CharacterStorage mCharacterStorage;
 
     private CharacterModel mCharacter;
 
@@ -41,9 +45,11 @@ public class CharacterProfileActivity extends AppCompatActivity implements Navig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_profile);
-        ButterKnife.bind(this);
 
-        mCharacter = getIntent().getParcelableExtra(SELECTED_CHARACTER_TAG);
+        ButterKnife.bind(this);
+        ((EorzeanInfoApp) getApplication()).getCharacterStorageComponent().inject(this);
+
+        mCharacter = mCharacterStorage.getCharacter(mCharacterStorage.getCurrentCharacter());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

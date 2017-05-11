@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +117,8 @@ public class CharacterSearchDialogFragment extends DialogFragment {
 
                 Glide.with(mContext)
                         .load(mCharacter.getIcon())
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(mCharacterImage);
                 mCharacterName.setText(mCharacter.getName());
                 mCharacterServer.setText(mCharacter.getServer());
@@ -126,7 +129,6 @@ public class CharacterSearchDialogFragment extends DialogFragment {
                 mCharacterStorage.addCharacter(mCharacter);
                 Intent loadProfileIntent = new Intent(getContext(), CharacterProfileActivity.class);
                 loadProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                loadProfileIntent.putExtra(CharacterProfileActivity.SELECTED_CHARACTER_TAG, mCharacter);
                 startActivity(loadProfileIntent);
             }
         }
