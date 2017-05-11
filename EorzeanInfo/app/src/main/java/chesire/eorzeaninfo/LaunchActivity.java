@@ -1,12 +1,12 @@
 package chesire.eorzeaninfo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import chesire.eorzeaninfo.views.CharacterSearchActivity;
 
-public class LaunchActivity extends AppCompatActivity {
+public class LaunchActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,5 +18,6 @@ public class LaunchActivity extends AppCompatActivity {
         Intent loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
         loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loadActivityIntent);
+        finish();
     }
 }
