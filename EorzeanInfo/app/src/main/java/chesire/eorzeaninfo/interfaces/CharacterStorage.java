@@ -7,8 +7,6 @@ public interface CharacterStorage {
 
     CharacterModel getCharacter(int id);
 
-    void setCurrentCharacter(CharacterModel model);
-
     void setCurrentCharacter(int id);
 
     /**

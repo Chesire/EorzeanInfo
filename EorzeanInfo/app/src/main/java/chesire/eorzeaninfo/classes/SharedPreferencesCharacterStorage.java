@@ -62,11 +62,6 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     }
 
     @Override
-    public void setCurrentCharacter(CharacterModel model) {
-        setCurrentCharacter(model.getId());
-    }
-
-    @Override
     public void setCurrentCharacter(int id) {
         mSharedPreferences.edit()
                 .putInt(PREF_CURRENT_CHARACTER_ID, id)
