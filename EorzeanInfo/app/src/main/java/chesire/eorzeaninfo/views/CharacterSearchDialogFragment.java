@@ -112,6 +112,7 @@ public class CharacterSearchDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Intent loadProfileIntent = new Intent(getContext(), CharacterProfileActivity.class);
+                loadProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 loadProfileIntent.putExtra(CharacterProfileActivity.SELECTED_CHARACTER_TAG, mCharacter);
                 startActivity(loadProfileIntent);
             }

@@ -16,7 +16,7 @@ public class LaunchActivity extends AppCompatActivity {
         // Once we have a screen to choose we should go there
 
         Intent loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
-        loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loadActivityIntent);
     }
 }
