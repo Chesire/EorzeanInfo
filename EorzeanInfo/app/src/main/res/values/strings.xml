@@ -6,6 +6,7 @@
     <string name="search_server_label">Server</string>
     <string name="search_search_button">Search</string>
     <string name="search_failed_search">Failed to search, please try again</string>
+    <string name="search_no_characters_found">No characters found</string>
 
     <!-- Data Centres -->
     <string name="data_centre_any">Any</string>
@@ -91,4 +92,10 @@
     <string name="server_chaos_ragnarok">Ragnarok"</string>
     <string name="server_chaos_shiva">Shiva"</string>
     <string name="server_chaos_zodiark">Zodiark"</string>
+    <string name="title_activity_character_profile">CharacterProfileActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

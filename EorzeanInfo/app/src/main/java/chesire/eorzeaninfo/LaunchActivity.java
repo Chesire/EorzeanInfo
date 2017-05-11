@@ -1,23 +1,35 @@
 package chesire.eorzeaninfo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
+import javax.inject.Inject;
+
+import chesire.eorzeaninfo.interfaces.CharacterStorage;
+import chesire.eorzeaninfo.views.CharacterProfileActivity;
 import chesire.eorzeaninfo.views.CharacterSearchActivity;
-import chesire.eorzeaninfo.views.CharacterSelect;
 
-public class LaunchActivity extends AppCompatActivity {
+public class LaunchActivity extends Activity {
+
+    @Inject
+    CharacterStorage mCharacterStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Choose where to go, for now we should load into the CharacterSearch
-        // Once we have a screen to choose we should go there
+        ((EorzeanInfoApp) getApplication()).getCharacterStorageComponent().inject(this);
 
-        Intent loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
-        loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent loadActivityIntent;
+        if (mCharacterStorage.getCurrentCharacter() == CharacterStorage.NO_CHARACTER_ID) {
+            loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
+        } else {
+            loadActivityIntent = new Intent(this, CharacterProfileActivity.class);
+        }
+
+        loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loadActivityIntent);
+        finish();
     }
 }
