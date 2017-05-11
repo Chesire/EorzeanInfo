@@ -1,6 +1,7 @@
 package chesire.eorzeaninfo.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -110,7 +111,9 @@ public class CharacterSearchDialogFragment extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-                // Go to a new Fragment, as we have a selected character
+                Intent loadProfileIntent = new Intent(getContext(), CharacterProfileActivity.class);
+                loadProfileIntent.putExtra(CharacterProfileActivity.SELECTED_CHARACTER_TAG, mCharacter);
+                startActivity(loadProfileIntent);
             }
         }
     }
