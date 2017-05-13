@@ -12,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -46,7 +44,7 @@ public class FirstLaunchActivity extends AppCompatActivity {
 
     @OnClick(R.id.first_launch_next_button)
     void onNext() {
-        
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
     }
 
     private class FirstLaunchAdapter extends PagerAdapter {
@@ -65,10 +63,7 @@ public class FirstLaunchActivity extends AppCompatActivity {
             ViewGroup layout = (ViewGroup) mInflater.inflate(enumValue.getLayoutResId(), container, false);
             ((AppCompatTextView) layout.findViewById(R.id.pager_item_title)).setText(enumValue.getTitleResId());
             ((AppCompatTextView) layout.findViewById(R.id.pager_item_body)).setText(enumValue.getBodyResId());
-            Glide.with(mContext)
-                    .load(enumValue.getImageResId())
-                    .into((AppCompatImageView) layout.findViewById(R.id.pager_item_image));
-
+            ((AppCompatImageView) layout.findViewById(R.id.pager_item_image)).setImageResource(enumValue.getImageResId());
             container.addView(layout);
 
             return layout;
