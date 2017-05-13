@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import butterknife.OnItemSelected;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
@@ -103,8 +105,24 @@ public class CharacterSearchActivity extends AppCompatActivity {
         mCharacterServerSelector.setAdapter(serverAdapter);
     }
 
+    @OnEditorAction(R.id.character_search_name_input)
+    boolean nameInputDonePressed(int actionId) {
+        boolean handled = false;
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            handled = true;
+            searchClicked();
+        }
+
+        return handled;
+    }
+
     @OnClick(R.id.character_search_button)
     void searchClicked() {
+        String searchName = mCharacterNameInput.getEditableText().toString();
+        if (searchName.equals("")) {
+            return;
+        }
+
         String selectedServer;
         Object selectedItem = mCharacterServerSelector.getSelectedItem();
         if (selectedItem == null) {
@@ -116,7 +134,7 @@ public class CharacterSearchActivity extends AppCompatActivity {
         displayInProgressIndicator(true);
 
         try {
-            Call<XIVDBService.SearchCharactersResponse> charCall = mXIVClient.searchCharacters(selectedServer, mCharacterNameInput.getEditableText().toString());
+            Call<XIVDBService.SearchCharactersResponse> charCall = mXIVClient.searchCharacters(selectedServer, searchName);
             charCall.enqueue(new Callback<XIVDBService.SearchCharactersResponse>() {
                 @Override
                 public void onResponse(Call<XIVDBService.SearchCharactersResponse> call, Response<XIVDBService.SearchCharactersResponse> response) {
