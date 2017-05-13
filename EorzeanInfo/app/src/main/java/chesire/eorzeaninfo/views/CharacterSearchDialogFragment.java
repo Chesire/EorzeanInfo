@@ -28,6 +28,9 @@ import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.CharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
+/**
+ * Dialog shown when characters have been found through search
+ */
 public class CharacterSearchDialogFragment extends DialogFragment {
     public static String TAG = "CharacterSearchDialogFragment";
     private static String FOUND_CHARACTERS_TAG = "FOUND_CHARACTERS_TAG";
@@ -40,6 +43,12 @@ public class CharacterSearchDialogFragment extends DialogFragment {
     @Inject
     CharacterStorage mCharacterStorage;
 
+    /**
+     * Generates a new instance of {@link CharacterSearchDialogFragment}
+     *
+     * @param foundCharacters List of characters pulled from the api
+     * @return New instance of the {@link CharacterSearchDialogFragment}
+     */
     public static CharacterSearchDialogFragment newInstance(ArrayList<CharacterModel> foundCharacters) {
         CharacterSearchDialogFragment fragment = new CharacterSearchDialogFragment();
         Bundle args = new Bundle();

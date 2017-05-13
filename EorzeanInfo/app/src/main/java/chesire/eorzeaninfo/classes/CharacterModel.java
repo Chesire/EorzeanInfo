@@ -3,6 +3,9 @@ package chesire.eorzeaninfo.classes;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Model for a singular character object
+ */
 public class CharacterModel implements Parcelable {
     private String icon;
     private int id;
@@ -26,18 +29,39 @@ public class CharacterModel implements Parcelable {
         url_xivdb = in.readString();
     }
 
+    /**
+     * Get the url for the characters avatar icon
+     *
+     * @return Url that points straight to the characters avatar icon
+     */
     public String getIcon() {
         return icon;
     }
 
+    /**
+     * Get the id for the specific character
+     * This id can be used to get specific information about a character
+     *
+     * @return id for the character
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Get the name of the character
+     *
+     * @return Name of the character, as "FirstName" "LastName"
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get the server name the character resides on
+     *
+     * @return Server that the character resides on
+     */
     public String getServer() {
         return server;
     }

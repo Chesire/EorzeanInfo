@@ -11,6 +11,9 @@ import chesire.eorzeaninfo.classes.dagger.XIVComponent;
 import chesire.eorzeaninfo.classes.dagger.XIVModule;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
 
+/**
+ * Application override used to setup and retrieve Dagger components
+ */
 public class EorzeanInfoApp extends Application {
 
     private XIVComponent mXIVComponent;
@@ -30,10 +33,20 @@ public class EorzeanInfoApp extends Application {
                 .build();
     }
 
+    /**
+     * Setup the XIVComponent
+     *
+     * @return Initialized XIVComponent
+     */
     public XIVComponent getXIVComponent() {
         return mXIVComponent;
     }
 
+    /**
+     * Setup the CharacterStorageComponent
+     *
+     * @return Initialized CharacterStorageComponent
+     */
     public CharacterStorageComponent getCharacterStorageComponent() {
         return mCharacterStorageComponent;
     }

@@ -11,12 +11,20 @@ import java.util.Set;
 
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
+/**
+ * Implementation of {@link CharacterStorage} that stores the character data in SharedPreferences
+ */
 public class SharedPreferencesCharacterStorage implements CharacterStorage {
     private static String PREF_CURRENT_CHARACTER_ID = "PREF_CURRENT_CHARACTER_ID";
     private static String PREF_ALL_CHARACTERS_ARRAY = "PREF_ALL_CHARACTERS_ARRAY";
 
     private SharedPreferences mSharedPreferences;
 
+    /**
+     * Default constructor
+     *
+     * @param context Context used to get the instance of the SharedPreferences
+     */
     public SharedPreferencesCharacterStorage(Context context) {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }

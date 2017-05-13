@@ -10,6 +10,9 @@ import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.views.CharacterProfileActivity;
 import chesire.eorzeaninfo.views.CharacterSearchActivity;
 
+/**
+ * Activity used to choose which activity to launch on application start
+ */
 public class LaunchActivity extends Activity {
 
     @Inject

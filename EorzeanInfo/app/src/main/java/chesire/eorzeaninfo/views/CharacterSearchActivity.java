@@ -28,6 +28,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Activity used for searching for a new character to use
+ */
 public class CharacterSearchActivity extends AppCompatActivity {
     private static String TAG = "CharacterSearchActivity";
 
