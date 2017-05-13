@@ -27,6 +27,7 @@
             android:name=".views.CharacterProfileActivity"
             android:label="@string/title_activity_character_profile"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.FirstLaunchActivity"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.views.CharacterProfileActivity;
 import chesire.eorzeaninfo.views.CharacterSearchActivity;
+import chesire.eorzeaninfo.views.FirstLaunchActivity;
 
 /**
  * Activity used to choose which activity to launch on application start
@@ -30,6 +31,10 @@ public class LaunchActivity extends Activity {
         } else {
             loadActivityIntent = new Intent(this, CharacterProfileActivity.class);
         }
+
+        // DEBUG
+        loadActivityIntent = new Intent(this, FirstLaunchActivity.class);
+        // DEBUG
 
         loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loadActivityIntent);
