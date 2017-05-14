@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".views.FirstLaunchActivity" />
         <activity
-            android:name=".views.CharacterProfileActivity"
+            android:name=".views.CharacterDetailsActivity"
             android:label="@string/title_activity_character_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

@@ -66,7 +66,7 @@ public class CharacterChangeActivity extends AppCompatActivity
     @Override
     public void onCharacterSelected(CharacterModel model) {
         mCharacterStorage.addCharacter(model);
-        Intent loadProfileIntent = new Intent(this, CharacterProfileActivity.class);
+        Intent loadProfileIntent = new Intent(this, CharacterDetailsActivity.class);
         loadProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loadProfileIntent);
     }

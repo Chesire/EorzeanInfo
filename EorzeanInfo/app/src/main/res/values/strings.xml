@@ -113,4 +113,6 @@
     <string name="server_chaos_shiva">Shiva"</string>
     <string name="server_chaos_zodiark">Zodiark"</string>
     <string name="title_activity_character_select">CharacterSelectActivity</string>
+    <string name="character_details_profile">Profile</string>
+    <string name="character_details_achievements">Achievements</string>
 </resources>
