@@ -91,9 +91,9 @@ public class FirstLaunchActivity extends AppCompatActivity {
     }
 
     private enum FirstLaunchEnum {
-        PAGE1(R.layout.item_first_launch_pager_view, R.string.app_name, R.string.data_centre_aether, R.drawable.ic_menu_camera),
-        PAGE2(R.layout.item_first_launch_pager_view, R.string.app_name, R.string.data_centre_chaos, R.drawable.ic_menu_gallery),
-        PAGE3(R.layout.item_first_launch_pager_view, R.string.app_name, R.string.data_centre_elemental, R.drawable.ic_menu_manage);
+        PAGE1(R.layout.item_first_launch_pager_view, R.string.first_launch_title_1, R.string.first_launch_body_1, R.drawable.ic_menu_camera),
+        PAGE2(R.layout.item_first_launch_pager_view, R.string.first_launch_title_2, R.string.first_launch_body_2, R.drawable.ic_menu_gallery),
+        PAGE3(R.layout.item_first_launch_pager_view, R.string.first_launch_title_3, R.string.first_launch_body_3, R.drawable.ic_menu_manage);
 
         private int mLayoutResId;
         private int mTitleResId;
