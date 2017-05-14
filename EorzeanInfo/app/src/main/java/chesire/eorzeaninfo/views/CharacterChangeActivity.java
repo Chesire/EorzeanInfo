@@ -57,7 +57,7 @@ public class CharacterChangeActivity extends AppCompatActivity
     public void onFabClicked() {
         getSupportFragmentManager()
                 .beginTransaction()
-                .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left)
+                .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left, R.anim.slide_in_from_left, R.anim.slide_out_to_right)
                 .replace(R.id.character_change_container, CharacterSearchFragment.newInstance(), CHARACTER_SEARCH_TAG)
                 .addToBackStack(null)
                 .commit();
@@ -75,7 +75,7 @@ public class CharacterChangeActivity extends AppCompatActivity
     public void onCharactersFound(ArrayList<CharacterModel> models) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left)
+                .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left, R.anim.slide_in_from_left, R.anim.slide_out_to_right)
                 .replace(R.id.character_change_container, CharacterSelectFragment.newInstance(models, false), CHARACTER_SELECT_TAG)
                 .addToBackStack(null)
                 .commit();
