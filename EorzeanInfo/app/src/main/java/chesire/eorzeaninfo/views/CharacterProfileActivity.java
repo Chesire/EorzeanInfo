@@ -1,5 +1,6 @@
 package chesire.eorzeaninfo.views;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -131,7 +132,8 @@ public class CharacterProfileActivity extends AppCompatActivity implements Navig
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.nav_switch_character) {
-            
+            Intent selectCharacterIntent = new Intent(this, CharacterSelectActivity.class);
+            startActivity(selectCharacterIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
