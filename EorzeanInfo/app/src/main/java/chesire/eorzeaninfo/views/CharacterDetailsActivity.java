@@ -109,9 +109,12 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
                         .commit();
                 break;
 
-            case R.id.nav_switch_character:
+            case R.id.character_details_switch_character:
                 Intent selectCharacterIntent = new Intent(this, CharacterChangeActivity.class);
                 startActivity(selectCharacterIntent);
+                break;
+
+            case R.id.character_details_settings:
                 break;
 
             default:

@@ -4,42 +4,35 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/character_details_profile"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_account_circle_black"
             android:title="@string/character_details_profile" />
         <item
             android:id="@+id/character_details_achievements"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/character_details_achievements" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/character_details_section_config">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
-
-    <item android:title="Settings">
-        <menu>
-            <item
-                android:id="@+id/nav_switch_character"
+                android:id="@+id/character_details_switch_character"
                 android:icon="@drawable/ic_compare_arrows_black"
                 android:title="@string/character_details_switch_character" />
+            <item
+                android:id="@+id/character_details_settings"
+                android:icon="@drawable/ic_compare_arrows_black"
+                android:title="@string/character_details_settings" />
         </menu>
     </item>
 
+    <!-- TODO:
+    (?) If unknown if can be done
+    Minions - can do % acquired, and show which ones
+    Mounts - can do % acquired, and show which ones
+    Achievements - can do % acquired, and show which ones
+    Character events (Name change etc)
+    Free company(?)
+    Gathering(?)
+    Required Crafting Items from the Crafting Log(?)
+    -->
 </menu>
