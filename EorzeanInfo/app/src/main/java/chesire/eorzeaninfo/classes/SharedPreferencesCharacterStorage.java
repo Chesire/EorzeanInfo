@@ -16,7 +16,8 @@ import chesire.eorzeaninfo.interfaces.CharacterStorage;
  */
 public class SharedPreferencesCharacterStorage implements CharacterStorage {
     private static String PREF_CURRENT_CHARACTER_ID = "PREF_CURRENT_CHARACTER_ID";
-    private static String PREF_ALL_CHARACTERS_ARRAY = "PREF_ALL_CHARACTERS_ARRAY";
+    private static String PREF_CHARACTER_DATA = "PREF_CHARACTER_DATA_%1$s";
+    private static String PREF_ALL_CHARACTERS = "PREF_ALL_CHARACTERS";
 
     private SharedPreferences mSharedPreferences;
 
@@ -31,42 +32,33 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
 
     @Override
     public void addCharacter(CharacterModel model) {
-        boolean firstCharacter = false;
-        Set<String> characters = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS_ARRAY, null);
-
-        if (characters == null) {
-            firstCharacter = true;
-            characters = new HashSet<>();
-        }
-
-        characters.add(new Gson().toJson(model));
         mSharedPreferences.edit()
-                .putStringSet(PREF_ALL_CHARACTERS_ARRAY, characters)
+                .putString(String.format(PREF_CHARACTER_DATA, model.getId()), new Gson().toJson(model))
                 .apply();
-        if (firstCharacter) {
-            setCurrentCharacter(model.getId());
+
+        Set<String> currentCharacters = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS, null);
+        HashSet<String> newCharacterSet;
+        if (currentCharacters == null) {
+            newCharacterSet = new HashSet<>();
+        } else {
+            newCharacterSet = new HashSet<>(currentCharacters);
         }
+        newCharacterSet.add(String.valueOf(model.getId()));
+        mSharedPreferences.edit()
+                .putStringSet(PREF_ALL_CHARACTERS, newCharacterSet)
+                .apply();
+
+        setCurrentCharacter(model.getId());
     }
 
     @Override
     public CharacterModel getCharacter(int id) {
-        Set<String> characters = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS_ARRAY, null);
-        if (characters == null) {
+        String character = mSharedPreferences.getString(String.format(PREF_CHARACTER_DATA, id), null);
+        if (character == null) {
             return null;
         }
 
-        CharacterModel foundCharacter = null;
-        Gson gsonConverter = new Gson();
-        for (String characterJson : characters) {
-            CharacterModel model = gsonConverter.fromJson(characterJson, CharacterModel.class);
-
-            if (model.getId() == id) {
-                foundCharacter = model;
-                break;
-            }
-        }
-
-        return foundCharacter;
+        return new Gson().fromJson(character, CharacterModel.class);
     }
 
     @Override
