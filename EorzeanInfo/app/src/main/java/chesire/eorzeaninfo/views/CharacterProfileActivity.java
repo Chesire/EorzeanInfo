@@ -132,7 +132,7 @@ public class CharacterProfileActivity extends AppCompatActivity implements Navig
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.nav_switch_character) {
-            Intent selectCharacterIntent = new Intent(this, CharacterSelectActivity.class);
+            Intent selectCharacterIntent = new Intent(this, CharacterChangeActivity.class);
             startActivity(selectCharacterIntent);
         }
 

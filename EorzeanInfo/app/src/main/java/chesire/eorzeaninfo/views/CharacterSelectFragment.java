@@ -39,6 +39,7 @@ public class CharacterSelectFragment extends Fragment {
     private CharacterSelectAdapter mAdapter;
     private List<CharacterModel> mCharacters;
     private int mCurrentCharacterId;
+    private CharacterSelectListener mListener;
 
     /**
      * Generates a new instance of {@link CharacterSelectFragment}
@@ -72,6 +73,17 @@ public class CharacterSelectFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         return v;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof CharacterSelectListener) {
+            mListener = (CharacterSelectListener) context;
+        } else {
+            throw new ClassCastException("CharacterSelectFragment - Context was not instance of CharacterSelectListener");
+        }
     }
 
     class CharacterSelectAdapter extends RecyclerView.Adapter<CharacterSelectAdapter.CharacterSelectViewHolder> {
@@ -124,7 +136,6 @@ public class CharacterSelectFragment extends Fragment {
 
                 Glide.with(mContext)
                         .load(mCharacter.getIcon())
-                        .skipMemoryCache(true)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(mCharacterImage);
                 mCharacterName.setText(mCharacter.getName());
@@ -134,13 +145,12 @@ public class CharacterSelectFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                if (mCurrentCharacterId == mCharacter.getId()) {
-                    // should raise this click event to the activity
-                    //getParentFragment().getActivity().finish();
-                } else {
-                    // set as new
-                }
+                mListener.onCharacterSelected(mCharacter);
             }
         }
+    }
+
+    interface CharacterSelectListener {
+        void onCharacterSelected(CharacterModel model);
     }
 }

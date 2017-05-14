@@ -76,13 +76,13 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     }
 
     @Override
-    public List<CharacterModel> getAllCharacters() {
+    public ArrayList<CharacterModel> getAllCharacters() {
         Set<String> allCharIds = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS, null);
         if (allCharIds == null) {
             return null;
         }
 
-        List<CharacterModel> allModels = new ArrayList<>();
+        ArrayList<CharacterModel> allModels = new ArrayList<>();
         for (String charId : allCharIds) {
             int id = Integer.parseInt(charId);
             allModels.add(getCharacter(id));

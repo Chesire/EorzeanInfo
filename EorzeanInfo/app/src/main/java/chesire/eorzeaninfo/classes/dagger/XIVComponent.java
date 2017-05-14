@@ -9,7 +9,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {XIVModule.class})
 public interface XIVComponent {
-    void inject(CharacterSearchActivity activity);
-
     void inject(CharacterSearchFragment activity);
 }

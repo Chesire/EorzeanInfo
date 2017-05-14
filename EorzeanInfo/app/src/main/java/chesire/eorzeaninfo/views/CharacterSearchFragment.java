@@ -59,6 +59,11 @@ public class CharacterSearchFragment extends Fragment {
 
     private CharacterSearchListener mListener;
 
+    /**
+     * Generates a new instance of {@link CharacterSearchFragment}
+     *
+     * @return New instance of the {@link CharacterSearchFragment}
+     */
     public static CharacterSearchFragment newInstance() {
         return new CharacterSearchFragment();
     }
@@ -84,7 +89,7 @@ public class CharacterSearchFragment extends Fragment {
         if (context instanceof CharacterSearchListener) {
             mListener = (CharacterSearchListener) context;
         } else {
-            throw new ClassCastException("CharacterSearchFragment - Context was not instance of CharacterSearchInstance");
+            throw new ClassCastException("CharacterSearchFragment - Context was not instance of CharacterSearchListener");
         }
     }
 
