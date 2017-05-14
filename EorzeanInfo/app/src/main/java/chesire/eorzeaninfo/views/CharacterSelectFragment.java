@@ -68,6 +68,7 @@ public class CharacterSelectFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mCharacters = getArguments().getParcelableArrayList(CHARACTERS_TAG);
+        mCurrentCharacterId = mCharacterStorage.getCurrentCharacter();
         View v = inflater.inflate(R.layout.fragment_character_select, container, false);
         ButterKnife.bind(this, v);
 
