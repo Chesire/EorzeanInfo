@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import chesire.eorzeaninfo.LaunchActivity;
 import chesire.eorzeaninfo.views.CharacterProfileActivity;
 import chesire.eorzeaninfo.views.CharacterSearchDialogFragment;
+import chesire.eorzeaninfo.views.CharacterSelectFragment;
 import dagger.Component;
 
 @Singleton
@@ -15,4 +16,6 @@ public interface CharacterStorageComponent {
     void inject(LaunchActivity activity);
 
     void inject(CharacterSearchDialogFragment fragment);
+
+    void inject(CharacterSelectFragment fragment);
 }

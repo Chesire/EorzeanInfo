@@ -6,7 +6,9 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
@@ -71,5 +73,36 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     @Override
     public int getCurrentCharacter() {
         return mSharedPreferences.getInt(PREF_CURRENT_CHARACTER_ID, 0);
+    }
+
+    @Override
+    public List<CharacterModel> getAllCharacters() {
+        Set<String> allCharIds = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS, null);
+        if (allCharIds == null) {
+            return null;
+        }
+
+        List<CharacterModel> allModels = new ArrayList<>();
+        for (String charId : allCharIds) {
+            int id = Integer.parseInt(charId);
+            allModels.add(getCharacter(id));
+        }
+
+        return allModels;
+    }
+
+    @Override
+    public List<Integer> getAllCharacterIds() {
+        Set<String> allCharIds = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS, null);
+        if (allCharIds == null) {
+            return null;
+        }
+
+        List<Integer> allIds = new ArrayList<>();
+        for (String charId : allCharIds) {
+            allIds.add(Integer.parseInt(charId));
+        }
+
+        return allIds;
     }
 }
