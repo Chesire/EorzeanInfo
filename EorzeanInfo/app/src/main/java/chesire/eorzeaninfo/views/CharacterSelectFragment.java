@@ -30,6 +30,7 @@ import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 public class CharacterSelectFragment extends Fragment {
     private static String CHARACTERS_TAG = "CHARACTERS_TAG";
+    private static String SHOW_FAB_TAG = "SHOW_FAB_TAG";
 
     @BindView(R.id.character_select_card_list)
     RecyclerView mRecyclerView;
@@ -50,10 +51,11 @@ public class CharacterSelectFragment extends Fragment {
      * @param models List of characters pulled from the api
      * @return New instance of the {@link CharacterSelectFragment}
      */
-    public static CharacterSelectFragment newInstance(ArrayList<CharacterModel> models) {
+    public static CharacterSelectFragment newInstance(ArrayList<CharacterModel> models, boolean showFab) {
         CharacterSelectFragment fragment = new CharacterSelectFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(CHARACTERS_TAG, models);
+        args.putBoolean(SHOW_FAB_TAG, showFab);
         fragment.setArguments(args);
 
         return fragment;
@@ -77,6 +79,7 @@ public class CharacterSelectFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         mNoCharactersFoundText.setVisibility(mCharacters == null ? View.VISIBLE : View.GONE);
+        ButterKnife.findById(v, R.id.character_select_fab).setVisibility(getArguments().getBoolean(SHOW_FAB_TAG) ? View.VISIBLE : View.GONE);
 
         return v;
     }

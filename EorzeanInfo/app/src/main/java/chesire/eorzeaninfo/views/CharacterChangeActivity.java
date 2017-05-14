@@ -41,7 +41,7 @@ public class CharacterChangeActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.character_change_container, CharacterSelectFragment.newInstance(mCharacterStorage.getAllCharacters()), CHARACTER_SELECT_TAG)
+                    .add(R.id.character_change_container, CharacterSelectFragment.newInstance(mCharacterStorage.getAllCharacters(), true), CHARACTER_SELECT_TAG)
                     .commit();
             if (getIntent().getBooleanExtra(LOAD_INTO_SEARCH_TAG, false)) {
                 getSupportFragmentManager()
@@ -74,7 +74,7 @@ public class CharacterChangeActivity extends AppCompatActivity
     public void onCharactersFound(ArrayList<CharacterModel> models) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.character_change_container, CharacterSelectFragment.newInstance(models), CHARACTER_SELECT_TAG)
+                .replace(R.id.character_change_container, CharacterSelectFragment.newInstance(models, false), CHARACTER_SELECT_TAG)
                 .addToBackStack(null)
                 .commit();
     }
