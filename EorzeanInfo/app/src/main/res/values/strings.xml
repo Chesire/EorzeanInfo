@@ -16,6 +16,7 @@
     <string name="first_launch_body_1">Body 1</string>
     <string name="first_launch_body_2">Body 2</string>
     <string name="first_launch_body_3">Body 3</string>
+    <string name="nav_switch_character">Switch Character</string>
 
 
     <string name="title_activity_character_profile">CharacterProfileActivity</string>

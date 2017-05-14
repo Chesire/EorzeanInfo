@@ -130,6 +130,8 @@ public class CharacterProfileActivity extends AppCompatActivity implements Navig
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_switch_character) {
+            
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
