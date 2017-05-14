@@ -33,4 +33,13 @@
         </menu>
     </item>
 
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/nav_switch_character"
+                android:icon="@drawable/ic_compare_arrows_black"
+                android:title="@string/nav_switch_character" />
+        </menu>
+    </item>
+
 </menu>

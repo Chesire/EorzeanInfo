@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/search_character_name"
             android:inputType="textCapWords"
-            android:lines="1"/>
+            android:lines="1" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.v7.widget.AppCompatTextView
@@ -65,11 +65,11 @@
         android:id="@+id/character_search_progress_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="8dp"
-        android:visibility="invisible"/>
+        android:indeterminate="true"
+        android:visibility="invisible" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/character_search_button"

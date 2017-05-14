@@ -8,8 +8,8 @@ import android.preference.PreferenceManager;
 import javax.inject.Inject;
 
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
+import chesire.eorzeaninfo.views.CharacterChangeActivity;
 import chesire.eorzeaninfo.views.CharacterProfileActivity;
-import chesire.eorzeaninfo.views.CharacterSearchActivity;
 import chesire.eorzeaninfo.views.FirstLaunchActivity;
 
 /**
@@ -29,7 +29,8 @@ public class LaunchActivity extends Activity {
         Intent loadActivityIntent;
         if (mCharacterStorage.getCurrentCharacter() == CharacterStorage.NO_CHARACTER_ID) {
             if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.SHARED_PREFERENCE_FIRST_LAUNCH_COMPLETED), false)) {
-                loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
+                loadActivityIntent = new Intent(this, CharacterChangeActivity.class);
+                loadActivityIntent.putExtra(CharacterChangeActivity.LOAD_INTO_SEARCH_TAG, true);
             } else {
                 loadActivityIntent = new Intent(this, FirstLaunchActivity.class);
             }

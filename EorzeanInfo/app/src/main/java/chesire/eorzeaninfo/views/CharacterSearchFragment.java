@@ -1,17 +1,23 @@
 package chesire.eorzeaninfo.views;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -23,16 +29,14 @@ import butterknife.OnEditorAction;
 import butterknife.OnItemSelected;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
+import chesire.eorzeaninfo.classes.CharacterModel;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Activity used for searching for a new character to use
- */
-public class CharacterSearchActivity extends AppCompatActivity {
-    private static String TAG = "CharacterSearchActivity";
+public class CharacterSearchFragment extends Fragment {
+    private static String TAG = "CharacterSearchFragment";
 
     @Inject
     XIVDBService mXIVClient;
@@ -53,16 +57,40 @@ public class CharacterSearchActivity extends AppCompatActivity {
     @BindArray(R.array.data_centres)
     String[] mDataCentres;
 
+    private CharacterSearchListener mListener;
+
+    /**
+     * Generates a new instance of {@link CharacterSearchFragment}
+     *
+     * @return New instance of the {@link CharacterSearchFragment}
+     */
+    public static CharacterSearchFragment newInstance() {
+        return new CharacterSearchFragment();
+    }
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_character_search);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_character_search, container, false);
 
-        ((EorzeanInfoApp) getApplication()).getXIVComponent().inject(this);
-        ButterKnife.bind(this);
+        ((EorzeanInfoApp) getActivity().getApplication()).getXIVComponent().inject(this);
+        ButterKnife.bind(this, v);
 
-        ArrayAdapter<String> dataCentreAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, mDataCentres);
+        ArrayAdapter<String> dataCentreAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, mDataCentres);
         mDataCentreSelector.setAdapter(dataCentreAdapter);
+
+        return v;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof CharacterSearchListener) {
+            mListener = (CharacterSearchListener) context;
+        } else {
+            throw new ClassCastException("CharacterSearchFragment - Context was not instance of CharacterSearchListener");
+        }
     }
 
     @OnItemSelected(R.id.character_search_data_centre_selection)
@@ -104,7 +132,7 @@ public class CharacterSearchActivity extends AppCompatActivity {
 
         mCharacterServerSelector.setVisibility(selectedServerList.length == 0 ? View.INVISIBLE : View.VISIBLE);
         mCharacterServerLabel.setVisibility(selectedServerList.length == 0 ? View.INVISIBLE : View.VISIBLE);
-        ArrayAdapter<String> serverAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, selectedServerList);
+        ArrayAdapter<String> serverAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, selectedServerList);
         mCharacterServerSelector.setAdapter(serverAdapter);
     }
 
@@ -121,7 +149,7 @@ public class CharacterSearchActivity extends AppCompatActivity {
 
     @OnClick(R.id.character_search_button)
     void searchClicked() {
-        String searchName = mCharacterNameInput.getEditableText().toString();
+        String searchName = mCharacterNameInput.getEditableText().toString().trim();
         if (searchName.equals("")) {
             return;
         }
@@ -145,10 +173,9 @@ public class CharacterSearchActivity extends AppCompatActivity {
                     displayInProgressIndicator(false);
 
                     if (response.body().characters.results.isEmpty()) {
-                        Toast.makeText(CharacterSearchActivity.this, getString(R.string.search_no_characters_found), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.search_no_characters_found), Toast.LENGTH_SHORT).show();
                     } else {
-                        CharacterSearchDialogFragment searchDialog = CharacterSearchDialogFragment.newInstance(response.body().characters.results);
-                        searchDialog.show(getSupportFragmentManager(), CharacterSearchDialogFragment.TAG);
+                        mListener.onCharactersFound(response.body().characters.results);
                     }
                 }
 
@@ -157,7 +184,7 @@ public class CharacterSearchActivity extends AppCompatActivity {
                     Log.e(TAG, "Error sending search request - " + t);
 
                     displayInProgressIndicator(false);
-                    Toast.makeText(CharacterSearchActivity.this, getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception ex) {
@@ -175,5 +202,17 @@ public class CharacterSearchActivity extends AppCompatActivity {
             mSearchingProgress.setVisibility(View.INVISIBLE);
             mSearchButton.setVisibility(View.VISIBLE);
         }
+    }
+
+    /**
+     * Interface to callback to the container Activity when characters have been found
+     */
+    interface CharacterSearchListener {
+        /**
+         * Executed when the list of characters is found
+         *
+         * @param models List of generated character models
+         */
+        void onCharactersFound(ArrayList<CharacterModel> models);
     }
 }

@@ -21,13 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.CharacterSearchActivity" />
-        <activity android:name=".views.CharacterSelect" />
+        <activity android:name=".views.FirstLaunchActivity" />
         <activity
             android:name=".views.CharacterProfileActivity"
             android:label="@string/title_activity_character_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.FirstLaunchActivity"></activity>
+        <activity
+            android:name=".views.CharacterChangeActivity"
+            android:label="@string/title_activity_character_select"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -1,5 +1,8 @@
 package chesire.eorzeaninfo.interfaces;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import chesire.eorzeaninfo.classes.CharacterModel;
 
 /**
@@ -39,4 +42,18 @@ public interface CharacterStorage {
      * @return 0 if character not found, otherwise will return the id of the character
      */
     int getCurrentCharacter();
+
+    /**
+     * Get a CharacterModel for every known character
+     *
+     * @return List of every saved character model
+     */
+    ArrayList<CharacterModel> getAllCharacters();
+
+    /**
+     * Get every CharacterModel id
+     *
+     * @return List of every saved character model id
+     */
+    List<Integer> getAllCharacterIds();
 }

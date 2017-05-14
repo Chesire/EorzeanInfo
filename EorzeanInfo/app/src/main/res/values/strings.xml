@@ -16,7 +16,9 @@
     <string name="first_launch_body_1">Body 1</string>
     <string name="first_launch_body_2">Body 2</string>
     <string name="first_launch_body_3">Body 3</string>
-
+    <string name="nav_switch_character">Switch Character</string>
+    <string name="select_character_title">Select Character</string>
+    <string name="select_character_no_characters_found">No characters found, please add a character to begin</string>
 
     <string name="title_activity_character_profile">CharacterProfileActivity</string>
 
@@ -110,4 +112,5 @@
     <string name="server_chaos_ragnarok">Ragnarok"</string>
     <string name="server_chaos_shiva">Shiva"</string>
     <string name="server_chaos_zodiark">Zodiark"</string>
+    <string name="title_activity_character_select">CharacterSelectActivity</string>
 </resources>
