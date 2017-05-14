@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.CharacterModel;
@@ -54,8 +53,8 @@ public class CharacterChangeActivity extends AppCompatActivity
         }
     }
 
-    @OnClick(R.id.character_select_fab)
-    void onFabClicked() {
+    @Override
+    public void onFabClicked() {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.character_change_container, CharacterSearchFragment.newInstance(), CHARACTER_SEARCH_TAG)

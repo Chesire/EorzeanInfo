@@ -92,7 +92,8 @@ public class FirstLaunchActivity extends AppCompatActivity {
                 .putBoolean(getString(R.string.SHARED_PREFERENCE_FIRST_LAUNCH_COMPLETED), true)
                 .apply();
 
-        Intent loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
+        Intent loadActivityIntent = new Intent(this, CharacterChangeActivity.class);
+        loadActivityIntent.putExtra(CharacterChangeActivity.LOAD_INTO_SEARCH_TAG, true);
         loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loadActivityIntent);
         finish();

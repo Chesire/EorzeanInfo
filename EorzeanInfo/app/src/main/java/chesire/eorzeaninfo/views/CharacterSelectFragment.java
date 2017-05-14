@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.CharacterModel;
@@ -74,9 +75,7 @@ public class CharacterSelectFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        if (mCharacters == null) {
-            mNoCharactersFoundText.setVisibility(mCharacters == null ? View.VISIBLE : View.GONE);
-        }
+        mNoCharactersFoundText.setVisibility(mCharacters == null ? View.VISIBLE : View.GONE);
 
         return v;
     }
@@ -90,6 +89,11 @@ public class CharacterSelectFragment extends Fragment {
         } else {
             throw new ClassCastException("CharacterSelectFragment - Context was not instance of CharacterSelectListener");
         }
+    }
+
+    @OnClick(R.id.character_select_fab)
+    void onFabClicked() {
+        mListener.onFabClicked();
     }
 
     class CharacterSelectAdapter extends RecyclerView.Adapter<CharacterSelectAdapter.CharacterSelectViewHolder> {
@@ -160,7 +164,20 @@ public class CharacterSelectFragment extends Fragment {
         }
     }
 
+    /**
+     * Interface to callback to the container Activity
+     */
     interface CharacterSelectListener {
+        /**
+         * Executed when the fab button in CharacterSelectFragment has been clicked
+         */
+        void onFabClicked();
+
+        /**
+         * Executed when a character has been selected
+         *
+         * @param model The character model that was selected
+         */
         void onCharacterSelected(CharacterModel model);
     }
 }
