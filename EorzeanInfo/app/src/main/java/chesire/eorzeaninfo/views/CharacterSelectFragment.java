@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,6 +28,7 @@ import chesire.eorzeaninfo.classes.CharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 public class CharacterSelectFragment extends Fragment {
+    private static String CHARACTERS_TAG = "CHARACTERS_TAG";
 
     @BindView(R.id.character_select_card_list)
     RecyclerView mRecyclerView;
@@ -38,16 +40,30 @@ public class CharacterSelectFragment extends Fragment {
     private List<CharacterModel> mCharacters;
     private int mCurrentCharacterId;
 
+    /**
+     * Generates a new instance of {@link CharacterSelectFragment}
+     *
+     * @param models List of characters pulled from the api
+     * @return New instance of the {@link CharacterSelectFragment}
+     */
+    public static CharacterSelectFragment newInstance(ArrayList<CharacterModel> models) {
+        CharacterSelectFragment fragment = new CharacterSelectFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(CHARACTERS_TAG, models);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((EorzeanInfoApp) getActivity().getApplication()).getCharacterStorageComponent().inject(this);
-        mCharacters = mCharacterStorage.getAllCharacters();
-        mCurrentCharacterId = mCharacterStorage.getCurrentCharacter();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mCharacters = getArguments().getParcelableArrayList(CHARACTERS_TAG);
         View v = inflater.inflate(R.layout.fragment_character_select, container, false);
         ButterKnife.bind(this, v);
 
@@ -119,7 +135,8 @@ public class CharacterSelectFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mCurrentCharacterId == mCharacter.getId()) {
-                    getParentFragment().getActivity().finish();
+                    // should raise this click event to the activity
+                    //getParentFragment().getActivity().finish();
                 } else {
                     // set as new
                 }
