@@ -108,6 +108,11 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
                         .replace(R.id.character_profile_container, CharacterAchievementsFragment.newInstance())
                         .commit();
                 break;
+            case R.id.character_details_mounts:
+                break;
+
+            case R.id.character_details_minions:
+                break;
 
             case R.id.character_details_switch_character:
                 Intent selectCharacterIntent = new Intent(this, CharacterChangeActivity.class);

@@ -10,6 +10,14 @@
             android:id="@+id/character_details_achievements"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/character_details_achievements" />
+        <item
+            android:id="@+id/character_details_mounts"
+            android:icon="@drawable/ic_motorcycle_black"
+            android:title="@string/character_details_mounts" />
+        <item
+            android:id="@+id/character_details_minions"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/character_details_minions" />
     </group>
 
     <item android:title="@string/character_details_section_config">
