@@ -7,8 +7,10 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import chesire.eorzeaninfo.R;
 
 public class FirstLaunchActivity extends AppCompatActivity {
 
+    @BindView(R.id.first_launch_next_button)
+    AppCompatButton mNextButton;
     @BindView(R.id.first_launch_view_pager)
     ViewPager mViewPager;
     @BindView(R.id.first_launch_pager_tabs)
@@ -37,8 +41,33 @@ public class FirstLaunchActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        mViewPager.setAdapter(new FirstLaunchAdapter(this));
+        FirstLaunchAdapter adapter = new FirstLaunchAdapter(this);
+        mViewPager.setAdapter(adapter);
         mTabs.setupWithViewPager(mViewPager, true);
+        final int totalPageItems = adapter.getCount();
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // could use position offset to animate
+                Log.i("FIRSTLAUNCHACTIVITY", "positionOffset - " + positionOffset);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                // Position is 0 based
+                if (position + 1 == totalPageItems) {
+                    mNextButton.setText(getString(R.string.first_launch_done));
+                } else {
+                    mNextButton.setText(getString(R.string.first_launch_next));
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // Do nothing
+            }
+        });
     }
 
     @OnClick(R.id.first_launch_skip_button)
