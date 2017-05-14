@@ -2,10 +2,10 @@ package chesire.eorzeaninfo.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -16,8 +16,12 @@ import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.CharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
-public class CharacterChangeActivity extends AppCompatActivity implements CharacterSelectFragment.CharacterSelectListener {
-
+/**
+ * Activity used to change the currently selected character
+ */
+public class CharacterChangeActivity extends AppCompatActivity
+        implements CharacterSelectFragment.CharacterSelectListener, CharacterSearchFragment.CharacterSearchListener {
+    private static final String CHARACTER_SEARCH_TAG = "CHARACTER_SEARCH_TAG";
     private static final String CHARACTER_SELECT_TAG = "CHARACTER_SELECT_TAG";
 
     @Inject
@@ -43,9 +47,12 @@ public class CharacterChangeActivity extends AppCompatActivity implements Charac
     }
 
     @OnClick(R.id.character_select_fab)
-    void onFabClicked(View v) {
-        // go to the search fragment
-        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+    void onFabClicked() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.character_change_container, CharacterSearchFragment.newInstance(), CHARACTER_SEARCH_TAG)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
@@ -54,5 +61,14 @@ public class CharacterChangeActivity extends AppCompatActivity implements Charac
         Intent loadProfileIntent = new Intent(this, CharacterProfileActivity.class);
         loadProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loadProfileIntent);
+    }
+
+    @Override
+    public void onCharactersFound(ArrayList<CharacterModel> models) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.character_change_container, CharacterSelectFragment.newInstance(models), CHARACTER_SELECT_TAG)
+                .addToBackStack(null)
+                .commit();
     }
 }
