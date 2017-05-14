@@ -8,7 +8,7 @@
             android:title="@string/character_details_profile" />
         <item
             android:id="@+id/character_details_achievements"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_view_list_black"
             android:title="@string/character_details_achievements" />
         <item
             android:id="@+id/character_details_mounts"
