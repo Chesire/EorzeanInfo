@@ -20,7 +20,7 @@
                 android:title="@string/character_details_switch_character" />
             <item
                 android:id="@+id/character_details_settings"
-                android:icon="@drawable/ic_compare_arrows_black"
+                android:icon="@drawable/ic_settings_black"
                 android:title="@string/character_details_settings" />
         </menu>
     </item>
