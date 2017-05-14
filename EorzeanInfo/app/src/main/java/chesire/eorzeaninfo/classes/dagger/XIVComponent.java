@@ -2,7 +2,6 @@ package chesire.eorzeaninfo.classes.dagger;
 
 import javax.inject.Singleton;
 
-import chesire.eorzeaninfo.views.CharacterSearchActivity;
 import chesire.eorzeaninfo.views.CharacterSearchFragment;
 import dagger.Component;
 

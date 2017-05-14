@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.views.CharacterChangeActivity;
 import chesire.eorzeaninfo.views.CharacterProfileActivity;
-import chesire.eorzeaninfo.views.CharacterSearchActivity;
 import chesire.eorzeaninfo.views.FirstLaunchActivity;
 
 /**
