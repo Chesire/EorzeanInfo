@@ -2,6 +2,7 @@ package chesire.eorzeaninfo.views;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -21,6 +22,8 @@ public class FirstLaunchActivity extends AppCompatActivity {
 
     @BindView(R.id.first_launch_view_pager)
     ViewPager mViewPager;
+    @BindView(R.id.first_launch_pager_tabs)
+    TabLayout mTabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class FirstLaunchActivity extends AppCompatActivity {
         }
 
         mViewPager.setAdapter(new FirstLaunchAdapter(this));
+        mTabs.setupWithViewPager(mViewPager, true);
     }
 
     @OnClick(R.id.first_launch_skip_button)
@@ -82,11 +86,6 @@ public class FirstLaunchActivity extends AppCompatActivity {
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mContext.getString(FirstLaunchEnum.values()[position].getTitleResId());
         }
     }
 
