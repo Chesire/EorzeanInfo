@@ -32,6 +32,8 @@ public class CharacterSelectFragment extends Fragment {
 
     @BindView(R.id.character_select_card_list)
     RecyclerView mRecyclerView;
+    @BindView(R.id.character_select_no_character_found)
+    AppCompatTextView mNoCharactersFoundText;
 
     @Inject
     CharacterStorage mCharacterStorage;
@@ -72,6 +74,10 @@ public class CharacterSelectFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
+        if (mCharacters == null) {
+            mNoCharactersFoundText.setVisibility(mCharacters == null ? View.VISIBLE : View.GONE);
+        }
+
         return v;
     }
 
@@ -109,7 +115,11 @@ public class CharacterSelectFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return mCharacterModels.size();
+            if (mCharacterModels == null) {
+                return 0;
+            } else {
+                return mCharacterModels.size();
+            }
         }
 
         class CharacterSelectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

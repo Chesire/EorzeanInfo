@@ -23,6 +23,7 @@ public class CharacterChangeActivity extends AppCompatActivity
         implements CharacterSelectFragment.CharacterSelectListener, CharacterSearchFragment.CharacterSearchListener {
     private static final String CHARACTER_SEARCH_TAG = "CHARACTER_SEARCH_TAG";
     private static final String CHARACTER_SELECT_TAG = "CHARACTER_SELECT_TAG";
+    public static final String LOAD_INTO_SEARCH_TAG = "LOAD_INTO_SEARCH_TAG";
 
     @Inject
     CharacterStorage mCharacterStorage;
@@ -43,6 +44,13 @@ public class CharacterChangeActivity extends AppCompatActivity
                     .beginTransaction()
                     .add(R.id.character_change_container, CharacterSelectFragment.newInstance(mCharacterStorage.getAllCharacters()), CHARACTER_SELECT_TAG)
                     .commit();
+            if (getIntent().getBooleanExtra(LOAD_INTO_SEARCH_TAG, false)) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.character_change_container, CharacterSearchFragment.newInstance(), CHARACTER_SEARCH_TAG)
+                        .addToBackStack(null)
+                        .commit();
+            }
         }
     }
 
