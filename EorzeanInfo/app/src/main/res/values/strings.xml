@@ -7,6 +7,24 @@
     <string name="search_search_button">Search</string>
     <string name="search_failed_search">Failed to search, please try again</string>
     <string name="search_no_characters_found">No characters found</string>
+    <string name="first_launch_skip">Skip</string>
+    <string name="first_launch_next">Next</string>
+    <string name="first_launch_done">Done</string>
+    <string name="first_launch_title_1">Title 1</string>
+    <string name="first_launch_title_2">Title 2</string>
+    <string name="first_launch_title_3">Title 3</string>
+    <string name="first_launch_body_1">Body 1</string>
+    <string name="first_launch_body_2">Body 2</string>
+    <string name="first_launch_body_3">Body 3</string>
+
+
+    <string name="title_activity_character_profile">CharacterProfileActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
 
     <!-- Data Centres -->
     <string name="data_centre_any">Any</string>
@@ -92,10 +110,4 @@
     <string name="server_chaos_ragnarok">Ragnarok"</string>
     <string name="server_chaos_shiva">Shiva"</string>
     <string name="server_chaos_zodiark">Zodiark"</string>
-    <string name="title_activity_character_profile">CharacterProfileActivity</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
 </resources>
