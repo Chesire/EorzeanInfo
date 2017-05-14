@@ -24,11 +24,9 @@
         <activity android:name=".views.FirstLaunchActivity" />
         <activity
             android:name=".views.CharacterDetailsActivity"
-            android:label="@string/title_activity_character_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.CharacterChangeActivity"
-            android:label="@string/title_activity_character_select"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

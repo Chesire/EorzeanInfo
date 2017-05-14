@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Eorzean Info</string>
+
     <string name="search_character_name">Character Name</string>
     <string name="search_character_server">Server</string>
     <string name="search_data_centre_label">Data Centre</string>
@@ -7,6 +8,7 @@
     <string name="search_search_button">Search</string>
     <string name="search_failed_search">Failed to search, please try again</string>
     <string name="search_no_characters_found">No characters found</string>
+
     <string name="first_launch_skip">Skip</string>
     <string name="first_launch_next">Next</string>
     <string name="first_launch_done">Done</string>
@@ -16,16 +18,16 @@
     <string name="first_launch_body_1">Body 1</string>
     <string name="first_launch_body_2">Body 2</string>
     <string name="first_launch_body_3">Body 3</string>
-    <string name="nav_switch_character">Switch Character</string>
+
     <string name="select_character_title">Select Character</string>
     <string name="select_character_no_characters_found">No characters found, please add a character to begin</string>
 
-    <string name="title_activity_character_profile">CharacterProfileActivity</string>
+    <string name="character_details_profile">Profile</string>
+    <string name="character_details_achievements">Achievements</string>
+    <string name="character_details_switch_character">Switch Character</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
 
 
     <!-- Data Centres -->
@@ -112,7 +114,4 @@
     <string name="server_chaos_ragnarok">Ragnarok"</string>
     <string name="server_chaos_shiva">Shiva"</string>
     <string name="server_chaos_zodiark">Zodiark"</string>
-    <string name="title_activity_character_select">CharacterSelectActivity</string>
-    <string name="character_details_profile">Profile</string>
-    <string name="character_details_achievements">Achievements</string>
 </resources>
