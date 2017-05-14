@@ -8,5 +8,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = {XIVModule.class})
 public interface XIVComponent {
-    void inject(CharacterSearchFragment activity);
+    void inject(CharacterSearchFragment fragment);
 }
