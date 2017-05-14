@@ -1,7 +1,9 @@
 package chesire.eorzeaninfo.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -72,12 +74,28 @@ public class FirstLaunchActivity extends AppCompatActivity {
 
     @OnClick(R.id.first_launch_skip_button)
     void onSkip() {
-
+        navigateToNextScreen();
     }
 
     @OnClick(R.id.first_launch_next_button)
     void onNext() {
-        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+        if (mViewPager.getCurrentItem() != mViewPager.getChildCount()) {
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+        } else {
+            navigateToNextScreen();
+        }
+    }
+
+    private void navigateToNextScreen() {
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .edit()
+                .putBoolean(getString(R.string.SHARED_PREFERENCE_FIRST_LAUNCH_COMPLETED), true)
+                .apply();
+
+        Intent loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
+        loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loadActivityIntent);
+        finish();
     }
 
     private class FirstLaunchAdapter extends PagerAdapter {

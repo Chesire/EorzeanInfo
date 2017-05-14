@@ -3,6 +3,7 @@ package chesire.eorzeaninfo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import javax.inject.Inject;
 
@@ -27,14 +28,14 @@ public class LaunchActivity extends Activity {
 
         Intent loadActivityIntent;
         if (mCharacterStorage.getCurrentCharacter() == CharacterStorage.NO_CHARACTER_ID) {
-            loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
+            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.SHARED_PREFERENCE_FIRST_LAUNCH_COMPLETED), false)) {
+                loadActivityIntent = new Intent(this, CharacterSearchActivity.class);
+            } else {
+                loadActivityIntent = new Intent(this, FirstLaunchActivity.class);
+            }
         } else {
             loadActivityIntent = new Intent(this, CharacterProfileActivity.class);
         }
-
-        // DEBUG
-        loadActivityIntent = new Intent(this, FirstLaunchActivity.class);
-        // DEBUG
 
         loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loadActivityIntent);
