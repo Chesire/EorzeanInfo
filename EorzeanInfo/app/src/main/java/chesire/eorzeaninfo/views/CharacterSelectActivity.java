@@ -26,8 +26,7 @@ public class CharacterSelectActivity extends AppCompatActivity {
     @OnClick(R.id.character_select_fab)
     void onFabClicked(View v) {
         // go to the search fragment
-        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
 }

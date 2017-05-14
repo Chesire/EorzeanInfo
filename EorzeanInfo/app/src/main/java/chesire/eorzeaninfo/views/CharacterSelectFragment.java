@@ -36,12 +36,14 @@ public class CharacterSelectFragment extends Fragment {
 
     private CharacterSelectAdapter mAdapter;
     private List<CharacterModel> mCharacters;
+    private int mCurrentCharacterId;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((EorzeanInfoApp) getActivity().getApplication()).getCharacterStorageComponent().inject(this);
         mCharacters = mCharacterStorage.getAllCharacters();
+        mCurrentCharacterId = mCharacterStorage.getCurrentCharacter();
     }
 
     @Override
@@ -60,7 +62,7 @@ public class CharacterSelectFragment extends Fragment {
         private Context mContext;
         private List<CharacterModel> mCharacterModels;
 
-        public CharacterSelectAdapter(List<CharacterModel> characterModels) {
+        CharacterSelectAdapter(List<CharacterModel> characterModels) {
             mCharacterModels = characterModels;
         }
 
@@ -89,6 +91,8 @@ public class CharacterSelectFragment extends Fragment {
             AppCompatTextView mCharacterName;
             @BindView(R.id.character_select_item_server)
             AppCompatTextView mCharacterServer;
+            @BindView(R.id.character_select_item_current)
+            AppCompatTextView mCurrentCharacterMarker;
 
             private CharacterModel mCharacter;
 
@@ -109,11 +113,16 @@ public class CharacterSelectFragment extends Fragment {
                         .into(mCharacterImage);
                 mCharacterName.setText(mCharacter.getName());
                 mCharacterServer.setText(mCharacter.getServer());
+                mCurrentCharacterMarker.setVisibility(mCurrentCharacterId == mCharacter.getId() ? View.VISIBLE : View.INVISIBLE);
             }
 
             @Override
             public void onClick(View v) {
-
+                if (mCurrentCharacterId == mCharacter.getId()) {
+                    getParentFragment().getActivity().finish();
+                } else {
+                    // set as new
+                }
             }
         }
     }
