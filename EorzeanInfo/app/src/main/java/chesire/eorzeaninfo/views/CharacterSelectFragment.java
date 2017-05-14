@@ -154,6 +154,7 @@ public class CharacterSelectFragment extends Fragment {
 
                 Glide.with(mContext)
                         .load(mCharacter.getIcon())
+                        .placeholder(R.drawable.ic_account_circle_black)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .into(mCharacterImage);
                 mCharacterName.setText(mCharacter.getName());
