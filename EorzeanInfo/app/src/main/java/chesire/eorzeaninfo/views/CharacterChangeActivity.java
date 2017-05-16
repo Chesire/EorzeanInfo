@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.classes.CharacterModel;
+import chesire.eorzeaninfo.classes.models.CharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 /**

@@ -12,6 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import chesire.eorzeaninfo.classes.models.CharacterModel;
+import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
 import retrofit2.Call;
@@ -123,6 +125,14 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
                 @Override
                 public void onResponse(Call<DetailedCharacterModel> call, Response<DetailedCharacterModel> response) {
                     String s = "";
+                    mSharedPreferences.edit()
+                            .putString(String.format("test%1$s", response.body().getId()), new Gson().toJson(response.body()))
+                            .apply();
+
+                    String res = mSharedPreferences.getString(String.format("test%1$s", response.body().getId()), null);
+
+                    DetailedCharacterModel d = new Gson().fromJson(res, DetailedCharacterModel.class);
+                    String t = "";
                 }
 
                 @Override

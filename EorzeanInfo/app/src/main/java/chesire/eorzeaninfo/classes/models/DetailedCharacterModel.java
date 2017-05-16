@@ -1,4 +1,4 @@
-package chesire.eorzeaninfo.classes;
+package chesire.eorzeaninfo.classes.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

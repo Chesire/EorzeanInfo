@@ -29,7 +29,7 @@ import butterknife.OnEditorAction;
 import butterknife.OnItemSelected;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.classes.CharacterModel;
+import chesire.eorzeaninfo.classes.models.CharacterModel;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
 import retrofit2.Call;
 import retrofit2.Callback;

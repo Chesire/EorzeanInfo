@@ -2,8 +2,8 @@ package chesire.eorzeaninfo.interfaces;
 
 import java.util.ArrayList;
 
-import chesire.eorzeaninfo.classes.CharacterModel;
-import chesire.eorzeaninfo.classes.DetailedCharacterModel;
+import chesire.eorzeaninfo.classes.models.CharacterModel;
+import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.classes.CharacterModel;
+import chesire.eorzeaninfo.classes.models.CharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 public class CharacterDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
