@@ -34,15 +34,15 @@ public class DetailedCharacterModel implements Parcelable {
         dest.writeParcelable(data, flags);
     }
 
-    public static final Creator<CharacterModel> CREATOR = new Creator<CharacterModel>() {
+    public static final Creator<BasicCharacterModel> CREATOR = new Creator<BasicCharacterModel>() {
         @Override
-        public CharacterModel createFromParcel(Parcel in) {
-            return new CharacterModel(in);
+        public BasicCharacterModel createFromParcel(Parcel in) {
+            return new BasicCharacterModel(in);
         }
 
         @Override
-        public CharacterModel[] newArray(int size) {
-            return new CharacterModel[size];
+        public BasicCharacterModel[] newArray(int size) {
+            return new BasicCharacterModel[size];
         }
     };
 }

@@ -2,7 +2,7 @@ package chesire.eorzeaninfo.interfaces;
 
 import java.util.ArrayList;
 
-import chesire.eorzeaninfo.classes.models.CharacterModel;
+import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
 import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -22,7 +22,7 @@ public interface XIVDBService {
         public Characters characters;
 
         public class Characters {
-            public ArrayList<CharacterModel> results;
+            public ArrayList<BasicCharacterModel> results;
         }
     }
 }

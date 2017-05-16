@@ -6,13 +6,13 @@ import android.os.Parcelable;
 /**
  * Model for a singular character object
  */
-public class CharacterModel implements Parcelable {
+public class BasicCharacterModel implements Parcelable {
     private String icon;
     private int id;
     private String name;
     private String server;
 
-    protected CharacterModel(Parcel in) {
+    protected BasicCharacterModel(Parcel in) {
         icon = in.readString();
         id = in.readInt();
         name = in.readString();
@@ -70,15 +70,15 @@ public class CharacterModel implements Parcelable {
         dest.writeString(server);
     }
 
-    public static final Creator<CharacterModel> CREATOR = new Creator<CharacterModel>() {
+    public static final Creator<BasicCharacterModel> CREATOR = new Creator<BasicCharacterModel>() {
         @Override
-        public CharacterModel createFromParcel(Parcel in) {
-            return new CharacterModel(in);
+        public BasicCharacterModel createFromParcel(Parcel in) {
+            return new BasicCharacterModel(in);
         }
 
         @Override
-        public CharacterModel[] newArray(int size) {
-            return new CharacterModel[size];
+        public BasicCharacterModel[] newArray(int size) {
+            return new BasicCharacterModel[size];
         }
     };
 }

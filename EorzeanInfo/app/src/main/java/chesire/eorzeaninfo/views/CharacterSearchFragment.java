@@ -29,7 +29,7 @@ import butterknife.OnEditorAction;
 import butterknife.OnItemSelected;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.classes.models.CharacterModel;
+import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -213,6 +213,6 @@ public class CharacterSearchFragment extends Fragment {
          *
          * @param models List of generated character models
          */
-        void onCharactersFound(ArrayList<CharacterModel> models);
+        void onCharactersFound(ArrayList<BasicCharacterModel> models);
     }
 }

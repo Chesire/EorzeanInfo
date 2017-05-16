@@ -3,7 +3,7 @@ package chesire.eorzeaninfo.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-import chesire.eorzeaninfo.classes.models.CharacterModel;
+import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
 
 /**
  * Used to store and retrieve information about a character from within the Android system
@@ -19,20 +19,20 @@ public interface CharacterStorage {
      *
      * @param model Model to add
      */
-    void addCharacter(CharacterModel model);
+    void addCharacter(BasicCharacterModel model);
 
     /**
      * Get the character from the list of known characters in storage
      *
      * @param id The id of the character to pull from storage
-     * @return CharacterModel of the found character, or null if not found
+     * @return BasicCharacterModel of the found character, or null if not found
      */
-    CharacterModel getCharacter(int id);
+    BasicCharacterModel getCharacter(int id);
 
     /**
      * Sets the currently selected character id, which can then be retrieved with getCurrentCharacter
      *
-     * @param id id from a CharacterModel to set as the current character
+     * @param id id from a BasicCharacterModel to set as the current character
      */
     void setCurrentCharacter(int id);
 
@@ -44,14 +44,14 @@ public interface CharacterStorage {
     int getCurrentCharacter();
 
     /**
-     * Get a CharacterModel for every known character
+     * Get a BasicCharacterModel for every known character
      *
      * @return List of every saved character model
      */
-    ArrayList<CharacterModel> getAllCharacters();
+    ArrayList<BasicCharacterModel> getAllCharacters();
 
     /**
-     * Get every CharacterModel id
+     * Get every BasicCharacterModel id
      *
      * @return List of every saved character model id
      */

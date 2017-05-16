@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import chesire.eorzeaninfo.classes.models.CharacterModel;
+import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
 import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
@@ -44,7 +44,7 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     }
 
     @Override
-    public void addCharacter(CharacterModel model) {
+    public void addCharacter(BasicCharacterModel model) {
         mSharedPreferences.edit()
                 .putString(String.format(PREF_CHARACTER_DATA, model.getId()), new Gson().toJson(model))
                 .apply();
@@ -65,13 +65,13 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     }
 
     @Override
-    public CharacterModel getCharacter(int id) {
+    public BasicCharacterModel getCharacter(int id) {
         String character = mSharedPreferences.getString(String.format(PREF_CHARACTER_DATA, id), null);
         if (character == null) {
             return null;
         }
 
-        return new Gson().fromJson(character, CharacterModel.class);
+        return new Gson().fromJson(character, BasicCharacterModel.class);
     }
 
     @Override
@@ -87,13 +87,13 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     }
 
     @Override
-    public ArrayList<CharacterModel> getAllCharacters() {
+    public ArrayList<BasicCharacterModel> getAllCharacters() {
         Set<String> allCharIds = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS, null);
         if (allCharIds == null) {
             return null;
         }
 
-        ArrayList<CharacterModel> allModels = new ArrayList<>();
+        ArrayList<BasicCharacterModel> allModels = new ArrayList<>();
         for (String charId : allCharIds) {
             int id = Integer.parseInt(charId);
             allModels.add(getCharacter(id));

@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.classes.models.CharacterModel;
+import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 /**
@@ -64,7 +64,7 @@ public class CharacterChangeActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCharacterSelected(CharacterModel model) {
+    public void onCharacterSelected(BasicCharacterModel model) {
         mCharacterStorage.addCharacter(model);
         Intent loadProfileIntent = new Intent(this, CharacterDetailsActivity.class);
         loadProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -72,7 +72,7 @@ public class CharacterChangeActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCharactersFound(ArrayList<CharacterModel> models) {
+    public void onCharactersFound(ArrayList<BasicCharacterModel> models) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left, R.anim.slide_in_from_left, R.anim.slide_out_to_right)
