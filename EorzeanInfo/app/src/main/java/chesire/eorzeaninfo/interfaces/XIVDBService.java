@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import chesire.eorzeaninfo.classes.CharacterModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface XIVDBService {
@@ -12,6 +13,9 @@ public interface XIVDBService {
 
     @GET("search?order_field=name&order_direction=asc&one=characters&limit=60&strict=on")
     Call<SearchCharactersResponse> searchCharacters(@Query("server|et") String server, @Query("string") String characterName);
+
+    @GET("character/{id}")
+    Call<CharacterModel> getCharacter(@Path("id") int characterId);
 
     class SearchCharactersResponse {
         public Characters characters;
