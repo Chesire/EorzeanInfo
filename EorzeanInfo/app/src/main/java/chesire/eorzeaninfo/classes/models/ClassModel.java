@@ -8,12 +8,14 @@ public class ClassModel implements Parcelable {
     private int level;
     private int id;
     private float level_percent;
+    private String icon;
 
     protected ClassModel(Parcel in) {
         name = in.readString();
         level = in.readInt();
         id = in.readInt();
         level_percent = in.readFloat();
+        icon = in.readString();
     }
 
     @Override
@@ -22,6 +24,7 @@ public class ClassModel implements Parcelable {
         dest.writeInt(level);
         dest.writeInt(id);
         dest.writeFloat(level_percent);
+        dest.writeString(icon);
     }
 
     @Override
