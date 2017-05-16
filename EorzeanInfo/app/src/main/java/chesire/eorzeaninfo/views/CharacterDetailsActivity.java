@@ -3,9 +3,8 @@ package chesire.eorzeaninfo.views;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -31,7 +30,9 @@ import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.CharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
-public class CharacterProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class CharacterDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = "CharacterDetailActivity";
+
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
     AppCompatImageView mNavHeaderImage;
@@ -55,15 +56,6 @@ public class CharacterProfileActivity extends AppCompatActivity implements Navig
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -79,6 +71,13 @@ public class CharacterProfileActivity extends AppCompatActivity implements Navig
         mNavBodyText = ButterKnife.findById(headerView, R.id.nav_header_body_text);
 
         loadNavigationHeaderData();
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.character_profile_container, CharacterProfileFragment.newInstance())
+                    .commit();
+        }
     }
 
     @Override
@@ -92,48 +91,40 @@ public class CharacterProfileActivity extends AppCompatActivity implements Navig
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.character_profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        switch (id) {
+            case R.id.character_details_profile:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.character_profile_container, CharacterProfileFragment.newInstance())
+                        .commit();
+                break;
 
-        return super.onOptionsItemSelected(item);
-    }
+            case R.id.character_details_achievements:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.character_profile_container, CharacterAchievementsFragment.newInstance())
+                        .commit();
+                break;
+            case R.id.character_details_mounts:
+                break;
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+            case R.id.character_details_minions:
+                break;
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            case R.id.character_details_switch_character:
+                Intent selectCharacterIntent = new Intent(this, CharacterChangeActivity.class);
+                startActivity(selectCharacterIntent);
+                break;
 
-        } else if (id == R.id.nav_slideshow) {
+            case R.id.character_details_settings:
+                break;
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        } else if (id == R.id.nav_switch_character) {
-            Intent selectCharacterIntent = new Intent(this, CharacterChangeActivity.class);
-            startActivity(selectCharacterIntent);
+            default:
+                Log.d(TAG, "Unknown navigation item selected");
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -150,7 +141,7 @@ public class CharacterProfileActivity extends AppCompatActivity implements Navig
                     @Override
                     protected void setResource(Bitmap resource) {
                         RoundedBitmapDrawable circularBitmapDrawable =
-                                RoundedBitmapDrawableFactory.create(CharacterProfileActivity.this.getResources(), resource);
+                                RoundedBitmapDrawableFactory.create(CharacterDetailsActivity.this.getResources(), resource);
                         circularBitmapDrawable.setCircular(true);
                         mNavHeaderImage.setImageDrawable(circularBitmapDrawable);
                     }

@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.views.CharacterChangeActivity;
-import chesire.eorzeaninfo.views.CharacterProfileActivity;
+import chesire.eorzeaninfo.views.CharacterDetailsActivity;
 import chesire.eorzeaninfo.views.FirstLaunchActivity;
 
 /**
@@ -35,7 +35,7 @@ public class LaunchActivity extends Activity {
                 loadActivityIntent = new Intent(this, FirstLaunchActivity.class);
             }
         } else {
-            loadActivityIntent = new Intent(this, CharacterProfileActivity.class);
+            loadActivityIntent = new Intent(this, CharacterDetailsActivity.class);
         }
 
         loadActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

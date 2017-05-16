@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/character_details_profile"
+            android:icon="@drawable/ic_account_circle_black"
+            android:title="@string/character_details_profile" />
+        <item
+            android:id="@+id/character_details_achievements"
+            android:icon="@drawable/ic_view_list_black"
+            android:title="@string/character_details_achievements" />
+        <item
+            android:id="@+id/character_details_mounts"
+            android:icon="@drawable/ic_motorcycle_black"
+            android:title="@string/character_details_mounts" />
+        <item
+            android:id="@+id/character_details_minions"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/character_details_minions" />
+    </group>
+
+    <item android:title="@string/character_details_section_config">
+        <menu>
+            <item
+                android:id="@+id/character_details_switch_character"
+                android:icon="@drawable/ic_compare_arrows_black"
+                android:title="@string/character_details_switch_character" />
+            <item
+                android:id="@+id/character_details_settings"
+                android:icon="@drawable/ic_settings_black"
+                android:title="@string/character_details_settings" />
+        </menu>
+    </item>
+</menu>
