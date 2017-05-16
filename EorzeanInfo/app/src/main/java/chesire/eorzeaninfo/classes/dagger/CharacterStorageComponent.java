@@ -9,7 +9,7 @@ import chesire.eorzeaninfo.views.CharacterSelectFragment;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ContextModule.class, CharacterStorageModule.class})
+@Component(modules = {ContextModule.class, CharacterStorageModule.class, XIVModule.class})
 public interface CharacterStorageComponent {
     void inject(LaunchActivity activity);
 

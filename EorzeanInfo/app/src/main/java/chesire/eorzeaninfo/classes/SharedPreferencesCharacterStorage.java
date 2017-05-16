@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
+import chesire.eorzeaninfo.interfaces.XIVDBService;
 
 /**
  * Implementation of {@link CharacterStorage} that stores the character data in SharedPreferences
@@ -22,14 +23,16 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     private static String PREF_ALL_CHARACTERS = "PREF_ALL_CHARACTERS";
 
     private SharedPreferences mSharedPreferences;
+    private XIVDBService mXIVService;
 
     /**
      * Default constructor
      *
      * @param context Context used to get the instance of the SharedPreferences
      */
-    public SharedPreferencesCharacterStorage(Context context) {
+    public SharedPreferencesCharacterStorage(Context context, XIVDBService xivService) {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mXIVService = xivService;
     }
 
     @Override

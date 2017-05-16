@@ -23,13 +23,15 @@ public class EorzeanInfoApp extends Application {
     public void onCreate() {
         super.onCreate();
 
+        XIVModule xiv = new XIVModule(XIVDBService.SERVICE_ENDPOINT);
         mXIVComponent = DaggerXIVComponent.builder()
-                .xIVModule(new XIVModule(XIVDBService.SERVICE_ENDPOINT))
+                .xIVModule(xiv)
                 .build();
 
         mCharacterStorageComponent = DaggerCharacterStorageComponent.builder()
                 .contextModule(new ContextModule(this))
                 .characterStorageModule(new CharacterStorageModule())
+                .xIVModule(xiv)
                 .build();
     }
 
