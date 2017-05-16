@@ -3,6 +3,8 @@ package chesire.eorzeaninfo.classes.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.LinkedHashMap;
+
 public class CharacterDataModel implements Parcelable {
     private String name;
     private String server;
@@ -16,9 +18,10 @@ public class CharacterDataModel implements Parcelable {
     //private Guardian
     //private City
     //private Grand company
-    //private Class/Jobs
     //private Mounts
     //private Minions
+
+    private LinkedHashMap<String, ClassModel> classjobs;
 
     protected CharacterDataModel(Parcel in) {
         name = in.readString();
@@ -30,6 +33,13 @@ public class CharacterDataModel implements Parcelable {
         clan = in.readString();
         gender = in.readString();
         nameday = in.readString();
+        classjobs = new LinkedHashMap<>();
+        int size = in.readInt();
+        for (int i = 0; i < size; i++) {
+            String key = in.readString();
+            ClassModel value = in.readParcelable(ClassModel.class.getClassLoader());
+            classjobs.put(key, value);
+        }
     }
 
     /**
@@ -124,6 +134,11 @@ public class CharacterDataModel implements Parcelable {
         dest.writeString(clan);
         dest.writeString(gender);
         dest.writeString(nameday);
+        dest.writeInt(classjobs.size());
+        for (LinkedHashMap.Entry<String, ClassModel> entry : classjobs.entrySet()) {
+            dest.writeString(entry.getKey());
+            dest.writeParcelable(entry.getValue(), flags);
+        }
     }
 
     @Override
