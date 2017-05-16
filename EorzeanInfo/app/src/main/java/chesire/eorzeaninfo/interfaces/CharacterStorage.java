@@ -56,4 +56,6 @@ public interface CharacterStorage {
      * @return List of every saved character model id
      */
     List<Integer> getAllCharacterIds();
+
+    void updateCharacter(int id);
 }

@@ -11,7 +11,6 @@ public class CharacterModel implements Parcelable {
     private int id;
     private String name;
     private String server;
-    private String title;
 
     protected CharacterModel(Parcel in) {
         icon = in.readString();
@@ -82,5 +81,4 @@ public class CharacterModel implements Parcelable {
             return new CharacterModel[size];
         }
     };
-
 }

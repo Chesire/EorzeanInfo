@@ -29,7 +29,6 @@ import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.CharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
-import chesire.eorzeaninfo.interfaces.XIVDBService;
 
 public class CharacterDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "CharacterDetailActivity";
@@ -41,8 +40,6 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
     AppCompatTextView mNavBodyText;
     @Inject
     CharacterStorage mCharacterStorage;
-    @Inject
-    XIVDBService mXIVClient;
 
     private CharacterModel mCharacter;
 
@@ -55,6 +52,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
         ((EorzeanInfoApp) getApplication()).getCharacterStorageComponent().inject(this);
 
         mCharacter = mCharacterStorage.getCharacter(mCharacterStorage.getCurrentCharacter());
+        mCharacterStorage.updateCharacter(mCharacter.getId());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

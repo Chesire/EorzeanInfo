@@ -3,6 +3,7 @@ package chesire.eorzeaninfo.interfaces;
 import java.util.ArrayList;
 
 import chesire.eorzeaninfo.classes.CharacterModel;
+import chesire.eorzeaninfo.classes.DetailedCharacterModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -15,7 +16,7 @@ public interface XIVDBService {
     Call<SearchCharactersResponse> searchCharacters(@Query("server|et") String server, @Query("string") String characterName);
 
     @GET("character/{id}")
-    Call<CharacterModel> getCharacter(@Path("id") int characterId);
+    Call<DetailedCharacterModel> getCharacter(@Path("id") int characterId);
 
     class SearchCharactersResponse {
         public Characters characters;
