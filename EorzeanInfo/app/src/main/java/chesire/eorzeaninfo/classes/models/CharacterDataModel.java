@@ -3,7 +3,7 @@ package chesire.eorzeaninfo.classes.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.LinkedHashMap;
+import java.util.List;
 
 public class CharacterDataModel implements Parcelable {
     private String name;
@@ -20,8 +20,19 @@ public class CharacterDataModel implements Parcelable {
     //private Grand company
     //private Mounts
     //private Minions
+    private List<ClassModel> classjobs;
 
-    private LinkedHashMap<String, ClassModel> classjobs;
+    public ClassModel getCharacterClass(CharacterClasses cClass) {
+        ClassModel foundModel = null;
+        for (ClassModel model : classjobs) {
+            if (model.getId() == cClass.getId()) {
+                foundModel = model;
+                break;
+            }
+        }
+
+        return foundModel;
+    }
 
     protected CharacterDataModel(Parcel in) {
         name = in.readString();
@@ -33,13 +44,7 @@ public class CharacterDataModel implements Parcelable {
         clan = in.readString();
         gender = in.readString();
         nameday = in.readString();
-        classjobs = new LinkedHashMap<>();
-        int size = in.readInt();
-        for (int i = 0; i < size; i++) {
-            String key = in.readString();
-            ClassModel value = in.readParcelable(ClassModel.class.getClassLoader());
-            classjobs.put(key, value);
-        }
+        in.readList(classjobs, ClassModel.class.getClassLoader());
     }
 
     /**
@@ -134,11 +139,7 @@ public class CharacterDataModel implements Parcelable {
         dest.writeString(clan);
         dest.writeString(gender);
         dest.writeString(nameday);
-        dest.writeInt(classjobs.size());
-        for (LinkedHashMap.Entry<String, ClassModel> entry : classjobs.entrySet()) {
-            dest.writeString(entry.getKey());
-            dest.writeParcelable(entry.getValue(), flags);
-        }
+        dest.writeList(classjobs);
     }
 
     @Override

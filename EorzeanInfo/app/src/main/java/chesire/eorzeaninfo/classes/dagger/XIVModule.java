@@ -5,7 +5,9 @@ import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
+import chesire.eorzeaninfo.classes.models.CharacterDataModel;
 import chesire.eorzeaninfo.classes.models.ClassModel;
+import chesire.eorzeaninfo.classes.serializers.CharacterDataModelDeserializer;
 import chesire.eorzeaninfo.classes.serializers.ClassModelDeserializer;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
 import dagger.Module;
@@ -26,6 +28,7 @@ public class XIVModule {
     Retrofit provideRetrofit() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(ClassModel.class, new ClassModelDeserializer())
+                .registerTypeAdapter(CharacterDataModel.class, new CharacterDataModelDeserializer())
                 .create();
 
         return new Retrofit.Builder()

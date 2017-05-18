@@ -14,7 +14,7 @@ import chesire.eorzeaninfo.classes.models.ClassModel;
 public class ClassModelDeserializer implements JsonDeserializer<ClassModel> {
     @Override
     public ClassModel deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        // Rip the icon out of the "data" json, as that's all we want
+        // Rip the icon out of the "data" json, as that's all we want to add in
         JsonObject jsonObject = json.getAsJsonObject();
         JsonElement iconElement = (jsonObject.get("data")).getAsJsonObject().get("icon");
         jsonObject.add("icon", iconElement);
