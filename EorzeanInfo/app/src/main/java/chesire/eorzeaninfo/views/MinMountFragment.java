@@ -1,6 +1,8 @@
 package chesire.eorzeaninfo.views;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -9,7 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +26,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import chesire.eorzeaninfo.R;
+import chesire.eorzeaninfo.classes.GridSpacingItemDecoration;
+import chesire.eorzeaninfo.classes.UiUtils;
 import chesire.eorzeaninfo.parsing_library.models.MinMountModel;
 
 public class MinMountFragment extends Fragment {
@@ -80,7 +85,8 @@ public class MinMountFragment extends Fragment {
             ButterKnife.bind(this, layout);
 
             mRecycler.setAdapter(new MinMountItemAdapter(mModels));
-            mRecycler.setLayoutManager(new LinearLayoutManager(mContext));
+            mRecycler.setLayoutManager(new GridLayoutManager(mContext, 2));
+            mRecycler.addItemDecoration(new GridSpacingItemDecoration(2, UiUtils.convertDpToPx(4, getResources()), true));
 
             return layout;
         }
@@ -148,9 +154,11 @@ public class MinMountFragment extends Fragment {
             }
         }
 
-        class MinMountItemViewHolder extends RecyclerView.ViewHolder {
+        class MinMountItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             @BindView(R.id.min_mount_item_image)
             AppCompatImageView mImageView;
+            @BindView(R.id.min_mount_item_name)
+            AppCompatTextView mName;
 
             private MinMountModel mModel;
 
@@ -158,16 +166,25 @@ public class MinMountFragment extends Fragment {
                 super(itemView);
 
                 ButterKnife.bind(this, itemView);
+                itemView.setOnClickListener(this);
             }
 
             void bindModel(MinMountModel model) {
                 mModel = model;
 
+                mName.setText(model.getName());
                 Glide.with(mContext)
                         .load(mModel.getIcon())
                         .placeholder(R.drawable.ic_account_circle_black)
                         .into(mImageView);
             }
+
+            @Override
+            public void onClick(View v) {
+                Intent loadBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse(mModel.getUrl()));
+                startActivity(loadBrowser);
+            }
         }
     }
+
 }
