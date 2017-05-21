@@ -58,5 +58,12 @@ public interface CharacterStorage {
      */
     List<Integer> getAllCharacterIds();
 
-    void updateCharacter(int id);
+    /**
+     * Updates the character model data
+     *
+     * @param id       id of the character model to update
+     * @param callback Callback to execute when the update character call has finished
+     */
+    void updateCharacter(int id, UpdateCharacterCallback callback);
 }
+

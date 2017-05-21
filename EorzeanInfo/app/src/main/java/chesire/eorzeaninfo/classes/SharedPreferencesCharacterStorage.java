@@ -15,6 +15,7 @@ import java.util.Set;
 import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
 import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
+import chesire.eorzeaninfo.interfaces.UpdateCharacterCallback;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -118,7 +119,7 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     }
 
     @Override
-    public void updateCharacter(int id) {
+    public void updateCharacter(int id, final UpdateCharacterCallback callback) {
         try {
             Call<DetailedCharacterModel> charCall = mXIVService.getCharacter(id);
             charCall.enqueue(new Callback<DetailedCharacterModel>() {
@@ -127,20 +128,18 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
                     mSharedPreferences.edit()
                             .putString(String.format(PREF_CHARACTER_DATA, response.body().getId()), new Gson().toJson(response.body()))
                             .apply();
-
-                    // DEBUG read back out
-                    String res = mSharedPreferences.getString(String.format(PREF_CHARACTER_DATA, response.body().getId()), null);
-                    DetailedCharacterModel d = new Gson().fromJson(res, DetailedCharacterModel.class);
-                    String t = "";
+                    callback.onCharacterUpdate(response.body(), true);
                 }
 
                 @Override
                 public void onFailure(Call<DetailedCharacterModel> call, Throwable t) {
-                    String s = "";
+                    Log.e(TAG, "Error sending character request - " + t);
+                    callback.onCharacterUpdate(null, false);
                 }
             });
         } catch (Exception ex) {
             Log.e(TAG, "Error sending character request - " + ex);
+            callback.onCharacterUpdate(null, false);
         }
     }
 }
