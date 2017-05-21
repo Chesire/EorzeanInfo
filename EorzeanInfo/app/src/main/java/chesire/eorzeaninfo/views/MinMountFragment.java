@@ -22,6 +22,7 @@ import chesire.eorzeaninfo.parsing_library.models.MinMountModel;
 
 public class MinMountFragment extends Fragment {
     private static final String MODELS_TAG = "MODELS_TAG";
+    private static final int NUM_TABS = 3;
 
     @BindView(R.id.min_mount_tab_layout)
     TabLayout mTabs;
@@ -49,9 +50,6 @@ public class MinMountFragment extends Fragment {
 
         mPager.setAdapter(new MinMountAdapter(getContext()));
         mTabs.setupWithViewPager(mPager);
-        mTabs.getTabAt(0).setText("Test1");
-        mTabs.getTabAt(1).setText("Test2");
-        mTabs.getTabAt(0).setText("Test3");
 
         return v;
     }
@@ -80,12 +78,24 @@ public class MinMountFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 3;
+            return NUM_TABS;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "";
+            switch (position) {
+                case 0:
+                    return mContext.getString(R.string.min_mounts_acquired);
+
+                case 1:
+                    return mContext.getString(R.string.min_mounts_not_acquired);
+
+                case 2:
+                    return mContext.getString(R.string.min_mounts_all);
+
+                default:
+                    throw new IndexOutOfBoundsException("Unexpected value for MinMountFragment");
+            }
         }
 
         @Override
