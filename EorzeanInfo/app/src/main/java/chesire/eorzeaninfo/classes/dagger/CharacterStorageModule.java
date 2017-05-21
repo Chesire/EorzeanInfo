@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import chesire.eorzeaninfo.classes.SharedPreferencesCharacterStorage;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
+import chesire.eorzeaninfo.interfaces.XIVDBService;
 import dagger.Module;
 import dagger.Provides;
 
@@ -13,7 +14,7 @@ import dagger.Provides;
 public class CharacterStorageModule {
     @Provides
     @Singleton
-    CharacterStorage provideCharacterStorage(Context context) {
-        return new SharedPreferencesCharacterStorage(context);
+    CharacterStorage provideCharacterStorage(Context context, XIVDBService xivService) {
+        return new SharedPreferencesCharacterStorage(context, xivService);
     }
 }

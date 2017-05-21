@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.classes.CharacterModel;
+import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 public class CharacterSelectFragment extends Fragment {
@@ -41,7 +41,7 @@ public class CharacterSelectFragment extends Fragment {
     CharacterStorage mCharacterStorage;
 
     private CharacterSelectAdapter mAdapter;
-    private List<CharacterModel> mCharacters;
+    private List<BasicCharacterModel> mCharacters;
     private int mCurrentCharacterId;
     private CharacterSelectListener mListener;
 
@@ -51,7 +51,7 @@ public class CharacterSelectFragment extends Fragment {
      * @param models List of characters pulled from the api
      * @return New instance of the {@link CharacterSelectFragment}
      */
-    public static CharacterSelectFragment newInstance(ArrayList<CharacterModel> models, boolean showFab) {
+    public static CharacterSelectFragment newInstance(ArrayList<BasicCharacterModel> models, boolean showFab) {
         CharacterSelectFragment fragment = new CharacterSelectFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(CHARACTERS_TAG, models);
@@ -102,10 +102,10 @@ public class CharacterSelectFragment extends Fragment {
 
     class CharacterSelectAdapter extends RecyclerView.Adapter<CharacterSelectAdapter.CharacterSelectViewHolder> {
         private Context mContext;
-        private List<CharacterModel> mCharacterModels;
+        private List<BasicCharacterModel> mBasicCharacterModels;
 
-        CharacterSelectAdapter(List<CharacterModel> characterModels) {
-            mCharacterModels = characterModels;
+        CharacterSelectAdapter(List<BasicCharacterModel> basicCharacterModels) {
+            mBasicCharacterModels = basicCharacterModels;
         }
 
         @Override
@@ -118,15 +118,15 @@ public class CharacterSelectFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(CharacterSelectViewHolder holder, int position) {
-            holder.bindCharacter(mCharacterModels.get(position));
+            holder.bindCharacter(mBasicCharacterModels.get(position));
         }
 
         @Override
         public int getItemCount() {
-            if (mCharacterModels == null) {
+            if (mBasicCharacterModels == null) {
                 return 0;
             } else {
-                return mCharacterModels.size();
+                return mBasicCharacterModels.size();
             }
         }
 
@@ -140,7 +140,7 @@ public class CharacterSelectFragment extends Fragment {
             @BindView(R.id.character_select_item_current)
             AppCompatTextView mCurrentCharacterMarker;
 
-            private CharacterModel mCharacter;
+            private BasicCharacterModel mCharacter;
 
             CharacterSelectViewHolder(View itemView) {
                 super(itemView);
@@ -149,7 +149,7 @@ public class CharacterSelectFragment extends Fragment {
                 itemView.setOnClickListener(this);
             }
 
-            void bindCharacter(CharacterModel model) {
+            void bindCharacter(BasicCharacterModel model) {
                 mCharacter = model;
 
                 Glide.with(mContext)
@@ -183,6 +183,6 @@ public class CharacterSelectFragment extends Fragment {
          *
          * @param model The character model that was selected
          */
-        void onCharacterSelected(CharacterModel model);
+        void onCharacterSelected(BasicCharacterModel model);
     }
 }

@@ -22,6 +22,8 @@
     <string name="select_character_title">Select Character</string>
     <string name="select_character_no_characters_found">No characters found, please add a character to begin</string>
 
+    <string name="updating_currently_updating">Character details are currently updating...</string>
+
     <string name="character_details_section_config">Config</string>
     <string name="character_details_profile">Profile</string>
     <string name="character_details_achievements">Achievements</string>

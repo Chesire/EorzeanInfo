@@ -1,4 +1,4 @@
-package chesire.eorzeaninfo.classes;
+package chesire.eorzeaninfo.classes.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,27 +6,20 @@ import android.os.Parcelable;
 /**
  * Model for a singular character object
  */
-public class CharacterModel implements Parcelable {
+public class BasicCharacterModel implements Parcelable {
     private String icon;
     private int id;
-    private String last_updated;
     private String name;
     private String server;
-    private String url;
-    private String url_api;
-    private String url_type;
-    private String url_xivdb;
 
-    protected CharacterModel(Parcel in) {
+    protected BasicCharacterModel() {
+    }
+
+    protected BasicCharacterModel(Parcel in) {
         icon = in.readString();
         id = in.readInt();
-        last_updated = in.readString();
         name = in.readString();
         server = in.readString();
-        url = in.readString();
-        url_api = in.readString();
-        url_type = in.readString();
-        url_xivdb = in.readString();
     }
 
     /**
@@ -76,25 +69,19 @@ public class CharacterModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(icon);
         dest.writeInt(id);
-        dest.writeString(last_updated);
         dest.writeString(name);
         dest.writeString(server);
-        dest.writeString(url);
-        dest.writeString(url_api);
-        dest.writeString(url_type);
-        dest.writeString(url_xivdb);
     }
 
-    public static final Creator<CharacterModel> CREATOR = new Creator<CharacterModel>() {
+    public static final Creator<BasicCharacterModel> CREATOR = new Creator<BasicCharacterModel>() {
         @Override
-        public CharacterModel createFromParcel(Parcel in) {
-            return new CharacterModel(in);
+        public BasicCharacterModel createFromParcel(Parcel in) {
+            return new BasicCharacterModel(in);
         }
 
         @Override
-        public CharacterModel[] newArray(int size) {
-            return new CharacterModel[size];
+        public BasicCharacterModel[] newArray(int size) {
+            return new BasicCharacterModel[size];
         }
     };
-
 }

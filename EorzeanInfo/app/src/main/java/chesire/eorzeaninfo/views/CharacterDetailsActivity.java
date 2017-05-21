@@ -27,7 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.classes.CharacterModel;
+import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
+import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 public class CharacterDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,7 +42,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
     @Inject
     CharacterStorage mCharacterStorage;
 
-    private CharacterModel mCharacter;
+    private DetailedCharacterModel mCharacter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
