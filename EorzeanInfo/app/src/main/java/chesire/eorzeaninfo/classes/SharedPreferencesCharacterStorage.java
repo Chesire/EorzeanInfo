@@ -12,8 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
-import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
+import chesire.eorzeaninfo.parsing_library.models.BasicCharacterModel;
+import chesire.eorzeaninfo.parsing_library.models.DetailedCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.interfaces.UpdateCharacterCallback;
 import chesire.eorzeaninfo.interfaces.XIVDBService;

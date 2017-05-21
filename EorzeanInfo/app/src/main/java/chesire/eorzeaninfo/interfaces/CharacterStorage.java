@@ -3,8 +3,8 @@ package chesire.eorzeaninfo.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
-import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
+import chesire.eorzeaninfo.parsing_library.models.BasicCharacterModel;
+import chesire.eorzeaninfo.parsing_library.models.DetailedCharacterModel;
 
 /**
  * Used to store and retrieve information about a character from within the Android system

@@ -5,10 +5,10 @@ import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
-import chesire.eorzeaninfo.classes.models.CharacterDataModel;
-import chesire.eorzeaninfo.classes.models.ClassModel;
-import chesire.eorzeaninfo.classes.serializers.CharacterDataModelDeserializer;
-import chesire.eorzeaninfo.classes.serializers.ClassModelDeserializer;
+import chesire.eorzeaninfo.parsing_library.models.CharacterDataModel;
+import chesire.eorzeaninfo.parsing_library.models.ClassModel;
+import chesire.eorzeaninfo.parsing_library.serializers.CharacterDataModelDeserializer;
+import chesire.eorzeaninfo.parsing_library.serializers.ClassModelDeserializer;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
 import dagger.Module;
 import dagger.Provides;

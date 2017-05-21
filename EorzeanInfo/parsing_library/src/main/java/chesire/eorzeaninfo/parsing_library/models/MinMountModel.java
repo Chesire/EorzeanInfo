@@ -1,4 +1,4 @@
-package chesire.eorzeaninfo.classes.models;
+package chesire.eorzeaninfo.parsing_library.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,7 +12,7 @@ public class MinMountModel implements Parcelable {
     private String icon;
     private String url;
 
-    protected MinMountModel(Parcel in) {
+    private MinMountModel(Parcel in) {
         id = in.readInt();
         name = in.readString();
         icon = in.readString();

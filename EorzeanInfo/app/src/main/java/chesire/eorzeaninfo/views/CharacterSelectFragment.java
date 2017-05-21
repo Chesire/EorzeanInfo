@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
+import chesire.eorzeaninfo.parsing_library.models.BasicCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 public class CharacterSelectFragment extends Fragment {

@@ -1,10 +1,13 @@
-package chesire.eorzeaninfo.classes.models;
+package chesire.eorzeaninfo.parsing_library.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.List;
 
+/**
+ * Model used to hold all information about a character
+ */
 public class CharacterDataModel implements Parcelable {
     private String name;
     private String server;
@@ -22,6 +25,12 @@ public class CharacterDataModel implements Parcelable {
     private List<MinMountModel> mounts;
     private List<MinMountModel> minions;
 
+    /**
+     * Gets the model for the character class represented by cClass
+     *
+     * @param cClass Enum for which character class to get
+     * @return ClassModel for the represented class
+     */
     public ClassModel getCharacterClass(CharacterClasses cClass) {
         ClassModel foundModel = null;
         for (ClassModel model : classjobs) {

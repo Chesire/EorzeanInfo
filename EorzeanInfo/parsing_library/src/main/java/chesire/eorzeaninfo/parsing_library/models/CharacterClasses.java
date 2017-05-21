@@ -1,4 +1,4 @@
-package chesire.eorzeaninfo.classes.models;
+package chesire.eorzeaninfo.parsing_library.models;
 
 /**
  * Enumeration of all possible character classes
