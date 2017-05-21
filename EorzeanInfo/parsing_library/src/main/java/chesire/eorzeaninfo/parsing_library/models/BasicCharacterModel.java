@@ -1,4 +1,4 @@
-package chesire.eorzeaninfo.classes.models;
+package chesire.eorzeaninfo.parsing_library.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,7 +12,10 @@ public class BasicCharacterModel implements Parcelable {
     private String name;
     private String server;
 
-    protected BasicCharacterModel() {
+    /**
+     * Package-private constructor used for the {@link DetailedCharacterModel}
+     */
+    BasicCharacterModel() {
     }
 
     protected BasicCharacterModel(Parcel in) {

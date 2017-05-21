@@ -1,4 +1,4 @@
-package chesire.eorzeaninfo.classes.serializers;
+package chesire.eorzeaninfo.parsing_library.serializers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
@@ -9,8 +9,11 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
-import chesire.eorzeaninfo.classes.models.ClassModel;
+import chesire.eorzeaninfo.parsing_library.models.ClassModel;
 
+/**
+ * Serializer to parse out the correct data for a to get a ClassModel object
+ */
 public class ClassModelDeserializer implements JsonDeserializer<ClassModel> {
     @Override
     public ClassModel deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

@@ -1,4 +1,4 @@
-package chesire.eorzeaninfo.classes.serializers;
+package chesire.eorzeaninfo.parsing_library.serializers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,9 +12,12 @@ import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Set;
 
-import chesire.eorzeaninfo.classes.models.CharacterDataModel;
-import chesire.eorzeaninfo.classes.models.ClassModel;
+import chesire.eorzeaninfo.parsing_library.models.CharacterDataModel;
+import chesire.eorzeaninfo.parsing_library.models.ClassModel;
 
+/**
+ * Serializer to parse out the correct data for a to get a CharacterDataModel object
+ */
 public class CharacterDataModelDeserializer implements JsonDeserializer<CharacterDataModel> {
     @Override
     public CharacterDataModel deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

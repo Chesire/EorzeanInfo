@@ -1,6 +1,6 @@
 package chesire.eorzeaninfo.interfaces;
 
-import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
+import chesire.eorzeaninfo.parsing_library.models.DetailedCharacterModel;
 
 /**
  * Callback to be passed into the updateCharacter method of the {@link CharacterStorage}

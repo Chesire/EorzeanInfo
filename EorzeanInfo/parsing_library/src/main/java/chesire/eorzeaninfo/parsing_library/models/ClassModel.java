@@ -1,4 +1,4 @@
-package chesire.eorzeaninfo.classes.models;
+package chesire.eorzeaninfo.parsing_library.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,7 +13,7 @@ public class ClassModel implements Parcelable {
     private float level_percent;
     private String icon;
 
-    protected ClassModel(Parcel in) {
+    private ClassModel(Parcel in) {
         name = in.readString();
         level = in.readInt();
         id = in.readInt();
