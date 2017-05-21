@@ -18,9 +18,9 @@ public class CharacterDataModel implements Parcelable {
     //private Guardian
     //private City
     //private Grand company
-    //private Mounts
-    //private Minions
     private List<ClassModel> classjobs;
+    private List<MinMountModel> mounts;
+    private List<MinMountModel> minions;
 
     public ClassModel getCharacterClass(CharacterClasses cClass) {
         ClassModel foundModel = null;
@@ -45,6 +45,8 @@ public class CharacterDataModel implements Parcelable {
         gender = in.readString();
         nameday = in.readString();
         in.readList(classjobs, ClassModel.class.getClassLoader());
+        in.readList(mounts, MinMountModel.class.getClassLoader());
+        in.readList(minions, MinMountModel.class.getClassLoader());
     }
 
     /**
@@ -140,6 +142,8 @@ public class CharacterDataModel implements Parcelable {
         dest.writeString(gender);
         dest.writeString(nameday);
         dest.writeList(classjobs);
+        dest.writeList(mounts);
+        dest.writeList(minions);
     }
 
     @Override

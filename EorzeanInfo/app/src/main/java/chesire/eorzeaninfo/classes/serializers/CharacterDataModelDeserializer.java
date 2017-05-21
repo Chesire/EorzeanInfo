@@ -28,7 +28,21 @@ public class CharacterDataModelDeserializer implements JsonDeserializer<Characte
             classes.add(currentClass.getValue());
         }
 
+        Set<Map.Entry<String, JsonElement>> mountsList = (json.getAsJsonObject().get("mounts")).getAsJsonObject().entrySet();
+        JsonArray mounts = new JsonArray();
+        for (Map.Entry<String, JsonElement> currentMount : mountsList) {
+            mounts.add(currentMount.getValue());
+        }
+
+        Set<Map.Entry<String, JsonElement>> minionsList = (json.getAsJsonObject().get("minions")).getAsJsonObject().entrySet();
+        JsonArray minions = new JsonArray();
+        for (Map.Entry<String, JsonElement> currentMinion : minionsList) {
+            minions.add(currentMinion.getValue());
+        }
+
         json.getAsJsonObject().add("classjobs", classes);
+        json.getAsJsonObject().add("mounts", mounts);
+        json.getAsJsonObject().add("minions", minions);
 
         return gson.fromJson(json, CharacterDataModel.class);
     }
