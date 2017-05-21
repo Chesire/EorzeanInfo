@@ -12,6 +12,9 @@ public class BasicCharacterModel implements Parcelable {
     private String name;
     private String server;
 
+    protected BasicCharacterModel() {
+    }
+
     protected BasicCharacterModel(Parcel in) {
         icon = in.readString();
         id = in.readInt();

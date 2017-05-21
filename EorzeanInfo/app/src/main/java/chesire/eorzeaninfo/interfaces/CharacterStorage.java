@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
+import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
 
 /**
  * Used to store and retrieve information about a character from within the Android system
@@ -27,7 +28,7 @@ public interface CharacterStorage {
      * @param id The id of the character to pull from storage
      * @return BasicCharacterModel of the found character, or null if not found
      */
-    BasicCharacterModel getCharacter(int id);
+    DetailedCharacterModel getCharacter(int id);
 
     /**
      * Sets the currently selected character id, which can then be retrieved with getCurrentCharacter

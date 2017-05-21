@@ -13,15 +13,19 @@ import butterknife.ButterKnife;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
+import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 /**
  * Activity used to change the currently selected character
  */
 public class CharacterChangeActivity extends AppCompatActivity
-        implements CharacterSelectFragment.CharacterSelectListener, CharacterSearchFragment.CharacterSearchListener {
+        implements CharacterSearchFragment.CharacterSearchListener,
+        CharacterSelectFragment.CharacterSelectListener,
+        CharacterUpdatingFragment.CharacterUpdatingListener {
     private static final String CHARACTER_SEARCH_TAG = "CHARACTER_SEARCH_TAG";
     private static final String CHARACTER_SELECT_TAG = "CHARACTER_SELECT_TAG";
+    private static final String CHARACTER_UPDATING_TAG = "CHARACTER_UPDATING_TAG";
     public static final String LOAD_INTO_SEARCH_TAG = "LOAD_INTO_SEARCH_TAG";
 
     @Inject
@@ -64,14 +68,6 @@ public class CharacterChangeActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCharacterSelected(BasicCharacterModel model) {
-        mCharacterStorage.addCharacter(model);
-        Intent loadProfileIntent = new Intent(this, CharacterDetailsActivity.class);
-        loadProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loadProfileIntent);
-    }
-
-    @Override
     public void onCharactersFound(ArrayList<BasicCharacterModel> models) {
         getSupportFragmentManager()
                 .beginTransaction()
@@ -79,5 +75,22 @@ public class CharacterChangeActivity extends AppCompatActivity
                 .replace(R.id.character_change_container, CharacterSelectFragment.newInstance(models, false), CHARACTER_SELECT_TAG)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void onCharacterSelected(BasicCharacterModel model) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left, R.anim.slide_in_from_left, R.anim.slide_out_to_right)
+                .replace(R.id.character_change_container, CharacterUpdatingFragment.newInstance(model), CHARACTER_UPDATING_TAG)
+                .commit();
+    }
+
+    @Override
+    public void onCharacterUpdated(DetailedCharacterModel model) {
+        mCharacterStorage.addCharacter(model);
+        Intent loadProfileIntent = new Intent(this, CharacterDetailsActivity.class);
+        loadProfileIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loadProfileIntent);
     }
 }

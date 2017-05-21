@@ -3,7 +3,7 @@ package chesire.eorzeaninfo.classes.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class DetailedCharacterModel implements Parcelable {
+public class DetailedCharacterModel extends BasicCharacterModel implements Parcelable {
     private int lodestone_id;
     private CharacterDataModel data;
 
@@ -12,14 +12,43 @@ public class DetailedCharacterModel implements Parcelable {
         data = in.readParcelable(CharacterDataModel.class.getClassLoader());
     }
 
-    /**
-     * Get the id for the specific character
-     * This id can be used to get specific information about a character
-     *
-     * @return id for the character
-     */
+    @Override
+    public String getIcon() {
+        String avatarUrl = data.getAvatarUrl();
+        if (avatarUrl == null) {
+            return super.getIcon();
+        } else {
+            return data.getAvatarUrl();
+        }
+    }
+
+    @Override
     public int getId() {
-        return lodestone_id;
+        if (lodestone_id == 0) {
+            return super.getId();
+        } else {
+            return lodestone_id;
+        }
+    }
+
+    @Override
+    public String getName() {
+        String charName = data.getName();
+        if (charName == null) {
+            return super.getName();
+        } else {
+            return charName;
+        }
+    }
+
+    @Override
+    public String getServer() {
+        String charServer = data.getServer();
+        if (charServer == null) {
+            return super.getServer();
+        } else {
+            return data.getServer();
+        }
     }
 
     @Override

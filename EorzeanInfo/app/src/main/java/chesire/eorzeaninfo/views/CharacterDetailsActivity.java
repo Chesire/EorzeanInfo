@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.models.BasicCharacterModel;
+import chesire.eorzeaninfo.classes.models.DetailedCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 
 public class CharacterDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,7 +42,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
     @Inject
     CharacterStorage mCharacterStorage;
 
-    private BasicCharacterModel mCharacter;
+    private DetailedCharacterModel mCharacter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,6 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
         ((EorzeanInfoApp) getApplication()).getCharacterStorageComponent().inject(this);
 
         mCharacter = mCharacterStorage.getCharacter(mCharacterStorage.getCurrentCharacter());
-        mCharacterStorage.updateCharacter(mCharacter.getId());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

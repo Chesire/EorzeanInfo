@@ -65,13 +65,13 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     }
 
     @Override
-    public BasicCharacterModel getCharacter(int id) {
+    public DetailedCharacterModel getCharacter(int id) {
         String character = mSharedPreferences.getString(String.format(PREF_CHARACTER_DATA, id), null);
         if (character == null) {
             return null;
         }
 
-        return new Gson().fromJson(character, BasicCharacterModel.class);
+        return new Gson().fromJson(character, DetailedCharacterModel.class);
     }
 
     @Override
@@ -124,13 +124,12 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
             charCall.enqueue(new Callback<DetailedCharacterModel>() {
                 @Override
                 public void onResponse(Call<DetailedCharacterModel> call, Response<DetailedCharacterModel> response) {
-                    String s = "";
                     mSharedPreferences.edit()
-                            .putString(String.format("test%1$s", response.body().getId()), new Gson().toJson(response.body()))
+                            .putString(String.format(PREF_CHARACTER_DATA, response.body().getId()), new Gson().toJson(response.body()))
                             .apply();
 
-                    String res = mSharedPreferences.getString(String.format("test%1$s", response.body().getId()), null);
-
+                    // DEBUG read back out
+                    String res = mSharedPreferences.getString(String.format(PREF_CHARACTER_DATA, response.body().getId()), null);
                     DetailedCharacterModel d = new Gson().fromJson(res, DetailedCharacterModel.class);
                     String t = "";
                 }
