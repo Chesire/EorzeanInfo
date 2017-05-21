@@ -3,6 +3,8 @@ package chesire.eorzeaninfo.parsing_library.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import chesire.eorzeaninfo.parsing_library.Constants;
+
 /**
  * Model representing a minion or a mount object
  */
@@ -43,7 +45,7 @@ public class MinMountModel implements Parcelable {
      * @return URL end for the icon
      */
     public String getIcon() {
-        return icon;
+        return Constants.XIV_DB_URL + icon;
     }
 
     /**
@@ -52,7 +54,7 @@ public class MinMountModel implements Parcelable {
      * @return URL end for the data
      */
     public String getUrl() {
-        return url;
+        return Constants.XIV_DB_URL + url;
     }
 
     @Override

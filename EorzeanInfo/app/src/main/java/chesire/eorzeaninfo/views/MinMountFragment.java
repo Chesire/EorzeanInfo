@@ -8,9 +8,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,25 +53,34 @@ public class MinMountFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_min_mount, container, false);
         ButterKnife.bind(this, v);
 
-        mPager.setAdapter(new MinMountAdapter(getContext()));
+        mPager.setAdapter(new MinMountAdapter(getContext(), mModels));
         mTabs.setupWithViewPager(mPager);
 
         return v;
     }
 
-    private class MinMountAdapter extends PagerAdapter {
+    class MinMountAdapter extends PagerAdapter {
+        @BindView(R.id.min_mount_card_list)
+        RecyclerView mRecycler;
+
         private Context mContext;
         private LayoutInflater mInflater;
+        private List<MinMountModel> mModels;
 
-        MinMountAdapter(Context context) {
+        MinMountAdapter(Context context, List<MinMountModel> models) {
             mContext = context;
             mInflater = LayoutInflater.from(mContext);
+            mModels = models;
         }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             ViewGroup layout = (ViewGroup) mInflater.inflate(R.layout.item_min_mount_tab_view, container, false);
             container.addView(layout);
+            ButterKnife.bind(this, layout);
+
+            mRecycler.setAdapter(new MinMountItemAdapter(mModels));
+            mRecycler.setLayoutManager(new LinearLayoutManager(mContext));
 
             return layout;
         }
@@ -101,6 +115,59 @@ public class MinMountFragment extends Fragment {
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
+        }
+    }
+
+    class MinMountItemAdapter extends RecyclerView.Adapter<MinMountItemAdapter.MinMountItemViewHolder> {
+        private Context mContext;
+        private List<MinMountModel> mModels;
+
+        MinMountItemAdapter(List<MinMountModel> models) {
+            mModels = models;
+        }
+
+        @Override
+        public MinMountItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            mContext = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+
+            return new MinMountItemViewHolder(inflater.inflate(R.layout.item_min_mount_cardview, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(MinMountItemViewHolder holder, int position) {
+            holder.bindModel(mModels.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            if (mModels == null) {
+                return 0;
+            } else {
+                return mModels.size();
+            }
+        }
+
+        class MinMountItemViewHolder extends RecyclerView.ViewHolder {
+            @BindView(R.id.min_mount_item_image)
+            AppCompatImageView mImageView;
+
+            private MinMountModel mModel;
+
+            MinMountItemViewHolder(View itemView) {
+                super(itemView);
+
+                ButterKnife.bind(this, itemView);
+            }
+
+            void bindModel(MinMountModel model) {
+                mModel = model;
+
+                Glide.with(mContext)
+                        .load(mModel.getIcon())
+                        .placeholder(R.drawable.ic_account_circle_black)
+                        .into(mImageView);
+            }
         }
     }
 }
