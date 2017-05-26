@@ -10,12 +10,14 @@ import chesire.eorzeaninfo.parsing_library.Constants;
  */
 public class MinMountModel implements Parcelable {
     private int id;
+    private String type;
     private String name;
     private String icon;
     private String url;
 
     private MinMountModel(Parcel in) {
         id = in.readInt();
+        type = in.readString();
         name = in.readString();
         icon = in.readString();
         url = in.readString();
@@ -60,6 +62,7 @@ public class MinMountModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
+        dest.writeString(type);
         dest.writeString(name);
         dest.writeString(icon);
         dest.writeString(url);
