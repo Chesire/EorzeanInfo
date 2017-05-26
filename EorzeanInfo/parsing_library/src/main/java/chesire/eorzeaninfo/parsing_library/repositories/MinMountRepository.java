@@ -27,6 +27,18 @@ public class MinMountRepository {
     public MinMountRepository(Context context) {
         mMountModels = loadCacheFile(context, MOUNTS_FILE);
         mMinionModels = loadCacheFile(context, MINIONS_FILE);
+
+        // I can't think of a nice way to set this data in, so just do it manually for now
+        if (mMountModels != null) {
+            for (MinMountModel model : mMountModels) {
+                model.setType(MinMountModel.MOUNT_MODEL);
+            }
+        }
+        if (mMinionModels != null) {
+            for (MinMountModel model : mMinionModels) {
+                model.setType(MinMountModel.MINION_MODEL);
+            }
+        }
     }
 
     /**

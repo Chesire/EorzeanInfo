@@ -11,6 +11,9 @@ import chesire.eorzeaninfo.parsing_library.Constants;
  * Model representing a minion or a mount object
  */
 public class MinMountModel implements Parcelable {
+    public static final String MOUNT_MODEL = "mount";
+    public static final String MINION_MODEL = "minion";
+
     private int id;
     private String type;
     private String name;
@@ -32,6 +35,15 @@ public class MinMountModel implements Parcelable {
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * Sets the "type" of this object, use either MOUNT_MODEL or MINION_MODEL
+     *
+     * @param newType MOUNT_MODEL or MINION_MODEL
+     */
+    public void setType(String newType) {
+        type = newType;
     }
 
     /**
@@ -70,7 +82,11 @@ public class MinMountModel implements Parcelable {
      * @return URL end for the data
      */
     public String getUrl() {
-        return Constants.XIV_DB_URL + url;
+        if (url != null) {
+            return Constants.XIV_DB_URL + url;
+        } else {
+            return String.format(Locale.ROOT, "%1$s/%2$s/%3$s/%4$s", Constants.XIV_DB_URL, type, getId(), getName().replace(" ", "+"));
+        }
     }
 
     @Override
