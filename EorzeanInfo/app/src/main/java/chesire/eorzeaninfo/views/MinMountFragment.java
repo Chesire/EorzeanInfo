@@ -14,6 +14,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import chesire.eorzeaninfo.classes.UiUtils;
 import chesire.eorzeaninfo.parsing_library.models.MinMountModel;
 
 public class MinMountFragment extends Fragment {
+    private static final String TAG = "MinMountFragment";
     private static final String MODELS_TAG = "MODELS_TAG";
     private static final String ALL_MODELS_TAG = "ALL_MODELS_TAG";
     private static final int NUM_TABS = 3;
@@ -90,11 +92,25 @@ public class MinMountFragment extends Fragment {
             container.addView(layout);
             ButterKnife.bind(this, layout);
 
-            if(position == 2) {
-                mRecycler.setAdapter(new MinMountItemAdapter(mAllModels));
-            } else {
-                mRecycler.setAdapter(new MinMountItemAdapter(mModels));
+            // Load the current list for the adapter
+            switch (position) {
+                case 0:
+                    mRecycler.setAdapter(new MinMountItemAdapter(mModels));
+                    break;
+
+                case 1:
+                    mRecycler.setAdapter(new MinMountItemAdapter(getNotAcquiredList()));
+                    break;
+
+                case 2:
+                    mRecycler.setAdapter(new MinMountItemAdapter(mAllModels));
+                    break;
+
+                default:
+                    Log.wtf(TAG, "Unknown position in instantiateItem MinMountFragment - " + position);
+                    break;
             }
+
             mRecycler.setLayoutManager(new GridLayoutManager(mContext, 2));
             mRecycler.addItemDecoration(new GridSpacingItemDecoration(2, UiUtils.convertDpToPx(4, getResources()), true));
 
@@ -131,6 +147,17 @@ public class MinMountFragment extends Fragment {
         @Override
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
+        }
+
+        private List<MinMountModel> getNotAcquiredList() {
+            List<MinMountModel> notAcquiredList = new ArrayList<>();
+            for (MinMountModel model : mAllModels) {
+                if (!mModels.contains(model)) {
+                    notAcquiredList.add(model);
+                }
+            }
+
+            return notAcquiredList;
         }
     }
 

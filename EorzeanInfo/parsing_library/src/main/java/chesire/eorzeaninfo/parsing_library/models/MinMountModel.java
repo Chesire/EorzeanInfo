@@ -74,6 +74,16 @@ public class MinMountModel implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof MinMountModel)) {
+            return false;
+        }
+        MinMountModel otherModel = (MinMountModel) obj;
+
+        return otherModel.getId() == getId();
+    }
+
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(type);
