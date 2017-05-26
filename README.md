@@ -7,17 +7,17 @@ Android application to pull information about characters in FFXIV.
 ### Development Setup
 Clone project and hit build, dependencies should all auto resolve.
 
+### Libraries / APIs
+[XIVDB](https://github.com/xivdb/api) - provides the API thats used to pull data
+
+
 ### TODO
 
     (?) If unknown if can be done
   
     Minions - 
-      Can show which minions have been acquired
-      Which ones are missing
       Show a % acquired
     Mounts - 
-      Can show which mounts have been acquired
-      Which ones are missing
       Show a % acquired
     Achievements - 
       Can show which achievements have been acquired
