@@ -29,6 +29,7 @@ import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.parsing_library.models.DetailedCharacterModel;
+import chesire.eorzeaninfo.parsing_library.repositories.MountRepository;
 
 public class CharacterDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "CharacterDetailActivity";
@@ -40,6 +41,8 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
     AppCompatTextView mNavBodyText;
     @Inject
     CharacterStorage mCharacterStorage;
+    @Inject
+    MountRepository mMountRepository;
 
     private DetailedCharacterModel mCharacter;
 
@@ -111,14 +114,14 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
             case R.id.character_details_mounts:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getMounts()))
+                        .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getMounts(), mMountRepository.getAllMounts()))
                         .commit();
                 break;
 
             case R.id.character_details_minions:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getMinions()))
+                        .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getMinions(), null))
                         .commit();
                 break;
 

@@ -19,6 +19,10 @@ public class MountRepository {
 
     private List<MinMountModel> mMountModels;
 
+    public MountRepository(Context context) {
+        loadCachedMounts(context);
+    }
+
     /**
      * Load the cached mounts from the default mounts file
      *

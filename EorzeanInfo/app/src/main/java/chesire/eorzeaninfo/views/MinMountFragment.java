@@ -32,6 +32,7 @@ import chesire.eorzeaninfo.parsing_library.models.MinMountModel;
 
 public class MinMountFragment extends Fragment {
     private static final String MODELS_TAG = "MODELS_TAG";
+    private static final String ALL_MODELS_TAG = "ALL_MODELS_TAG";
     private static final int NUM_TABS = 3;
 
     @BindView(R.id.min_mount_tab_layout)
@@ -39,12 +40,14 @@ public class MinMountFragment extends Fragment {
     @BindView(R.id.min_mount_view_pager)
     ViewPager mPager;
 
-    private ArrayList<MinMountModel> mModels;
+    private ArrayList<MinMountModel> mCurrentModels;
+    private ArrayList<MinMountModel> mAllModels;
 
-    public static MinMountFragment newInstance(List<MinMountModel> displayedModels) {
+    public static MinMountFragment newInstance(List<MinMountModel> displayedModels, List<MinMountModel> allModels) {
         MinMountFragment fragment = new MinMountFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(MODELS_TAG, new ArrayList<Parcelable>(displayedModels));
+        args.putParcelableArrayList(ALL_MODELS_TAG, new ArrayList<Parcelable>(allModels));
         fragment.setArguments(args);
         // will need to later have a way to pull all mounts or minions to compare against whats possible to get
 
@@ -54,11 +57,12 @@ public class MinMountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mModels = getArguments().getParcelableArrayList(MODELS_TAG);
+        mCurrentModels = getArguments().getParcelableArrayList(MODELS_TAG);
+        mAllModels = getArguments().getParcelableArrayList(ALL_MODELS_TAG);
         View v = inflater.inflate(R.layout.fragment_min_mount, container, false);
         ButterKnife.bind(this, v);
 
-        mPager.setAdapter(new MinMountAdapter(getContext(), mModels));
+        mPager.setAdapter(new MinMountAdapter(getContext(), mCurrentModels, mAllModels));
         mTabs.setupWithViewPager(mPager);
 
         return v;
@@ -71,11 +75,13 @@ public class MinMountFragment extends Fragment {
         private Context mContext;
         private LayoutInflater mInflater;
         private List<MinMountModel> mModels;
+        private List<MinMountModel> mAllModels;
 
-        MinMountAdapter(Context context, List<MinMountModel> models) {
+        MinMountAdapter(Context context, List<MinMountModel> models, List<MinMountModel> allModels) {
             mContext = context;
             mInflater = LayoutInflater.from(mContext);
             mModels = models;
+            mAllModels = allModels;
         }
 
         @Override
@@ -84,7 +90,11 @@ public class MinMountFragment extends Fragment {
             container.addView(layout);
             ButterKnife.bind(this, layout);
 
-            mRecycler.setAdapter(new MinMountItemAdapter(mModels));
+            if(position == 2) {
+                mRecycler.setAdapter(new MinMountItemAdapter(mAllModels));
+            } else {
+                mRecycler.setAdapter(new MinMountItemAdapter(mModels));
+            }
             mRecycler.setLayoutManager(new GridLayoutManager(mContext, 2));
             mRecycler.addItemDecoration(new GridSpacingItemDecoration(2, UiUtils.convertDpToPx(4, getResources()), true));
 
