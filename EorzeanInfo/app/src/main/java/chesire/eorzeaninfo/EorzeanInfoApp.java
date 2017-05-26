@@ -10,6 +10,7 @@ import chesire.eorzeaninfo.classes.dagger.DaggerXIVComponent;
 import chesire.eorzeaninfo.classes.dagger.XIVComponent;
 import chesire.eorzeaninfo.classes.dagger.XIVModule;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
+import chesire.eorzeaninfo.parsing_library.repositories.MountRepository;
 
 /**
  * Application override used to setup and retrieve Dagger components
@@ -22,6 +23,10 @@ public class EorzeanInfoApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        MountRepository mountRepository = new MountRepository();
+        mountRepository.loadCachedMounts(this);
+        mountRepository.getAllMounts();
 
         XIVModule xiv = new XIVModule(XIVDBService.SERVICE_ENDPOINT);
         mXIVComponent = DaggerXIVComponent.builder()

@@ -3,6 +3,8 @@ package chesire.eorzeaninfo.parsing_library.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Locale;
+
 import chesire.eorzeaninfo.parsing_library.Constants;
 
 /**
@@ -47,7 +49,19 @@ public class MinMountModel implements Parcelable {
      * @return URL end for the icon
      */
     public String getIcon() {
-        return Constants.XIV_DB_URL + icon;
+        if (icon.length() >= 6) {
+            return Constants.XIV_DB_URL + icon;
+        } else {
+            /* Attempt to construct a URL to use
+             * Rules for doing this are available at
+             * https://github.com/viion/XIV-Datamining/blob/master/research/icon_paths.md
+             */
+            StringBuilder builder = new StringBuilder(icon);
+            while (builder.length() < 6) {
+                builder.insert(0, 0);
+            }
+            return String.format(Locale.ROOT, "%1$s/img/game/004000/%2$s.png", Constants.XIV_DB_URL, builder.toString());
+        }
     }
 
     /**
