@@ -3,6 +3,8 @@ package chesire.eorzeaninfo.parsing_library.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 public class DetailedCharacterModel extends BasicCharacterModel implements Parcelable {
     private int lodestone_id;
     private CharacterDataModel data;
@@ -49,6 +51,14 @@ public class DetailedCharacterModel extends BasicCharacterModel implements Parce
         } else {
             return data.getServer();
         }
+    }
+
+    public List<MinMountModel> getMounts() {
+        return data.getMounts();
+    }
+
+    public List<MinMountModel> getMinions() {
+        return data.getMinions();
     }
 
     @Override

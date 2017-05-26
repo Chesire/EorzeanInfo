@@ -43,6 +43,24 @@ public class CharacterDataModel implements Parcelable {
         return foundModel;
     }
 
+    /**
+     * Gets a list of all acquired mounts
+     *
+     * @return List of mounts that have been acquired
+     */
+    public List<MinMountModel> getMounts() {
+        return mounts;
+    }
+
+    /**
+     * Gets a list of all acquired minions
+     *
+     * @return List of minions that have been acquired
+     */
+    public List<MinMountModel> getMinions() {
+        return minions;
+    }
+
     protected CharacterDataModel(Parcel in) {
         name = in.readString();
         server = in.readString();

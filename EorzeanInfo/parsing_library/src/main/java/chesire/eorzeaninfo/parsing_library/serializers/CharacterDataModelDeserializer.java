@@ -34,12 +34,14 @@ public class CharacterDataModelDeserializer implements JsonDeserializer<Characte
         Set<Map.Entry<String, JsonElement>> mountsList = (json.getAsJsonObject().get("mounts")).getAsJsonObject().entrySet();
         JsonArray mounts = new JsonArray();
         for (Map.Entry<String, JsonElement> currentMount : mountsList) {
+            currentMount.getValue().getAsJsonObject().addProperty("type", "mount");
             mounts.add(currentMount.getValue());
         }
 
         Set<Map.Entry<String, JsonElement>> minionsList = (json.getAsJsonObject().get("minions")).getAsJsonObject().entrySet();
         JsonArray minions = new JsonArray();
         for (Map.Entry<String, JsonElement> currentMinion : minionsList) {
+            currentMinion.getValue().getAsJsonObject().addProperty("type", "minion");
             minions.add(currentMinion.getValue());
         }
 

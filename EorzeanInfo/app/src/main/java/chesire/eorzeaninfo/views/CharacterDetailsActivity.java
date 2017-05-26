@@ -27,9 +27,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.parsing_library.models.BasicCharacterModel;
-import chesire.eorzeaninfo.parsing_library.models.DetailedCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
+import chesire.eorzeaninfo.parsing_library.models.DetailedCharacterModel;
+import chesire.eorzeaninfo.parsing_library.repositories.MinMountRepository;
 
 public class CharacterDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "CharacterDetailActivity";
@@ -41,6 +41,8 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
     AppCompatTextView mNavBodyText;
     @Inject
     CharacterStorage mCharacterStorage;
+    @Inject
+    MinMountRepository mMinMountRepository;
 
     private DetailedCharacterModel mCharacter;
 
@@ -110,9 +112,17 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
                         .commit();
                 break;
             case R.id.character_details_mounts:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getMounts(), mMinMountRepository.getAllMounts()))
+                        .commit();
                 break;
 
             case R.id.character_details_minions:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getMinions(), mMinMountRepository.getAllMinions()))
+                        .commit();
                 break;
 
             case R.id.character_details_switch_character:

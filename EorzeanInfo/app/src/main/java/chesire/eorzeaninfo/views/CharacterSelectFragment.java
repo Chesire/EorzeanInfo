@@ -25,8 +25,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.parsing_library.models.BasicCharacterModel;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
+import chesire.eorzeaninfo.parsing_library.models.BasicCharacterModel;
 
 public class CharacterSelectFragment extends Fragment {
     private static String CHARACTERS_TAG = "CHARACTERS_TAG";
