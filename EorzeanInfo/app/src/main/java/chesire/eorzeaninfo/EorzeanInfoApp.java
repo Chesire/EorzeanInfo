@@ -7,7 +7,7 @@ import chesire.eorzeaninfo.classes.dagger.CharacterStorageModule;
 import chesire.eorzeaninfo.classes.dagger.ContextModule;
 import chesire.eorzeaninfo.classes.dagger.DaggerCharacterStorageComponent;
 import chesire.eorzeaninfo.classes.dagger.DaggerXIVComponent;
-import chesire.eorzeaninfo.classes.dagger.MountRepositoryModule;
+import chesire.eorzeaninfo.classes.dagger.MinMountRepositoryModule;
 import chesire.eorzeaninfo.classes.dagger.XIVComponent;
 import chesire.eorzeaninfo.classes.dagger.XIVModule;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
@@ -33,7 +33,7 @@ public class EorzeanInfoApp extends Application {
                 .contextModule(new ContextModule(this))
                 .characterStorageModule(new CharacterStorageModule())
                 .xIVModule(xiv)
-                .mountRepositoryModule(new MountRepositoryModule())
+                .minMountRepositoryModule(new MinMountRepositoryModule())
                 .build();
     }
 

@@ -10,7 +10,7 @@ import chesire.eorzeaninfo.views.CharacterUpdatingFragment;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ContextModule.class, CharacterStorageModule.class, XIVModule.class, MountRepositoryModule.class})
+@Component(modules = {ContextModule.class, CharacterStorageModule.class, XIVModule.class, MinMountRepositoryModule.class})
 public interface CharacterStorageComponent {
     void inject(LaunchActivity activity);
 
