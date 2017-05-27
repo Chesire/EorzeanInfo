@@ -33,7 +33,7 @@ import chesire.eorzeaninfo.parsing_library.models.MinMountModel;
 
 public class MinMountFragment extends Fragment {
     private static final String TAG = "MinMountFragment";
-    private static final String MODELS_TAG = "MODELS_TAG";
+    private static final String ACQUIRED_MODELS_TAG = "ACQUIRED_MODELS_TAG";
     private static final String ALL_MODELS_TAG = "ALL_MODELS_TAG";
     private static final int NUM_TABS = 3;
 
@@ -42,29 +42,24 @@ public class MinMountFragment extends Fragment {
     @BindView(R.id.min_mount_view_pager)
     ViewPager mPager;
 
-    private ArrayList<MinMountModel> mCurrentModels;
-    private ArrayList<MinMountModel> mAllModels;
-
-    public static MinMountFragment newInstance(List<MinMountModel> displayedModels, List<MinMountModel> allModels) {
+    public static MinMountFragment newInstance(List<Integer> acquiredModels, List<MinMountModel> allModels) {
         MinMountFragment fragment = new MinMountFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(MODELS_TAG, new ArrayList<Parcelable>(displayedModels));
+        args.putIntegerArrayList(ACQUIRED_MODELS_TAG, new ArrayList<>(acquiredModels));
         args.putParcelableArrayList(ALL_MODELS_TAG, new ArrayList<Parcelable>(allModels));
         fragment.setArguments(args);
-        // will need to later have a way to pull all mounts or minions to compare against whats possible to get
-
         return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mCurrentModels = getArguments().getParcelableArrayList(MODELS_TAG);
-        mAllModels = getArguments().getParcelableArrayList(ALL_MODELS_TAG);
+        ArrayList<Integer> acquiredModels = getArguments().getIntegerArrayList(ACQUIRED_MODELS_TAG);
+        ArrayList<MinMountModel> allModels = getArguments().getParcelableArrayList(ALL_MODELS_TAG);
         View v = inflater.inflate(R.layout.fragment_min_mount, container, false);
         ButterKnife.bind(this, v);
 
-        mPager.setAdapter(new MinMountAdapter(getContext(), mCurrentModels, mAllModels));
+        mPager.setAdapter(new MinMountAdapter(getContext(), acquiredModels, allModels));
         mTabs.setupWithViewPager(mPager);
 
         return v;
@@ -76,14 +71,17 @@ public class MinMountFragment extends Fragment {
 
         private Context mContext;
         private LayoutInflater mInflater;
-        private List<MinMountModel> mModels;
-        private List<MinMountModel> mAllModels;
 
-        MinMountAdapter(Context context, List<MinMountModel> models, List<MinMountModel> allModels) {
+        private List<MinMountModel> mAdapterAllModels;
+        private List<MinMountModel> mAdapterAcquiredModels;
+        private List<MinMountModel> mAdapterNotAcquiredModels;
+
+        MinMountAdapter(Context context, List<Integer> acquiredModels, List<MinMountModel> allModels) {
             mContext = context;
             mInflater = LayoutInflater.from(mContext);
-            mModels = models;
-            mAllModels = allModels;
+            mAdapterAllModels = allModels;
+
+            loadMinMountLists(acquiredModels, allModels);
         }
 
         @Override
@@ -95,15 +93,15 @@ public class MinMountFragment extends Fragment {
             // Load the current list for the adapter
             switch (position) {
                 case 0:
-                    mRecycler.setAdapter(new MinMountItemAdapter(mModels));
+                    mRecycler.setAdapter(new MinMountItemAdapter(mAdapterAcquiredModels));
                     break;
 
                 case 1:
-                    mRecycler.setAdapter(new MinMountItemAdapter(getNotAcquiredList()));
+                    mRecycler.setAdapter(new MinMountItemAdapter(mAdapterNotAcquiredModels));
                     break;
 
                 case 2:
-                    mRecycler.setAdapter(new MinMountItemAdapter(mAllModels));
+                    mRecycler.setAdapter(new MinMountItemAdapter(mAdapterAllModels));
                     break;
 
                 default:
@@ -149,15 +147,19 @@ public class MinMountFragment extends Fragment {
             return view == object;
         }
 
-        private List<MinMountModel> getNotAcquiredList() {
+        private void loadMinMountLists(List<Integer> modelIds, List<MinMountModel> allPossibleModels) {
             List<MinMountModel> notAcquiredList = new ArrayList<>();
-            for (MinMountModel model : mAllModels) {
-                if (!mModels.contains(model)) {
+            List<MinMountModel> acquiredList = new ArrayList<>();
+            for (MinMountModel model : allPossibleModels) {
+                if (!modelIds.contains(model.getId())) {
                     notAcquiredList.add(model);
+                } else if (modelIds.contains(model.getId())) {
+                    acquiredList.add(model);
                 }
             }
 
-            return notAcquiredList;
+            mAdapterAcquiredModels = acquiredList;
+            mAdapterNotAcquiredModels = notAcquiredList;
         }
     }
 
