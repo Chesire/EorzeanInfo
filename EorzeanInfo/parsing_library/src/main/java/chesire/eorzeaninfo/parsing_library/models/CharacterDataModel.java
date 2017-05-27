@@ -22,8 +22,8 @@ public class CharacterDataModel implements Parcelable {
     //private City
     //private Grand company
     private List<ClassModel> classjobs;
-    private List<MinMountModel> mounts;
-    private List<MinMountModel> minions;
+    private List<Integer> mounts;
+    private List<Integer> minions;
 
     /**
      * Gets the model for the character class represented by cClass
@@ -46,18 +46,18 @@ public class CharacterDataModel implements Parcelable {
     /**
      * Gets a list of all acquired mounts
      *
-     * @return List of mounts that have been acquired
+     * @return List of mount ids that have been acquired
      */
-    public List<MinMountModel> getMounts() {
+    public List<Integer> getMounts() {
         return mounts;
     }
 
     /**
      * Gets a list of all acquired minions
      *
-     * @return List of minions that have been acquired
+     * @return List of minion ids that have been acquired
      */
-    public List<MinMountModel> getMinions() {
+    public List<Integer> getMinions() {
         return minions;
     }
 
@@ -72,8 +72,8 @@ public class CharacterDataModel implements Parcelable {
         gender = in.readString();
         nameday = in.readString();
         in.readList(classjobs, ClassModel.class.getClassLoader());
-        in.readList(mounts, MinMountModel.class.getClassLoader());
-        in.readList(minions, MinMountModel.class.getClassLoader());
+        in.readList(mounts, Integer.class.getClassLoader());
+        in.readList(minions, Integer.class.getClassLoader());
     }
 
     /**

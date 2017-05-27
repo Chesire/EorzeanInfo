@@ -31,18 +31,20 @@ public class CharacterDataModelDeserializer implements JsonDeserializer<Characte
             classes.add(currentClass.getValue());
         }
 
+        /*
+        * Get all mounts & minions as a list of IDs,
+        * then we can just compare the IDS against the full list
+        */
         Set<Map.Entry<String, JsonElement>> mountsList = (json.getAsJsonObject().get("mounts")).getAsJsonObject().entrySet();
         JsonArray mounts = new JsonArray();
         for (Map.Entry<String, JsonElement> currentMount : mountsList) {
-            currentMount.getValue().getAsJsonObject().addProperty("type", "mount");
-            mounts.add(currentMount.getValue());
+            mounts.add(currentMount.getValue().getAsJsonObject().get("id"));
         }
 
         Set<Map.Entry<String, JsonElement>> minionsList = (json.getAsJsonObject().get("minions")).getAsJsonObject().entrySet();
         JsonArray minions = new JsonArray();
         for (Map.Entry<String, JsonElement> currentMinion : minionsList) {
-            currentMinion.getValue().getAsJsonObject().addProperty("type", "minion");
-            minions.add(currentMinion.getValue());
+            minions.add(currentMinion.getValue().getAsJsonObject().get("id"));
         }
 
         json.getAsJsonObject().add("classjobs", classes);
