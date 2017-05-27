@@ -114,14 +114,14 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
             case R.id.character_details_mounts:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getMounts(), mMinMountRepository.getAllMounts()))
+                        .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getData().getMounts(), mMinMountRepository.getAllMounts()))
                         .commit();
                 break;
 
             case R.id.character_details_minions:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getMinions(), mMinMountRepository.getAllMinions()))
+                        .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getData().getMinions(), mMinMountRepository.getAllMinions()))
                         .commit();
                 break;
 
