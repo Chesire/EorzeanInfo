@@ -72,7 +72,7 @@ public class MinMountModel implements Parcelable {
             while (builder.length() < 6) {
                 builder.insert(0, 0);
             }
-            return String.format(Locale.ROOT, "%1$s/img/game/004000/%2$s.png", Constants.XIV_DB_URL, builder.toString());
+            return String.format(Locale.ROOT, Constants.MINMOUNT_ICON_URL, builder.toString());
         }
     }
 

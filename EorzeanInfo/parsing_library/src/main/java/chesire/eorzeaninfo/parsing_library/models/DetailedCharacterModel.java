@@ -3,6 +3,8 @@ package chesire.eorzeaninfo.parsing_library.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import chesire.eorzeaninfo.parsing_library.Constants;
+
 public class DetailedCharacterModel extends BasicCharacterModel implements Parcelable {
     private int lodestone_id;
     private CharacterDataModel data;
@@ -49,6 +51,15 @@ public class DetailedCharacterModel extends BasicCharacterModel implements Parce
         } else {
             return data.getServer();
         }
+    }
+
+    /**
+     * Get the URL to access the lodestone page for this character
+     *
+     * @return Url to access the lodestone page for this character
+     */
+    public String getLodestoneUrl() {
+        return String.format(Constants.LODESTONE_URL, getId());
     }
 
     /**

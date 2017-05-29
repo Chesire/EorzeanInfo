@@ -2,6 +2,7 @@ package chesire.eorzeaninfo.views;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -74,6 +75,13 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
         mNavBodyText = ButterKnife.findById(headerView, R.id.nav_header_body_text);
 
         loadNavigationHeaderData();
+        mNavHeaderImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loadBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse(mCharacter.getLodestoneUrl()));
+                startActivity(loadBrowser);
+            }
+        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
