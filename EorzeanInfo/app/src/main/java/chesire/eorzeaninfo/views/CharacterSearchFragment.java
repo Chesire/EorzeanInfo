@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -29,8 +30,8 @@ import butterknife.OnEditorAction;
 import butterknife.OnItemSelected;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
-import chesire.eorzeaninfo.parsing_library.models.BasicCharacterModel;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
+import chesire.eorzeaninfo.parsing_library.models.BasicCharacterModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -141,6 +142,7 @@ public class CharacterSearchFragment extends Fragment {
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             handled = true;
+            hideSoftKeyboard();
             searchClicked();
         }
 
@@ -192,6 +194,13 @@ public class CharacterSearchFragment extends Fragment {
 
             displayInProgressIndicator(false);
         }
+    }
+
+    private void hideSoftKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        View focus = getActivity().getCurrentFocus();
+        inputManager.hideSoftInputFromWindow(focus == null ? null :
+                getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     private void displayInProgressIndicator(boolean val) {
