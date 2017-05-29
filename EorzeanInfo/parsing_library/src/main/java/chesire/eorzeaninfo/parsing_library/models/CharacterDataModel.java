@@ -25,42 +25,6 @@ public class CharacterDataModel implements Parcelable {
     private List<Integer> mounts;
     private List<Integer> minions;
 
-    /**
-     * Gets the model for the character class represented by cClass
-     *
-     * @param cClass Enum for which character class to get
-     * @return ClassModel for the represented class
-     */
-    public ClassModel getCharacterClass(CharacterClasses cClass) {
-        ClassModel foundModel = null;
-        for (ClassModel model : classjobs) {
-            if (model.getId() == cClass.getId()) {
-                foundModel = model;
-                break;
-            }
-        }
-
-        return foundModel;
-    }
-
-    /**
-     * Gets a list of all acquired mounts
-     *
-     * @return List of mount ids that have been acquired
-     */
-    public List<Integer> getMounts() {
-        return mounts;
-    }
-
-    /**
-     * Gets a list of all acquired minions
-     *
-     * @return List of minion ids that have been acquired
-     */
-    public List<Integer> getMinions() {
-        return minions;
-    }
-
     protected CharacterDataModel(Parcel in) {
         name = in.readString();
         server = in.readString();
@@ -155,6 +119,51 @@ public class CharacterDataModel implements Parcelable {
      */
     public String getNameday() {
         return nameday;
+    }
+
+    /**
+     * Gets a list of all character class models
+     *
+     * @return Complete list of all character class models
+     */
+    public List<ClassModel> getClasses() {
+        return classjobs;
+    }
+
+    /**
+     * Gets the model for the character class represented by cClass
+     *
+     * @param cClass Enum for which character class to get
+     * @return ClassModel for the represented class
+     */
+    public ClassModel getCharacterClass(CharacterClasses cClass) {
+        ClassModel foundModel = null;
+        for (ClassModel model : classjobs) {
+            if (model.getId() == cClass.getId()) {
+                foundModel = model;
+                break;
+            }
+        }
+
+        return foundModel;
+    }
+
+    /**
+     * Gets a list of all acquired mounts
+     *
+     * @return List of mount ids that have been acquired
+     */
+    public List<Integer> getMounts() {
+        return mounts;
+    }
+
+    /**
+     * Gets a list of all acquired minions
+     *
+     * @return List of minion ids that have been acquired
+     */
+    public List<Integer> getMinions() {
+        return minions;
     }
 
     @Override
