@@ -17,9 +17,9 @@ public class CharacterDataModel implements Parcelable {
     private String race;
     private String clan;
     private String nameday;
-    //private Guardian
-    //private City
-    //private Grand company
+    private GuardianCityCompanyModel guardian;
+    private GuardianCityCompanyModel city;
+    private GuardianCityCompanyModel grand_company;
     private List<ClassModel> classjobs;
     private List<Integer> mounts;
     private List<Integer> minions;
@@ -33,6 +33,9 @@ public class CharacterDataModel implements Parcelable {
         race = in.readString();
         clan = in.readString();
         nameday = in.readString();
+        guardian = in.readParcelable(GuardianCityCompanyModel.class.getClassLoader());
+        city = in.readParcelable(GuardianCityCompanyModel.class.getClassLoader());
+        grand_company = in.readParcelable(GuardianCityCompanyModel.class.getClassLoader());
         in.readList(classjobs, ClassModel.class.getClassLoader());
         in.readList(mounts, Integer.class.getClassLoader());
         in.readList(minions, Integer.class.getClassLoader());
@@ -111,6 +114,33 @@ public class CharacterDataModel implements Parcelable {
     }
 
     /**
+     * Get the Guardian object, containing information about the characters Guardian
+     *
+     * @return The Guardian object
+     */
+    public GuardianCityCompanyModel getGuardian() {
+        return guardian;
+    }
+
+    /**
+     * Get the City object, containing information about the characters city
+     *
+     * @return The city object
+     */
+    public GuardianCityCompanyModel getCity() {
+        return city;
+    }
+
+    /**
+     * Get the Grand Company object, containing information about the characters grand company
+     *
+     * @return The Grand Company object
+     */
+    public GuardianCityCompanyModel getGrandCompany() {
+        return grand_company;
+    }
+
+    /**
      * Gets a list of all character class models
      *
      * @return Complete list of all character class models
@@ -165,6 +195,9 @@ public class CharacterDataModel implements Parcelable {
         dest.writeString(race);
         dest.writeString(clan);
         dest.writeString(nameday);
+        dest.writeParcelable(guardian, flags);
+        dest.writeParcelable(city, flags);
+        dest.writeParcelable(grand_company, flags);
         dest.writeList(classjobs);
         dest.writeList(mounts);
         dest.writeList(minions);
