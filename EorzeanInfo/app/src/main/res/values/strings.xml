@@ -2,7 +2,6 @@
     <string name="app_name">Eorzean Info</string>
 
     <string name="search_character_name">Character Name</string>
-    <string name="search_character_server">Server</string>
     <string name="search_data_centre_label">Data Centre</string>
     <string name="search_server_label">Server</string>
     <string name="search_search_button">Search</string>
@@ -21,6 +20,7 @@
 
     <string name="select_character_title">Select Character</string>
     <string name="select_character_no_characters_found">No characters found, please add a character to begin</string>
+    <string name="select_character_current">*</string>
 
     <string name="updating_currently_updating">Character details are currently updating…</string>
 

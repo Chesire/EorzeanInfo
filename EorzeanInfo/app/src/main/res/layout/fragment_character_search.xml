@@ -26,8 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/character_search_name_input_layout"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/search_data_centre_label" />
 
@@ -37,8 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/character_search_data_centre_label"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/character_search_server_label"
@@ -47,8 +45,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/character_search_data_centre_selection"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/search_server_label" />
 
@@ -58,8 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/character_search_server_label"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp" />
 
     <ProgressBar
         android:id="@+id/character_search_progress_indicator"
