@@ -2,6 +2,8 @@ package chesire.eorzeaninfo;
 
 import android.app.Application;
 
+import com.squareup.leakcanary.LeakCanary;
+
 import chesire.eorzeaninfo.classes.dagger.CharacterStorageComponent;
 import chesire.eorzeaninfo.classes.dagger.CharacterStorageModule;
 import chesire.eorzeaninfo.classes.dagger.ContextModule;
@@ -23,6 +25,13 @@ public class EorzeanInfoApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
 
         XIVModule xiv = new XIVModule(XIVDBService.SERVICE_ENDPOINT);
         mXIVComponent = DaggerXIVComponent.builder()
