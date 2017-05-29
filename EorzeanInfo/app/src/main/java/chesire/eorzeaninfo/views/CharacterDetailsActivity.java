@@ -78,7 +78,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.character_profile_container, CharacterProfileFragment.newInstance())
+                    .add(R.id.character_profile_container, CharacterProfileFragment.newInstance(mCharacter))
                     .commit();
         }
     }
@@ -101,7 +101,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
             case R.id.character_details_profile:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.character_profile_container, CharacterProfileFragment.newInstance())
+                        .replace(R.id.character_profile_container, CharacterProfileFragment.newInstance(mCharacter))
                         .commit();
                 break;
 
