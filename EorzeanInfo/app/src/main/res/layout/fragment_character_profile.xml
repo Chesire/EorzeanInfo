@@ -46,6 +46,42 @@
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/character_profile_race_body"
                 style="@style/ProfileBodyText" />
+
+            <!-- Nameday -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_nameday_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_nameday_body"
+                style="@style/ProfileBodyText" />
+
+            <!-- Guardian -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_guardian_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_guardian_body"
+                style="@style/ProfileBodyText" />
+
+            <!-- City -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_city_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_city_body"
+                style="@style/ProfileBodyText" />
+
+            <!-- Grand Company -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_grand_company_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_grand_company_body"
+                style="@style/ProfileBodyText" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

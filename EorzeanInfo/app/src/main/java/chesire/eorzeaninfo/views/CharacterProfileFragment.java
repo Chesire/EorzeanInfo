@@ -51,6 +51,10 @@ public class CharacterProfileFragment extends Fragment {
         ((AppCompatTextView) ButterKnife.findById(v, R.id.character_profile_name_body)).setText(mCharacterModel.getName());
         ((AppCompatTextView) ButterKnife.findById(v, R.id.character_profile_title_body)).setText(data.getTitle());
         ((AppCompatTextView) ButterKnife.findById(v, R.id.character_profile_race_body)).setText(String.format("%1$s - %2$s", data.getRace(), data.getClan()));
+        ((AppCompatTextView) ButterKnife.findById(v, R.id.character_profile_nameday_body)).setText(data.getNameday());
+        ((AppCompatTextView) ButterKnife.findById(v, R.id.character_profile_guardian_body)).setText(data.getGuardian().getName());
+        ((AppCompatTextView) ButterKnife.findById(v, R.id.character_profile_city_body)).setText(data.getCity().getName());
+        ((AppCompatTextView) ButterKnife.findById(v, R.id.character_profile_grand_company_body)).setText(data.getGrandCompany().getName());
 
         return v;
     }

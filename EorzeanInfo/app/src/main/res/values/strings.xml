@@ -35,6 +35,10 @@
     <string name="profile_name_title">Character Name:</string>
     <string name="profile_title_title">Title:</string>
     <string name="profile_race_title">Race:</string>
+    <string name="profile_nameday_title">Nameday:</string>
+    <string name="profile_guardian_title">Guardian:</string>
+    <string name="profile_city_title">City:</string>
+    <string name="profile_grand_company_title">Grand Company:</string>
 
     <string name="min_mounts_acquired">Acquired</string>
     <string name="min_mounts_not_acquired">Not Acquired</string>
