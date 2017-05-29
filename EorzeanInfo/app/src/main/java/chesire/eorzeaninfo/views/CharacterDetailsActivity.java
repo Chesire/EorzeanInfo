@@ -49,7 +49,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_character_profile);
+        setContentView(R.layout.activity_character_details);
 
         ButterKnife.bind(this);
         ((EorzeanInfoApp) getApplication()).getCharacterStorageComponent().inject(this);
