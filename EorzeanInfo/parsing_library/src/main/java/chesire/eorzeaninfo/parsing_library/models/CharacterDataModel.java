@@ -16,7 +16,6 @@ public class CharacterDataModel implements Parcelable {
     private String portrait;
     private String race;
     private String clan;
-    private String gender;
     private String nameday;
     //private Guardian
     //private City
@@ -33,7 +32,6 @@ public class CharacterDataModel implements Parcelable {
         portrait = in.readString();
         race = in.readString();
         clan = in.readString();
-        gender = in.readString();
         nameday = in.readString();
         in.readList(classjobs, ClassModel.class.getClassLoader());
         in.readList(mounts, Integer.class.getClassLoader());
@@ -104,15 +102,6 @@ public class CharacterDataModel implements Parcelable {
     }
 
     /**
-     * Gets the characters gender
-     *
-     * @return Gender of the character
-     */
-    public String getGender() {
-        return gender;
-    }
-
-    /**
      * Gets the characters nameday
      *
      * @return Nameday of the character
@@ -175,7 +164,6 @@ public class CharacterDataModel implements Parcelable {
         dest.writeString(portrait);
         dest.writeString(race);
         dest.writeString(clan);
-        dest.writeString(gender);
         dest.writeString(nameday);
         dest.writeList(classjobs);
         dest.writeList(mounts);
