@@ -1,8 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/character_profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/character_profile_image"
+            android:orientation="vertical">
+            <!-- Name -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_name_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_name_body"
+                style="@style/ProfileBodyText" />
+
+            <!-- Title -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_title_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_title_body"
+                style="@style/ProfileBodyText" />
+
+            <!-- Race -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_race_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_race_body"
+                style="@style/ProfileBodyText" />
+
+            <!-- Nameday -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_nameday_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_nameday_body"
+                style="@style/ProfileBodyText" />
+
+            <!-- Guardian -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_guardian_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_guardian_body"
+                style="@style/ProfileBodyText" />
+
+            <!-- City -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_city_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_city_body"
+                style="@style/ProfileBodyText" />
+
+            <!-- Grand Company -->
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/ProfileTitleText"
+                android:text="@string/profile_grand_company_title" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/character_profile_grand_company_body"
+                style="@style/ProfileBodyText" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

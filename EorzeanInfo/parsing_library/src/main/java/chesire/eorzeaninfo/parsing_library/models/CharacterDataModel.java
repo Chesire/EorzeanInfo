@@ -16,50 +16,13 @@ public class CharacterDataModel implements Parcelable {
     private String portrait;
     private String race;
     private String clan;
-    private String gender;
     private String nameday;
-    //private Guardian
-    //private City
-    //private Grand company
+    private GuardianCityCompanyModel guardian;
+    private GuardianCityCompanyModel city;
+    private GuardianCityCompanyModel grand_company;
     private List<ClassModel> classjobs;
     private List<Integer> mounts;
     private List<Integer> minions;
-
-    /**
-     * Gets the model for the character class represented by cClass
-     *
-     * @param cClass Enum for which character class to get
-     * @return ClassModel for the represented class
-     */
-    public ClassModel getCharacterClass(CharacterClasses cClass) {
-        ClassModel foundModel = null;
-        for (ClassModel model : classjobs) {
-            if (model.getId() == cClass.getId()) {
-                foundModel = model;
-                break;
-            }
-        }
-
-        return foundModel;
-    }
-
-    /**
-     * Gets a list of all acquired mounts
-     *
-     * @return List of mount ids that have been acquired
-     */
-    public List<Integer> getMounts() {
-        return mounts;
-    }
-
-    /**
-     * Gets a list of all acquired minions
-     *
-     * @return List of minion ids that have been acquired
-     */
-    public List<Integer> getMinions() {
-        return minions;
-    }
 
     protected CharacterDataModel(Parcel in) {
         name = in.readString();
@@ -69,8 +32,10 @@ public class CharacterDataModel implements Parcelable {
         portrait = in.readString();
         race = in.readString();
         clan = in.readString();
-        gender = in.readString();
         nameday = in.readString();
+        guardian = in.readParcelable(GuardianCityCompanyModel.class.getClassLoader());
+        city = in.readParcelable(GuardianCityCompanyModel.class.getClassLoader());
+        grand_company = in.readParcelable(GuardianCityCompanyModel.class.getClassLoader());
         in.readList(classjobs, ClassModel.class.getClassLoader());
         in.readList(mounts, Integer.class.getClassLoader());
         in.readList(minions, Integer.class.getClassLoader());
@@ -140,21 +105,84 @@ public class CharacterDataModel implements Parcelable {
     }
 
     /**
-     * Gets the characters gender
-     *
-     * @return Gender of the character
-     */
-    public String getGender() {
-        return gender;
-    }
-
-    /**
      * Gets the characters nameday
      *
      * @return Nameday of the character
      */
     public String getNameday() {
         return nameday;
+    }
+
+    /**
+     * Get the Guardian object, containing information about the characters Guardian
+     *
+     * @return The Guardian object
+     */
+    public GuardianCityCompanyModel getGuardian() {
+        return guardian;
+    }
+
+    /**
+     * Get the City object, containing information about the characters city
+     *
+     * @return The city object
+     */
+    public GuardianCityCompanyModel getCity() {
+        return city;
+    }
+
+    /**
+     * Get the Grand Company object, containing information about the characters grand company
+     *
+     * @return The Grand Company object
+     */
+    public GuardianCityCompanyModel getGrandCompany() {
+        return grand_company;
+    }
+
+    /**
+     * Gets a list of all character class models
+     *
+     * @return Complete list of all character class models
+     */
+    public List<ClassModel> getClasses() {
+        return classjobs;
+    }
+
+    /**
+     * Gets the model for the character class represented by cClass
+     *
+     * @param cClass Enum for which character class to get
+     * @return ClassModel for the represented class
+     */
+    public ClassModel getCharacterClass(CharacterClasses cClass) {
+        ClassModel foundModel = null;
+        for (ClassModel model : classjobs) {
+            if (model.getId() == cClass.getId()) {
+                foundModel = model;
+                break;
+            }
+        }
+
+        return foundModel;
+    }
+
+    /**
+     * Gets a list of all acquired mounts
+     *
+     * @return List of mount ids that have been acquired
+     */
+    public List<Integer> getMounts() {
+        return mounts;
+    }
+
+    /**
+     * Gets a list of all acquired minions
+     *
+     * @return List of minion ids that have been acquired
+     */
+    public List<Integer> getMinions() {
+        return minions;
     }
 
     @Override
@@ -166,8 +194,10 @@ public class CharacterDataModel implements Parcelable {
         dest.writeString(portrait);
         dest.writeString(race);
         dest.writeString(clan);
-        dest.writeString(gender);
         dest.writeString(nameday);
+        dest.writeParcelable(guardian, flags);
+        dest.writeParcelable(city, flags);
+        dest.writeParcelable(grand_company, flags);
         dest.writeList(classjobs);
         dest.writeList(mounts);
         dest.writeList(minions);
