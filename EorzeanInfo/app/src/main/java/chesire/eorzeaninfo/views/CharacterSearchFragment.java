@@ -18,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -31,10 +33,13 @@ import butterknife.OnItemSelected;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
+import chesire.eorzeaninfo.interfaces.XIVSyncService;
 import chesire.eorzeaninfo.parsing_library.models.BasicCharacterModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CharacterSearchFragment extends Fragment {
     private static String TAG = "CharacterSearchFragment";
@@ -151,12 +156,12 @@ public class CharacterSearchFragment extends Fragment {
 
     @OnClick(R.id.character_search_button)
     void searchClicked() {
-        String searchName = mCharacterNameInput.getEditableText().toString().trim();
+        final String searchName = mCharacterNameInput.getEditableText().toString().trim();
         if (searchName.equals("")) {
             return;
         }
 
-        String selectedServer;
+        final String selectedServer;
         Object selectedItem = mCharacterServerSelector.getSelectedItem();
         if (selectedItem == null) {
             selectedServer = null;
@@ -164,10 +169,14 @@ public class CharacterSearchFragment extends Fragment {
             selectedServer = (String) selectedItem;
         }
 
+        performCharacterSearch(selectedServer, searchName);
+    }
+
+    private void performCharacterSearch(final String server, final String name) {
         displayInProgressIndicator(true);
 
         try {
-            Call<XIVDBService.SearchCharactersResponse> charCall = mXIVClient.searchCharacters(selectedServer, searchName);
+            Call<XIVDBService.SearchCharactersResponse> charCall = mXIVClient.searchCharacters(server, name);
             charCall.enqueue(new Callback<XIVDBService.SearchCharactersResponse>() {
                 @Override
                 public void onResponse(Call<XIVDBService.SearchCharactersResponse> call, Response<XIVDBService.SearchCharactersResponse> response) {
@@ -176,6 +185,9 @@ public class CharacterSearchFragment extends Fragment {
 
                     if (response.body().characters.results.isEmpty()) {
                         Toast.makeText(getContext(), getString(R.string.search_no_characters_found), Toast.LENGTH_SHORT).show();
+                        // maybe a dialog to ask to add?
+                        // if server != any
+                        //requestAddToXIVDB(server, name);
                     } else {
                         mListener.onCharactersFound(response.body().characters.results);
                     }
@@ -193,6 +205,35 @@ public class CharacterSearchFragment extends Fragment {
             Log.e(TAG, "Error sending search request - " + ex);
 
             displayInProgressIndicator(false);
+        }
+    }
+
+    private void requestAddToXIVDB(String server, String name) {
+        // We need a new retrofit instance
+        Retrofit retroFit = new Retrofit.Builder()
+                .baseUrl(XIVSyncService.SERVICE_ENDPOINT)
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .build();
+
+        XIVSyncService syncService = retroFit.create(XIVSyncService.class);
+
+        try {
+            Call<XIVSyncService.XIVSyncCharacterResponse> syncCall = syncService.syncCharacter(server, name);
+            syncCall.enqueue(new Callback<XIVSyncService.XIVSyncCharacterResponse>() {
+                @Override
+                public void onResponse(Call<XIVSyncService.XIVSyncCharacterResponse> call, Response<XIVSyncService.XIVSyncCharacterResponse> response) {
+                    String s = "success";
+                }
+
+                @Override
+                public void onFailure(Call<XIVSyncService.XIVSyncCharacterResponse> call, Throwable t) {
+                    Log.e(TAG, "Error sending search request - " + t);
+
+                    Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception ex) {
+            Log.e(TAG, "Error sending sync request - " + ex);
         }
     }
 
