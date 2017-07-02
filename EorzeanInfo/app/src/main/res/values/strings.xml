@@ -10,6 +10,8 @@
     <string name="search_no_characters_found_dialog_message">No character found, attempt to sync?</string>
     <string name="search_no_characters_found_dialog_yes">Yes</string>
     <string name="search_no_characters_found_dialog_no">No</string>
+    <string name="search_sync_successful_ok">OK</string>
+    <string name="search_sync_successful">Successfully added character, please wait 5 minutes then try to search again</string>
 
     <string name="first_launch_skip">Skip</string>
     <string name="first_launch_next">Next</string>

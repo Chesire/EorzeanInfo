@@ -216,6 +216,7 @@ public class CharacterSearchFragment extends Fragment {
             Log.e(TAG, "Error sending search request - " + ex);
 
             displayInProgressIndicator(false);
+            Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -272,25 +273,41 @@ public class CharacterSearchFragment extends Fragment {
             });
         } catch (Exception ex) {
             Log.e(TAG, "Error sending sync request - " + ex);
+
+            displayInProgressIndicator(false);
+            Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void requestSyncToXIVDB(int characterId) {
-        Call<XIVDBService.AddCharacterToXIVDBResponse> dbCall = mXIVClient.addCharacterToXIVDB(characterId);
-        dbCall.enqueue(new Callback<XIVDBService.AddCharacterToXIVDBResponse>() {
-            @Override
-            public void onResponse(Call<XIVDBService.AddCharacterToXIVDBResponse> call, Response<XIVDBService.AddCharacterToXIVDBResponse> response) {
-                // successful!
-            }
+        try {
+            Call<XIVDBService.AddCharacterToXIVDBResponse> dbCall = mXIVClient.addCharacterToXIVDB(characterId);
+            dbCall.enqueue(new Callback<XIVDBService.AddCharacterToXIVDBResponse>() {
+                @Override
+                public void onResponse(Call<XIVDBService.AddCharacterToXIVDBResponse> call, Response<XIVDBService.AddCharacterToXIVDBResponse> response) {
+                    Log.e(TAG, "Successfully synced to XIVDB");
 
-            @Override
-            public void onFailure(Call<XIVDBService.AddCharacterToXIVDBResponse> call, Throwable t) {
-                Log.e(TAG, "Error sending XIVDB sync request - " + t);
+                    displayInProgressIndicator(false);
+                    new AlertDialog.Builder(getContext())
+                            .setMessage(getString(R.string.search_sync_successful))
+                            .setNeutralButton(getString(R.string.search_sync_successful_ok), null)
+                            .show();
+                }
 
-                displayInProgressIndicator(false);
-                Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<XIVDBService.AddCharacterToXIVDBResponse> call, Throwable t) {
+                    Log.e(TAG, "Error sending XIVDB sync request - " + t);
+
+                    displayInProgressIndicator(false);
+                    Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception ex) {
+            Log.e(TAG, "Error sending XIVDB sync request - " + ex);
+
+            displayInProgressIndicator(false);
+            Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void hideSoftKeyboard() {
