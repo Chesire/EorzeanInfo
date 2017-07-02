@@ -14,20 +14,20 @@ public interface XIVSyncService {
     Call<XIVSyncCharacterResponse> syncCharacter(@Query("server") String server, @Query("name") String characterName);
 
     class XIVSyncCharacterResponse {
-        boolean success;
-        XIVSyncData data;
+        public boolean success;
+        public XIVSyncData data;
 
-        private class XIVSyncData {
-            String total;
-            int count;
-            ArrayList<XIVSyncCharacterData> results;
+        public class XIVSyncData {
+            public String total;
+            public int count;
+            public ArrayList<XIVSyncCharacterData> results;
         }
 
-        private class XIVSyncCharacterData {
-            String id;
-            String avatar;
-            String name;
-            String server;
+        public class XIVSyncCharacterData {
+            public String id;
+            public String avatar;
+            public String name;
+            public String server;
         }
     }
 }
