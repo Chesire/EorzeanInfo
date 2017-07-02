@@ -1,10 +1,12 @@
 package chesire.eorzeaninfo.views;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
@@ -17,6 +19,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -31,10 +35,13 @@ import butterknife.OnItemSelected;
 import chesire.eorzeaninfo.EorzeanInfoApp;
 import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
+import chesire.eorzeaninfo.interfaces.XIVSyncService;
 import chesire.eorzeaninfo.parsing_library.models.BasicCharacterModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CharacterSearchFragment extends Fragment {
     private static String TAG = "CharacterSearchFragment";
@@ -151,12 +158,12 @@ public class CharacterSearchFragment extends Fragment {
 
     @OnClick(R.id.character_search_button)
     void searchClicked() {
-        String searchName = mCharacterNameInput.getEditableText().toString().trim();
+        final String searchName = mCharacterNameInput.getEditableText().toString().trim();
         if (searchName.equals("")) {
             return;
         }
 
-        String selectedServer;
+        final String selectedServer;
         Object selectedItem = mCharacterServerSelector.getSelectedItem();
         if (selectedItem == null) {
             selectedServer = null;
@@ -164,18 +171,34 @@ public class CharacterSearchFragment extends Fragment {
             selectedServer = (String) selectedItem;
         }
 
+        performCharacterSearch(selectedServer, searchName);
+    }
+
+    private void performCharacterSearch(final String server, final String name) {
         displayInProgressIndicator(true);
 
         try {
-            Call<XIVDBService.SearchCharactersResponse> charCall = mXIVClient.searchCharacters(selectedServer, searchName);
+            Call<XIVDBService.SearchCharactersResponse> charCall = mXIVClient.searchCharacters(server, name);
             charCall.enqueue(new Callback<XIVDBService.SearchCharactersResponse>() {
                 @Override
                 public void onResponse(Call<XIVDBService.SearchCharactersResponse> call, Response<XIVDBService.SearchCharactersResponse> response) {
                     Log.d(TAG, "Successful search request");
-                    displayInProgressIndicator(false);
 
+                    displayInProgressIndicator(false);
                     if (response.body().characters.results.isEmpty()) {
-                        Toast.makeText(getContext(), getString(R.string.search_no_characters_found), Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "No characters found, asking to sync new");
+
+                        new AlertDialog.Builder(getContext())
+                                .setMessage(getString(R.string.search_no_characters_found_dialog_message))
+                                .setPositiveButton(getString(R.string.search_no_characters_found_dialog_yes), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        displayInProgressIndicator(true);
+                                        requestSyncToXIVSync(server, name);
+                                    }
+                                })
+                                .setNegativeButton(getString(R.string.search_no_characters_found_dialog_no), null)
+                                .show();
                     } else {
                         mListener.onCharactersFound(response.body().characters.results);
                     }
@@ -193,6 +216,97 @@ public class CharacterSearchFragment extends Fragment {
             Log.e(TAG, "Error sending search request - " + ex);
 
             displayInProgressIndicator(false);
+            Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void requestSyncToXIVSync(final String server, final String name) {
+        Log.d(TAG, "Beginning to sync new character");
+
+        // We need a new retrofit instance
+        Retrofit retroFit = new Retrofit.Builder()
+                .baseUrl(XIVSyncService.SERVICE_ENDPOINT)
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .build();
+
+        try {
+            Call<XIVSyncService.XIVSyncCharacterResponse> syncCall = retroFit.create(XIVSyncService.class).syncCharacter(server, name);
+            syncCall.enqueue(new Callback<XIVSyncService.XIVSyncCharacterResponse>() {
+                @Override
+                public void onResponse(Call<XIVSyncService.XIVSyncCharacterResponse> call, Response<XIVSyncService.XIVSyncCharacterResponse> response) {
+                    if (!response.body().success || response.body().data.count == 0) {
+                        Log.d(TAG, "No characters found from XIVSync");
+
+                        displayInProgressIndicator(false);
+                        Toast.makeText(getContext(), getString(R.string.search_no_characters_found), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.d(TAG, "Found [%d] characters" + response.body().data.results.size());
+
+                        XIVSyncService.XIVSyncCharacterResponse.XIVSyncCharacterData match = null;
+                        for (XIVSyncService.XIVSyncCharacterResponse.XIVSyncCharacterData characterData : response.body().data.results) {
+                            if (server.equalsIgnoreCase(characterData.server) && name.equalsIgnoreCase(characterData.name)) {
+                                match = characterData;
+                                break;
+                            }
+                        }
+
+                        if (match == null) {
+                            Log.d(TAG, String.format("No matching character found for [%s] [%s]", server, name));
+
+                            displayInProgressIndicator(false);
+                            Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d(TAG, String.format("Matching character found for [%s] [%s]", server, name));
+
+                            requestSyncToXIVDB(Integer.valueOf(match.id));
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<XIVSyncService.XIVSyncCharacterResponse> call, Throwable t) {
+                    Log.e(TAG, "Error sending sync request - " + t);
+
+                    displayInProgressIndicator(false);
+                    Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception ex) {
+            Log.e(TAG, "Error sending sync request - " + ex);
+
+            displayInProgressIndicator(false);
+            Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void requestSyncToXIVDB(int characterId) {
+        try {
+            Call<XIVDBService.AddCharacterToXIVDBResponse> dbCall = mXIVClient.addCharacterToXIVDB(characterId);
+            dbCall.enqueue(new Callback<XIVDBService.AddCharacterToXIVDBResponse>() {
+                @Override
+                public void onResponse(Call<XIVDBService.AddCharacterToXIVDBResponse> call, Response<XIVDBService.AddCharacterToXIVDBResponse> response) {
+                    Log.e(TAG, "Successfully synced to XIVDB");
+
+                    displayInProgressIndicator(false);
+                    new AlertDialog.Builder(getContext())
+                            .setMessage(getString(R.string.search_sync_successful))
+                            .setNeutralButton(getString(R.string.search_sync_successful_ok), null)
+                            .show();
+                }
+
+                @Override
+                public void onFailure(Call<XIVDBService.AddCharacterToXIVDBResponse> call, Throwable t) {
+                    Log.e(TAG, "Error sending XIVDB sync request - " + t);
+
+                    displayInProgressIndicator(false);
+                    Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception ex) {
+            Log.e(TAG, "Error sending XIVDB sync request - " + ex);
+
+            displayInProgressIndicator(false);
+            Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
         }
     }
 
