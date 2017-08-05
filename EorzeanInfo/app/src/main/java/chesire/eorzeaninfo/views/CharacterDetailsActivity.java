@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
@@ -78,8 +80,10 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
         mNavHeaderImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent loadBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse(mCharacter.getLodestoneUrl()));
-                startActivity(loadBrowser);
+                new CustomTabsIntent.Builder()
+                        .setToolbarColor(ContextCompat.getColor(CharacterDetailsActivity.this, R.color.colorPrimary))
+                        .build()
+                        .launchUrl(CharacterDetailsActivity.this, Uri.parse(mCharacter.getLodestoneUrl()));
             }
         });
 
