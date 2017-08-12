@@ -17,9 +17,8 @@ public enum CharacterClasses {
     Dark_Knight(32),
     Machinist(31),
     Astrologian(33),
-    // Red_Mage(34)
-    // Samurai(35)
-    // Above are assumed
+    Red_Mage(34),
+    Samurai(35),
 
     // HAND
     Carpenter(8),
