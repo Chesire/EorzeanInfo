@@ -8,7 +8,8 @@
         android:id="@+id/first_launch_view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/first_launch_pager_tabs" />
+        android:layout_above="@+id/first_launch_pager_tabs"
+        android:overScrollMode="never"/>
 
     <android.support.design.widget.TabLayout
         android:id="@id/first_launch_pager_tabs"
@@ -25,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/default_half_margin"
+        android:layout_marginBottom="@dimen/default_half_margin"
         android:background="@null"
         android:text="@string/first_launch_skip" />
 
