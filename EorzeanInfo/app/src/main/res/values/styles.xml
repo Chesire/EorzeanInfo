@@ -20,6 +20,23 @@
         <item name="android:textColor">?attr/colorControlActivated</item>
     </style>
 
+    <style name="FirstLaunchTitleText" parent="TextAppearance.AppCompat.Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_margin">@dimen/default_margin</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="FirstLaunchBodyText" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_margin">@dimen/default_margin</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+    </style>
+
     <style name="ProfileTitleText" parent="TextAppearance.AppCompat.Title">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

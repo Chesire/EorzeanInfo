@@ -14,14 +14,10 @@
     <string name="search_sync_successful">Successfully added character, please wait 5 minutes then try to search again</string>
 
     <string name="first_launch_skip">Skip</string>
-    <string name="first_launch_next">Next</string>
-    <string name="first_launch_done">Done</string>
-    <string name="first_launch_title_1">Title 1</string>
-    <string name="first_launch_title_2">Title 2</string>
-    <string name="first_launch_title_3">Title 3</string>
-    <string name="first_launch_body_1">Body 1</string>
-    <string name="first_launch_body_2">Body 2</string>
-    <string name="first_launch_body_3">Body 3</string>
+    <string name="first_launch_title_1">Welcome to Eorzean Info</string>
+    <string name="first_launch_title_2">Find Character</string>
+    <string name="first_launch_body_1">This application will help you keep track of you and your friends character details.</string>
+    <string name="first_launch_body_2">To begin, on the next screen enter a characters name and select it\'s data centre/world.</string>
 
     <string name="select_character_title">Select Character</string>
     <string name="select_character_no_characters_found">No characters found, please add a character to begin</string>

@@ -24,8 +24,6 @@ import chesire.eorzeaninfo.R;
 
 public class FirstLaunchActivity extends AppCompatActivity {
 
-    @BindView(R.id.first_launch_next_button)
-    AppCompatButton mNextButton;
     @BindView(R.id.first_launch_view_pager)
     ViewPager mViewPager;
     @BindView(R.id.first_launch_pager_tabs)
@@ -46,44 +44,11 @@ public class FirstLaunchActivity extends AppCompatActivity {
         FirstLaunchAdapter adapter = new FirstLaunchAdapter(this);
         mViewPager.setAdapter(adapter);
         mTabs.setupWithViewPager(mViewPager, true);
-        final int totalPageItems = adapter.getCount();
-
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                // could use position offset to animate
-                Log.i("FIRSTLAUNCHACTIVITY", "positionOffset - " + positionOffset);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                // Position is 0 based
-                if (position + 1 == totalPageItems) {
-                    mNextButton.setText(getString(R.string.first_launch_done));
-                } else {
-                    mNextButton.setText(getString(R.string.first_launch_next));
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                // Do nothing
-            }
-        });
     }
 
     @OnClick(R.id.first_launch_skip_button)
     void onSkip() {
         navigateToNextScreen();
-    }
-
-    @OnClick(R.id.first_launch_next_button)
-    void onNext() {
-        if (mViewPager.getCurrentItem() != mViewPager.getChildCount()) {
-            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-        } else {
-            navigateToNextScreen();
-        }
     }
 
     private void navigateToNextScreen() {
@@ -139,8 +104,7 @@ public class FirstLaunchActivity extends AppCompatActivity {
 
     private enum FirstLaunchEnum {
         PAGE1(R.layout.item_first_launch_pager_view, R.string.first_launch_title_1, R.string.first_launch_body_1, R.drawable.ic_account_circle_black),
-        PAGE2(R.layout.item_first_launch_pager_view, R.string.first_launch_title_2, R.string.first_launch_body_2, R.drawable.ic_add_black),
-        PAGE3(R.layout.item_first_launch_pager_view, R.string.first_launch_title_3, R.string.first_launch_body_3, R.drawable.ic_compare_arrows_black);
+        PAGE2(R.layout.item_first_launch_pager_view, R.string.first_launch_title_2, R.string.first_launch_body_2, R.drawable.ic_add_black);
 
         private int mLayoutResId;
         private int mTitleResId;
