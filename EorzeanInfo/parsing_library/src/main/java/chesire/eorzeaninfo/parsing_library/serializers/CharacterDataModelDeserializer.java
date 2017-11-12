@@ -16,7 +16,7 @@ import chesire.eorzeaninfo.parsing_library.models.CharacterDataModel;
 import chesire.eorzeaninfo.parsing_library.models.ClassModel;
 
 /**
- * Serializer to parse out the correct data for a to get a CharacterDataModel object
+ * Serializer to parse out the correct data to get a CharacterDataModel object
  */
 public class CharacterDataModelDeserializer implements JsonDeserializer<CharacterDataModel> {
     @Override

@@ -110,6 +110,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
 
         switch (id) {
             case R.id.character_details_profile:
+                Timber.v("Navigating to profile fragment");
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.character_profile_container, CharacterProfileFragment.newInstance(mCharacter))
@@ -117,12 +118,14 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
                 break;
 
             case R.id.character_details_achievements:
+                Timber.v("Navigating to achievements fragment");
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.character_profile_container, CharacterAchievementsFragment.newInstance())
                         .commit();
                 break;
             case R.id.character_details_mounts:
+                Timber.v("Navigating to mounts fragment");
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getData().getMounts(), mMinMountRepository.getAllMounts()))
@@ -130,6 +133,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
                 break;
 
             case R.id.character_details_minions:
+                Timber.v("Navigating to minions fragment");
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.character_profile_container, MinMountFragment.newInstance(mCharacter.getData().getMinions(), mMinMountRepository.getAllMinions()))
@@ -137,15 +141,17 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
                 break;
 
             case R.id.character_details_switch_character:
+                Timber.v("Navigating to switch characters");
                 Intent selectCharacterIntent = new Intent(this, CharacterChangeActivity.class);
                 startActivity(selectCharacterIntent);
                 break;
 
             case R.id.character_details_settings:
+                Timber.v("Navigating to settings");
                 break;
 
             default:
-                Timber.d("Unknown navigation item selected");
+                Timber.wtf("Unknown navigation item selected");
                 break;
         }
 

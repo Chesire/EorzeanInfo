@@ -11,6 +11,7 @@ import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.views.CharacterChangeActivity;
 import chesire.eorzeaninfo.views.CharacterDetailsActivity;
 import chesire.eorzeaninfo.views.FirstLaunchActivity;
+import timber.log.Timber;
 
 /**
  * Activity used to choose which activity to launch on application start
@@ -27,7 +28,9 @@ public class LaunchActivity extends Activity {
         ((EorzeanInfoApp) getApplication()).getCharacterStorageComponent().inject(this);
 
         Intent loadActivityIntent;
-        if (mCharacterStorage.getCurrentCharacter() == CharacterStorage.NO_CHARACTER_ID) {
+        int characterId = mCharacterStorage.getCurrentCharacter();
+        if (characterId == CharacterStorage.NO_CHARACTER_ID) {
+            Timber.v("No character id found while launching application");
             if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.SHARED_PREFERENCE_FIRST_LAUNCH_COMPLETED), false)) {
                 loadActivityIntent = new Intent(this, CharacterChangeActivity.class);
                 loadActivityIntent.putExtra(CharacterChangeActivity.LOAD_INTO_SEARCH_TAG, true);
@@ -35,6 +38,7 @@ public class LaunchActivity extends Activity {
                 loadActivityIntent = new Intent(this, FirstLaunchActivity.class);
             }
         } else {
+            Timber.v("Found character id [%d] entering character details", characterId);
             loadActivityIntent = new Intent(this, CharacterDetailsActivity.class);
         }
 

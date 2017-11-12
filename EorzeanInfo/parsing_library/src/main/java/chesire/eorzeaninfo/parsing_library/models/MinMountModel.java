@@ -64,7 +64,8 @@ public class MinMountModel implements Parcelable {
         if (icon.length() >= 6) {
             return Constants.XIV_DB_URL + icon;
         } else {
-            /* Attempt to construct a URL to use
+            /*
+             * Attempt to construct a URL to use
              * Rules for doing this are available at
              * https://github.com/viion/XIV-Datamining/blob/master/research/icon_paths.md
              */

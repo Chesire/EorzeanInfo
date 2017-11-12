@@ -177,6 +177,8 @@ public class CharacterSearchFragment extends Fragment {
     private void performCharacterSearch(final String server, final String name) {
         displayInProgressIndicator(true);
 
+        Timber.i("Beginning search for character [%s] on server [%s]", name, server);
+
         try {
             Call<XIVDBService.SearchCharactersResponse> charCall = mXIVClient.searchCharacters(server, name);
             charCall.enqueue(new Callback<XIVDBService.SearchCharactersResponse>() {
@@ -221,7 +223,7 @@ public class CharacterSearchFragment extends Fragment {
     }
 
     private void requestSyncToXIVSync(final String server, final String name) {
-        Timber.d("Beginning to sync new character");
+        Timber.i("Beginning to sync new character [%s] on [%s]", name, server);
 
         // We need a new retrofit instance
         Retrofit retroFit = new Retrofit.Builder()
@@ -235,7 +237,7 @@ public class CharacterSearchFragment extends Fragment {
                 @Override
                 public void onResponse(Call<XIVSyncService.XIVSyncCharacterResponse> call, Response<XIVSyncService.XIVSyncCharacterResponse> response) {
                     if (!response.body().success || response.body().data.count == 0) {
-                        Timber.d("No characters found from XIVSync");
+                        Timber.w("No characters found from XIVSync");
 
                         displayInProgressIndicator(false);
                         Toast.makeText(getContext(), getString(R.string.search_no_characters_found), Toast.LENGTH_SHORT).show();

@@ -68,7 +68,7 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     public DetailedCharacterModel getCharacter(int id) {
         String character = mSharedPreferences.getString(String.format(PREF_CHARACTER_DATA, id), null);
         if (character == null) {
-            Timber.w("Character with id %d could not be found", id);
+            Timber.w("Character with id [%d] could not be found", id);
             return null;
         }
 
@@ -84,7 +84,7 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
 
     @Override
     public int getCurrentCharacter() {
-        return mSharedPreferences.getInt(PREF_CURRENT_CHARACTER_ID, 0);
+        return mSharedPreferences.getInt(PREF_CURRENT_CHARACTER_ID, CharacterStorage.NO_CHARACTER_ID);
     }
 
     @Override
@@ -121,12 +121,14 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     }
 
     @Override
-    public void updateCharacter(int id, final UpdateCharacterCallback callback) {
+    public void updateCharacter(final int id, final UpdateCharacterCallback callback) {
         try {
             Call<DetailedCharacterModel> charCall = mXIVService.getCharacter(id);
             charCall.enqueue(new Callback<DetailedCharacterModel>() {
                 @Override
                 public void onResponse(Call<DetailedCharacterModel> call, Response<DetailedCharacterModel> response) {
+                    Timber.i("Successfully updated character with id [%d]", id);
+
                     mSharedPreferences.edit()
                             .putString(String.format(PREF_CHARACTER_DATA, response.body().getId()), new Gson().toJson(response.body()))
                             .apply();
@@ -135,12 +137,12 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
 
                 @Override
                 public void onFailure(Call<DetailedCharacterModel> call, Throwable t) {
-                    Timber.e(t, "Error sending character request");
+                    Timber.e(t, "Error sending character update request");
                     callback.onCharacterUpdate(null, false);
                 }
             });
         } catch (Exception ex) {
-            Timber.e(ex, "Error sending character request");
+            Timber.e(ex, "Error sending character update request");
             callback.onCharacterUpdate(null, false);
         }
     }
