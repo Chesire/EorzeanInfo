@@ -36,7 +36,7 @@ public class CharacterChangeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_character_change);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ((EorzeanInfoApp) getApplication()).getCharacterStorageComponent().inject(this);

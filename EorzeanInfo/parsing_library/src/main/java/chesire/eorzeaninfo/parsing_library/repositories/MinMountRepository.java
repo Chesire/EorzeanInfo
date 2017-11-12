@@ -1,7 +1,6 @@
 package chesire.eorzeaninfo.parsing_library.repositories;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -48,14 +47,14 @@ public class MinMountRepository {
      * @param file    The json file to pull the data for
      */
     private List<MinMountModel> loadCacheFile(Context context, String file) {
-        String data = "";
+        StringBuilder data = new StringBuilder();
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new InputStreamReader(context.getAssets().open(file)));
 
             String mLine;
             while ((mLine = reader.readLine()) != null) {
-                data += mLine;
+                data.append(mLine);
             }
         } catch (IOException e) {
             Timber.e(e, "Error parsing file %s", file);
@@ -69,8 +68,8 @@ public class MinMountRepository {
             }
         }
 
-        if (!data.equalsIgnoreCase("")) {
-            return new Gson().fromJson(data, new TypeToken<List<MinMountModel>>() {
+        if (!data.toString().equalsIgnoreCase("")) {
+            return new Gson().fromJson(data.toString(), new TypeToken<List<MinMountModel>>() {
             }.getType());
         } else {
             Timber.wtf("Data was not created into a list, returning null");

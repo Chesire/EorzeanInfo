@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
