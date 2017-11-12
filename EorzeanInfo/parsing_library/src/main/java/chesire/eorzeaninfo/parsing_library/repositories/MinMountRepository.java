@@ -12,12 +12,12 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import chesire.eorzeaninfo.parsing_library.models.MinMountModel;
+import timber.log.Timber;
 
 /**
  * Repository to hold the data on ALL mounts / minions
  */
 public class MinMountRepository {
-    private static final String TAG = "MinMountRepository";
     private static final String MOUNTS_FILE = "mounts.json";
     private static final String MINIONS_FILE = "minions.json";
 
@@ -58,13 +58,13 @@ public class MinMountRepository {
                 data += mLine;
             }
         } catch (IOException e) {
-            Log.e(TAG, "Error parsing " + file, e);
+            Timber.e(e, "Error parsing file %s", file);
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    Log.e(TAG, "Error closing readerStream", e);
+                    Timber.e(e, "Error closing readerStream");
                 }
             }
         }
@@ -73,7 +73,7 @@ public class MinMountRepository {
             return new Gson().fromJson(data, new TypeToken<List<MinMountModel>>() {
             }.getType());
         } else {
-            Log.wtf(TAG, "Data was not created into a list, returning null");
+            Timber.wtf("Data was not created into a list, returning null");
             return null;
         }
     }
