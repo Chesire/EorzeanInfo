@@ -33,10 +33,9 @@ import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.interfaces.CharacterStorage;
 import chesire.eorzeaninfo.parsing_library.models.DetailedCharacterModel;
 import chesire.eorzeaninfo.parsing_library.repositories.MinMountRepository;
+import timber.log.Timber;
 
 public class CharacterDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "CharacterDetailActivity";
-
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
     AppCompatImageView mNavHeaderImage;
@@ -146,7 +145,7 @@ public class CharacterDetailsActivity extends AppCompatActivity implements Navig
                 break;
 
             default:
-                Log.d(TAG, "Unknown navigation item selected");
+                Timber.d("Unknown navigation item selected");
                 break;
         }
 

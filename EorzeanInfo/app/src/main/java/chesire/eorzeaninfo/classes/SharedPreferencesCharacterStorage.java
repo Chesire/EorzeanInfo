@@ -20,13 +20,12 @@ import chesire.eorzeaninfo.interfaces.XIVDBService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 /**
  * Implementation of {@link CharacterStorage} that stores the character data in SharedPreferences
  */
 public class SharedPreferencesCharacterStorage implements CharacterStorage {
-    private static final String TAG = "CharacterStorage";
-
     private static String PREF_CURRENT_CHARACTER_ID = "PREF_CURRENT_CHARACTER_ID";
     private static String PREF_CHARACTER_DATA = "PREF_CHARACTER_DATA_%1$s";
     private static String PREF_ALL_CHARACTERS = "PREF_ALL_CHARACTERS";
@@ -69,6 +68,7 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     public DetailedCharacterModel getCharacter(int id) {
         String character = mSharedPreferences.getString(String.format(PREF_CHARACTER_DATA, id), null);
         if (character == null) {
+            Timber.w("Character with id %d could not be found", id);
             return null;
         }
 
@@ -91,6 +91,7 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     public ArrayList<BasicCharacterModel> getAllCharacters() {
         Set<String> allCharIds = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS, null);
         if (allCharIds == null) {
+            Timber.w("No character ids found when trying to getAllCharacters");
             return null;
         }
 
@@ -107,6 +108,7 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     public List<Integer> getAllCharacterIds() {
         Set<String> allCharIds = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS, null);
         if (allCharIds == null) {
+            Timber.w("No character ids found when trying to getAllCharacterIds");
             return null;
         }
 
@@ -133,12 +135,12 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
 
                 @Override
                 public void onFailure(Call<DetailedCharacterModel> call, Throwable t) {
-                    Log.e(TAG, "Error sending character request - " + t);
+                    Timber.e(t, "Error sending character request");
                     callback.onCharacterUpdate(null, false);
                 }
             });
         } catch (Exception ex) {
-            Log.e(TAG, "Error sending character request - " + ex);
+            Timber.e(ex, "Error sending character request");
             callback.onCharacterUpdate(null, false);
         }
     }
