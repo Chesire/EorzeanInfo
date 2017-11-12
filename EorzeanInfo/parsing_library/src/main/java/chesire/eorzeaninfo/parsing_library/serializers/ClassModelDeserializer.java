@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
 import chesire.eorzeaninfo.parsing_library.models.ClassModel;
 
 /**
- * Serializer to parse out the correct data for a to get a ClassModel object
+ * Serializer to parse out the correct data to get a ClassModel object
  */
 public class ClassModelDeserializer implements JsonDeserializer<ClassModel> {
     @Override

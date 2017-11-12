@@ -20,13 +20,12 @@ import chesire.eorzeaninfo.interfaces.XIVDBService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 /**
  * Implementation of {@link CharacterStorage} that stores the character data in SharedPreferences
  */
 public class SharedPreferencesCharacterStorage implements CharacterStorage {
-    private static final String TAG = "CharacterStorage";
-
     private static String PREF_CURRENT_CHARACTER_ID = "PREF_CURRENT_CHARACTER_ID";
     private static String PREF_CHARACTER_DATA = "PREF_CHARACTER_DATA_%1$s";
     private static String PREF_ALL_CHARACTERS = "PREF_ALL_CHARACTERS";
@@ -69,6 +68,7 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     public DetailedCharacterModel getCharacter(int id) {
         String character = mSharedPreferences.getString(String.format(PREF_CHARACTER_DATA, id), null);
         if (character == null) {
+            Timber.w("Character with id [%d] could not be found", id);
             return null;
         }
 
@@ -84,13 +84,14 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
 
     @Override
     public int getCurrentCharacter() {
-        return mSharedPreferences.getInt(PREF_CURRENT_CHARACTER_ID, 0);
+        return mSharedPreferences.getInt(PREF_CURRENT_CHARACTER_ID, CharacterStorage.NO_CHARACTER_ID);
     }
 
     @Override
     public ArrayList<BasicCharacterModel> getAllCharacters() {
         Set<String> allCharIds = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS, null);
         if (allCharIds == null) {
+            Timber.w("No character ids found when trying to getAllCharacters");
             return null;
         }
 
@@ -107,6 +108,7 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     public List<Integer> getAllCharacterIds() {
         Set<String> allCharIds = mSharedPreferences.getStringSet(PREF_ALL_CHARACTERS, null);
         if (allCharIds == null) {
+            Timber.w("No character ids found when trying to getAllCharacterIds");
             return null;
         }
 
@@ -119,12 +121,14 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
     }
 
     @Override
-    public void updateCharacter(int id, final UpdateCharacterCallback callback) {
+    public void updateCharacter(final int id, final UpdateCharacterCallback callback) {
         try {
             Call<DetailedCharacterModel> charCall = mXIVService.getCharacter(id);
             charCall.enqueue(new Callback<DetailedCharacterModel>() {
                 @Override
                 public void onResponse(Call<DetailedCharacterModel> call, Response<DetailedCharacterModel> response) {
+                    Timber.i("Successfully updated character with id [%d]", id);
+
                     mSharedPreferences.edit()
                             .putString(String.format(PREF_CHARACTER_DATA, response.body().getId()), new Gson().toJson(response.body()))
                             .apply();
@@ -133,12 +137,12 @@ public class SharedPreferencesCharacterStorage implements CharacterStorage {
 
                 @Override
                 public void onFailure(Call<DetailedCharacterModel> call, Throwable t) {
-                    Log.e(TAG, "Error sending character request - " + t);
+                    Timber.e(t, "Error sending character update request");
                     callback.onCharacterUpdate(null, false);
                 }
             });
         } catch (Exception ex) {
-            Log.e(TAG, "Error sending character request - " + ex);
+            Timber.e(ex, "Error sending character update request");
             callback.onCharacterUpdate(null, false);
         }
     }

@@ -42,9 +42,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 public class CharacterSearchFragment extends Fragment {
-    private static String TAG = "CharacterSearchFragment";
 
     @Inject
     XIVDBService mXIVClient;
@@ -177,16 +177,18 @@ public class CharacterSearchFragment extends Fragment {
     private void performCharacterSearch(final String server, final String name) {
         displayInProgressIndicator(true);
 
+        Timber.i("Beginning search for character [%s] on server [%s]", name, server);
+
         try {
             Call<XIVDBService.SearchCharactersResponse> charCall = mXIVClient.searchCharacters(server, name);
             charCall.enqueue(new Callback<XIVDBService.SearchCharactersResponse>() {
                 @Override
                 public void onResponse(Call<XIVDBService.SearchCharactersResponse> call, Response<XIVDBService.SearchCharactersResponse> response) {
-                    Log.d(TAG, "Successful search request");
+                    Timber.d("Successfully performed search request");
 
                     displayInProgressIndicator(false);
                     if (response.body().characters.results.isEmpty()) {
-                        Log.d(TAG, "No characters found, asking to sync new");
+                        Timber.d("No characters found, asking to sync new");
 
                         new AlertDialog.Builder(getContext())
                                 .setMessage(getString(R.string.search_no_characters_found_dialog_message))
@@ -206,14 +208,14 @@ public class CharacterSearchFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<XIVDBService.SearchCharactersResponse> call, Throwable t) {
-                    Log.e(TAG, "Error sending search request - " + t);
+                    Timber.e(t, "Error sending search request");
 
                     displayInProgressIndicator(false);
                     Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception ex) {
-            Log.e(TAG, "Error sending search request - " + ex);
+            Timber.e(ex, "Error sending search request");
 
             displayInProgressIndicator(false);
             Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
@@ -221,7 +223,7 @@ public class CharacterSearchFragment extends Fragment {
     }
 
     private void requestSyncToXIVSync(final String server, final String name) {
-        Log.d(TAG, "Beginning to sync new character");
+        Timber.i("Beginning to sync new character [%s] on [%s]", name, server);
 
         // We need a new retrofit instance
         Retrofit retroFit = new Retrofit.Builder()
@@ -235,12 +237,12 @@ public class CharacterSearchFragment extends Fragment {
                 @Override
                 public void onResponse(Call<XIVSyncService.XIVSyncCharacterResponse> call, Response<XIVSyncService.XIVSyncCharacterResponse> response) {
                     if (!response.body().success || response.body().data.count == 0) {
-                        Log.d(TAG, "No characters found from XIVSync");
+                        Timber.w("No characters found from XIVSync");
 
                         displayInProgressIndicator(false);
                         Toast.makeText(getContext(), getString(R.string.search_no_characters_found), Toast.LENGTH_SHORT).show();
                     } else {
-                        Log.d(TAG, "Found [%d] characters" + response.body().data.results.size());
+                        Timber.d("Found [%d] characters", response.body().data.results.size());
 
                         XIVSyncService.XIVSyncCharacterResponse.XIVSyncCharacterData match = null;
                         for (XIVSyncService.XIVSyncCharacterResponse.XIVSyncCharacterData characterData : response.body().data.results) {
@@ -251,12 +253,12 @@ public class CharacterSearchFragment extends Fragment {
                         }
 
                         if (match == null) {
-                            Log.d(TAG, String.format("No matching character found for [%s] [%s]", server, name));
+                            Timber.d("No matching character found for [%s] [%s]", server, name);
 
                             displayInProgressIndicator(false);
                             Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
                         } else {
-                            Log.d(TAG, String.format("Matching character found for [%s] [%s]", server, name));
+                            Timber.d("Matching character found for [%s] [%s]", server, name);
 
                             requestSyncToXIVDB(Integer.valueOf(match.id));
                         }
@@ -265,14 +267,14 @@ public class CharacterSearchFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<XIVSyncService.XIVSyncCharacterResponse> call, Throwable t) {
-                    Log.e(TAG, "Error sending sync request - " + t);
+                    Timber.e(t, "Error sending sync request");
 
                     displayInProgressIndicator(false);
                     Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception ex) {
-            Log.e(TAG, "Error sending sync request - " + ex);
+            Timber.e(ex, "Error sending sync request");
 
             displayInProgressIndicator(false);
             Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
@@ -285,7 +287,7 @@ public class CharacterSearchFragment extends Fragment {
             dbCall.enqueue(new Callback<XIVDBService.AddCharacterToXIVDBResponse>() {
                 @Override
                 public void onResponse(Call<XIVDBService.AddCharacterToXIVDBResponse> call, Response<XIVDBService.AddCharacterToXIVDBResponse> response) {
-                    Log.e(TAG, "Successfully synced to XIVDB");
+                    Timber.d("Successfully synced to XIVDB");
 
                     displayInProgressIndicator(false);
                     new AlertDialog.Builder(getContext())
@@ -296,14 +298,14 @@ public class CharacterSearchFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<XIVDBService.AddCharacterToXIVDBResponse> call, Throwable t) {
-                    Log.e(TAG, "Error sending XIVDB sync request - " + t);
+                    Timber.e(t, "Error sending XIVDB sync request");
 
                     displayInProgressIndicator(false);
                     Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception ex) {
-            Log.e(TAG, "Error sending XIVDB sync request - " + ex);
+            Timber.e(ex, "Error sending XIVDB sync request");
 
             displayInProgressIndicator(false);
             Toast.makeText(getContext(), getString(R.string.search_failed_search), Toast.LENGTH_SHORT).show();

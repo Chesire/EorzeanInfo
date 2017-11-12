@@ -13,6 +13,7 @@ import chesire.eorzeaninfo.classes.dagger.MinMountRepositoryModule;
 import chesire.eorzeaninfo.classes.dagger.XIVComponent;
 import chesire.eorzeaninfo.classes.dagger.XIVModule;
 import chesire.eorzeaninfo.interfaces.XIVDBService;
+import timber.log.Timber;
 
 /**
  * Application override used to setup and retrieve Dagger components
@@ -32,6 +33,8 @@ public class EorzeanInfoApp extends Application {
             return;
         }
         LeakCanary.install(this);
+
+        Timber.plant(new Timber.DebugTree());
 
         XIVModule xiv = new XIVModule(XIVDBService.SERVICE_ENDPOINT);
         mXIVComponent = DaggerXIVComponent.builder()

@@ -33,9 +33,9 @@ import chesire.eorzeaninfo.R;
 import chesire.eorzeaninfo.classes.GridSpacingItemDecoration;
 import chesire.eorzeaninfo.classes.UiUtils;
 import chesire.eorzeaninfo.parsing_library.models.MinMountModel;
+import timber.log.Timber;
 
 public class MinMountFragment extends Fragment {
-    private static final String TAG = "MinMountFragment";
     private static final String ACQUIRED_MODELS_TAG = "ACQUIRED_MODELS_TAG";
     private static final String ALL_MODELS_TAG = "ALL_MODELS_TAG";
     private static final int NUM_TABS = 3;
@@ -108,7 +108,7 @@ public class MinMountFragment extends Fragment {
                     break;
 
                 default:
-                    Log.wtf(TAG, "Unknown position in instantiateItem MinMountFragment - " + position);
+                    Timber.wtf("Unknown position in instantiateItem - %d", position);
                     break;
             }
 
