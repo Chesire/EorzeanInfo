@@ -40,8 +40,6 @@ public class CharacterSelectFragment extends Fragment {
     @Inject
     CharacterStorage mCharacterStorage;
 
-    private CharacterSelectAdapter mAdapter;
-    private List<BasicCharacterModel> mCharacters;
     private int mCurrentCharacterId;
     private CharacterSelectListener mListener;
 
@@ -69,16 +67,16 @@ public class CharacterSelectFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mCharacters = getArguments().getParcelableArrayList(CHARACTERS_TAG);
+        List<BasicCharacterModel> characters = getArguments().getParcelableArrayList(CHARACTERS_TAG);
         mCurrentCharacterId = mCharacterStorage.getCurrentCharacter();
         View v = inflater.inflate(R.layout.fragment_character_select, container, false);
         ButterKnife.bind(this, v);
 
-        mAdapter = new CharacterSelectAdapter(mCharacters);
-        mRecyclerView.setAdapter(mAdapter);
+        CharacterSelectAdapter adapter = new CharacterSelectAdapter(characters);
+        mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        mNoCharactersFoundText.setVisibility(mCharacters == null ? View.VISIBLE : View.GONE);
+        mNoCharactersFoundText.setVisibility(characters == null ? View.VISIBLE : View.GONE);
         ButterKnife.findById(v, R.id.character_select_fab).setVisibility(getArguments().getBoolean(SHOW_FAB_TAG) ? View.VISIBLE : View.GONE);
 
         return v;
